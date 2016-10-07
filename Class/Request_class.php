@@ -34,17 +34,16 @@ class Request
 			}
 			foreach ($tableau as $key => $value) {
 					$array=array();
-					$affiliations=$value['author'][0]['affiliations'][0];
+					@$affiliations=$value['author'][0]['affiliations'][0];
 					$parse = explode(",", $affiliations);
 					$id=$value['id'];
 					$laboratory=$parse[0];
 					$country=$parse[count($parse)-1];
 					$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
-					var_dump($country);
 					if ($country=="U.S.A.") { //Test de tri (provisoire)
 						$country="USA";
 					}
-					$author=$value['author'][0]['name'];
+					@$author=$value['author'][0]['name'];
 					
 					$array['id']=$id;
 					$array['country']=$country;
