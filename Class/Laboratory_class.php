@@ -56,7 +56,7 @@ class Laboratory
 
 				
 					
-		ksort($laboratorywithid); // tri par ordre alphabetique en fonction du labo
+		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
 		//var_dump($laboratorywithid);
 		return $laboratorywithid;
 
