@@ -11,7 +11,8 @@ include 'Class/Author_class.php';
 //requetes de recupération des données
 
 $Request = new Request;
-$Request = $Request->Request_alldoc_query('"environmental impact"AND"rare earth element"');
+//$Request = $Request->Request_alldoc_query('"sciences"');
+$Request = $Request->Request_alldoc_querypagebypage('"sciences"');
 
 $Sortbycountry = new Country;
 $Sortbycountry->Sort_by_country($Request);

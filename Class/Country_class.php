@@ -49,7 +49,7 @@ class Country
 
 				
 			arsort($countrywithid);	//tri du pays qui a le plus de document au plus petit nombre
-			var_dump($countrywithid);
+			//var_dump($countrywithid);
 			return $countrywithid;
 	
 	}

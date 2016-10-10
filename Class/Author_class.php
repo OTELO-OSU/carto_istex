@@ -5,16 +5,16 @@ class Author
 
 	function Sort_by_author($received_array){
 		$tableau_author=[];
+		$authorbylabo=[];
 		foreach ($received_array as $key => $value) {
 			$tab=array();
-			$tab[]=$value['author'];
+			$tab[]=$value['author']." , ".$value['laboratory'];
 			$tab[]=$value['id'];
 			$tab[]=$value['laboratory'];
 			$master_tab[]=$tab;
 			$response_array=array();
 		}
 		
-
 		foreach ($master_tab as $key2 => $value2) {
 			$index=$value2[0];
 			if (array_key_exists($index, $tableau_author)) {
@@ -31,7 +31,7 @@ class Author
 				$array[$key] = $value;
 				$author[] = $array;
 			}
-
+			
 			$authorwithid=array();
 			foreach ($author as $key => $value) {
 				foreach ($value as $key2 => $value2) {
@@ -49,18 +49,18 @@ class Author
 					}
 					
 				}
-						
-					
-					
-					
-				}
 			}
-
-				
-			ksort($authorwithid);// tri par ordre alaphabetique en fonction de l'auteur
+		}
+	
+					
+					
+			ksort($authorwithid);// tri par ordre alphabetique en fonction de l'auteur
 			//var_dump($authorwithid);
 			return $authorwithid;
+	
+
 	}
+
 	
 }
 

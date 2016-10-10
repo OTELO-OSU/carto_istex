@@ -56,7 +56,7 @@ class Laboratory
 
 				
 					
-		ksort($laboratorywithid); // tri par ordre alaphabetique en fonction du labo
+		ksort($laboratorywithid); // tri par ordre alphabetique en fonction du labo
 		//var_dump($laboratorywithid);
 		return $laboratorywithid;
 
