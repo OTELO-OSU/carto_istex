@@ -19,7 +19,6 @@ $Sortbycountry->Sort_by_country($Request);
 $Sortbylaboratory = new Laboratory;
 $Sortbylaboratory->Sort_by_laboratory($Request);
 
-
 $Sortbyauthor = new Author;
 $Sortbyauthor->Sort_by_author($Request);
 

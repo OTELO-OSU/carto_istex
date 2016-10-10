@@ -4,41 +4,40 @@ class Author
 {
 
 	function Sort_by_author($received_array){
-		$tableau_author=[];
+		$tableau_author=[]; // Initialisation tableau
 		$authorbylabo=[];
-		foreach ($received_array as $key => $value) {
+		foreach ($received_array as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
-			$tab[]=$value['author']." , ".$value['laboratory'];
+			$tab[]=$value['author']." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$tab[]=$value['laboratory'];
-			$master_tab[]=$tab;
-			$response_array=array();
+			$master_tab[]=$tab;// on stocke le tableau dans un autre
 		}
 		
-		foreach ($master_tab as $key2 => $value2) {
-			$index=$value2[0];
-			if (array_key_exists($index, $tableau_author)) {
-				$tableau_author[$index]++;
+		foreach ($master_tab as $key2 => $value2) {// on parcourt le tableau precedemment créé
+			$index=$value2[0];;// on definie l'index qui va permettre de determiner le nombre de publications par auteur unique
+			if (array_key_exists($index, $tableau_author)) {// array key exist permet de verifier si une clé existe dans un tableau
+				$tableau_author[$index]++;// si elle existe on ajoute 1 a chaque valeur
 			}
 			else{
-				$tableau_author[$index] = 1;
+				$tableau_author[$index] = 1;// sinon on laisse a 1
 				}
 			}
 
 			$author=array();
-			foreach ($tableau_author as $key => $value) {
+			foreach ($tableau_author as $key => $value) {// on parcourt ensuite le tableau 
 				$array=array();
-				$array[$key] = $value;
+				$array[$key] = $value;// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 				$author[] = $array;
 			}
 			
 			$authorwithid=array();
-			foreach ($author as $key => $value) {
+			foreach ($author as $key => $value) {// on parcourt le tableau precedent
 				foreach ($value as $key2 => $value2) {
 					$arraydocument=array();
 					
-				foreach ($master_tab as $key3 => $value3) {
-					if ($key2==$value3[0]) {
+				foreach ($master_tab as $key3 => $value3) {// on parcourt le tableau principale
+					if ($key2==$value3[0]) {// si le nom d'auteur, labo est le meme alors on les regroupes
 						$array= array();
 						$array[]=$value3[2];
 						$array[]=$value3[1];
