@@ -7,7 +7,7 @@ class Laboratory
 		$tableau_laboratory=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
-			$tab[]=$value['laboratory'];// on stocke les valeurs dans un tableau
+			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$tab[]=$value['author'];
 			$master_tab[]=$tab;// on stocke le tableau dans un autre

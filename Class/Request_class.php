@@ -12,7 +12,7 @@ class Request
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 30,
+			  CURLOPT_TIMEOUT => 40,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "GET"
 		)); // Reglage des differentes variable de CURL
@@ -37,7 +37,7 @@ class Request
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 30,
+				  CURLOPT_TIMEOUT => 40,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET"
 				));
@@ -54,7 +54,7 @@ class Request
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 30,
+				  CURLOPT_TIMEOUT => 40,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET"
 			));
@@ -86,6 +86,8 @@ class Request
 						$parse = explode(",", $affiliations); // on parse l'affiliation
 						$id=$value['id']; // recuperation de l'id de la publication
 						$laboratory=$parse[0]; // recuperation du nom de labo 
+
+						@$university=$parse[1];
 						$country=$parse[count($parse)-1]; // recupeartion du nom de pays
 						//$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						//if ($country=="U.S.A.") { //Test de tri (provisoire)
@@ -96,13 +98,13 @@ class Request
 						$array['id']=$id; // on stocke les differents champs dans un tableau
 						$array['country']=$country;
 						$array['laboratory']=$laboratory;
+						$array['university']=$university;
 						$array['author']=$author;
 						$response_array[]=$array; // on stocke le tableau dans un autre tableau
 					}
 
 				
 			}
-			
 			return $response_array;
 		}
 	}

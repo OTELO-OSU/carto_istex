@@ -39,8 +39,8 @@ class Author
 				foreach ($master_tab as $key3 => $value3) {// on parcourt le tableau principale
 					if ($key2==$value3[0]) {// si le nom d'auteur, labo est le meme alors on les regroupes
 						$array= array();
-						$array[]=$value3[2];
 						$array[]=$value3[1];
+						
 						$arraydocument[]=$array;
 						$authorwithid[$key2]=$arraydocument;
 
@@ -54,7 +54,7 @@ class Author
 					
 					
 			arsort($authorwithid);////tri de l'auteur qui a le plus de documents au plus petit nombre
-			//var_dump($authorwithid);
+			var_dump($authorwithid);
 			return $authorwithid;
 	
 
