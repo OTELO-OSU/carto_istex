@@ -13,14 +13,15 @@ include 'Class/Author_class.php';
 $Request = new Request;
 $Request = $Request->Request_alldoc_querypagebypage('"environmental impact"AND"rare earth element"');
 
-//$Sortbycountry = new Country;
-//$Sortbycountry->Sort_by_country($Request);
+$Sortbycountry = new Country;
+$Country=$Sortbycountry->get_name($Request);
+$Sortbycountry->Sort_by_country($Country);
 
-//$Sortbylaboratory = new Laboratory;
+$Sortbylaboratory = new Laboratory;
 //$Sortbylaboratory->Sort_by_laboratory($Request);
 
 $Sortbyauthor = new Author;
-$Sortbyauthor->Sort_by_author($Request);
+//$Sortbyauthor->Sort_by_author($Request);
 
 
 ?>

@@ -81,18 +81,28 @@ class Request
 
 			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
-					@$affiliations=$value['author'][0]['affiliations'][0]; // recuperation de l'affiliation
+					@$affiliations=$value['author'][0]['affiliations']; // recuperation de l'affiliation
 					if ($affiliations!==NULL) {	
-						$parse = explode(",", $affiliations); // on parse l'affiliation
+						if (count($affiliations)==2) {
+							if (preg_match("/\@/", $affiliations[0])) {
+								$parse = explode(",", $affiliations[1]);
+								$country=$parse[count($parse)-1]; // recupeartion du nom de pays
+							}
+							else{
+								$parse = explode(",", $affiliations[0]);
+								$country=$parse[count($parse)-1]; // recupeartion du nom de pays
+							}
+						}
+						else{
+						$parse = explode(",", $affiliations[0]); // on parse l'affiliation
+						$country=$parse[count($parse)-1]; // recupeartion du nom de pays
+						}
+						$country = str_replace(".", "", $country);
 						$id=$value['id']; // recuperation de l'id de la publication
 						$laboratory=$parse[0]; // recuperation du nom de labo 
 
 						@$university=$parse[1];
-						$country=$parse[count($parse)-1]; // recupeartion du nom de pays
-						//$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
-						//if ($country=="U.S.A.") { //Test de tri (provisoire)
-						//	$country="USA";
-						//}
+						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						@$author=$value['author'][0]['name']; // recuperation du nom de l'auteur
 						
 						$array['id']=$id; // on stocke les differents champs dans un tableau
@@ -101,12 +111,50 @@ class Request
 						$array['university']=$university;
 						$array['author']=$author;
 						$response_array[]=$array; // on stocke le tableau dans un autre tableau
+
 					}
 
 				
 			}
 			return $response_array;
 		}
+	}
+
+	//Fonction de demande de nom de pays a nominatim
+	function Request_name_of_country($name,$id){
+				$curl = curl_init();
+				$name=rawurlencode($name);
+				curl_setopt_array($curl, array(
+				  CURLOPT_URL => 'http://nominatim.openstreetmap.org/search/'.$name.'?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en',
+				  CURLOPT_RETURNTRANSFER => true,
+				  CURLOPT_ENCODING => "",
+				  CURLOPT_MAXREDIRS => 10,
+				  CURLOPT_TIMEOUT => 40,
+				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				  CURLOPT_CUSTOMREQUEST => "GET"
+			));
+				$response = curl_exec($curl); 
+				$responsedecoded = json_decode($response);
+				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
+				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); 
+				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); 
+
+				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
+				$array=array();
+				$array['country']=$country;
+				$array['lat']=$latitude;
+				$array['lon']=$longitude;
+				$array['id']=$id;
+				return $array;
+					
+				}
+				
+
+				//var_dump($country);
+
+				$err = curl_error($curl);
+				curl_close($curl);
+
 	}
 
 

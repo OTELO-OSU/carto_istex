@@ -54,7 +54,7 @@ class Author
 					
 					
 			arsort($authorwithid);////tri de l'auteur qui a le plus de documents au plus petit nombre
-			var_dump($authorwithid);
+			//var_dump($authorwithid);
 			return $authorwithid;
 	
 

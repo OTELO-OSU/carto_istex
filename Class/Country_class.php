@@ -3,12 +3,15 @@
 class Country
 {
 	function Sort_by_country($received_array){
+		//var_dump($received_array);
 		$tableau_country=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
+			if ($value["country"]!==NULL) {
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
-			$master_tab[]=$tab; // on stocke le tableau dans un autre
+			$master_tab[]=$tab; // on stocke le tableau dans un autre	
+			}
 		}
 		
 
@@ -48,9 +51,22 @@ class Country
 
 				
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
-			//var_dump($countrywithid);
+			var_dump($countrywithid);
 			return $countrywithid;
 	
+	}
+
+	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
+	function get_name($received_array){
+		$response_array= array();
+		foreach ($received_array as $key => $value) {
+			$Request = new Request;
+			$array=$Request->Request_name_of_country($value['country'],$value['id']);
+			$response_array[]=$array;
+			
+		}
+		return $response_array;
+
 	}
 
 	
