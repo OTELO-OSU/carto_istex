@@ -66,13 +66,13 @@ class Request
 				
 				 	
 
-
 				$result = array_merge($response1, $response2, $response3); // on merge les differents tableau de reponse en un seul
 			 	}	
 
 			 else{
 			 	$result=json_decode(json_encode($responseencoded->hits),true); // Si moins de 5000 resultats on garde le resultats de la premiere requetes
 			 }
+			 //echo count($result)." resultats<br>";
 			
 			
 			$response_array= array();// initialisation d'un tableau
@@ -116,12 +116,15 @@ class Request
 
 				
 			}
+			//echo count($response_array)." resultats avec affiliations<br>";
 			return $response_array;
+
 		}
 	}
 
 	//Fonction de demande de nom de pays a nominatim
 	function Request_name_of_country($name,$id){
+				//sleep(2);
 				$curl = curl_init();
 				$name=rawurlencode($name);
 				curl_setopt_array($curl, array(
@@ -136,14 +139,12 @@ class Request
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
 				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
-				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); 
-				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); 
+				//@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); 
+				//@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); 
 
 				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
 				$array=array();
 				$array['country']=$country;
-				$array['lat']=$latitude;
-				$array['lon']=$longitude;
 				$array['id']=$id;
 				return $array;
 					
@@ -156,6 +157,40 @@ class Request
 				curl_close($curl);
 
 	}
+
+	//Fonction de demande de latitude,longitude de pays a nominatim
+	function Request_lat_lon_of_country($name){
+				$curl = curl_init();
+				$name=rawurlencode($name);
+				curl_setopt_array($curl, array(
+				  CURLOPT_URL => 'http://nominatim.openstreetmap.org/search/'.$name.'?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en',
+				  CURLOPT_RETURNTRANSFER => true,
+				  CURLOPT_ENCODING => "",
+				  CURLOPT_MAXREDIRS => 10,
+				  CURLOPT_TIMEOUT => 40,
+				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				  CURLOPT_CUSTOMREQUEST => "GET"
+			));
+				$response = curl_exec($curl); 
+				$responsedecoded = json_decode($response);
+				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
+				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
+
+				//if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
+				$array=array(); // mise en tableau
+				$array['lat']=$latitude;
+				$array['lon']=$longitude;
+				return $array;
+					
+				//}
+				
+
+
+				$err = curl_error($curl);
+				curl_close($curl);
+
+	}
+
 
 
 }

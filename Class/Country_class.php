@@ -6,12 +6,12 @@ class Country
 		//var_dump($received_array);
 		$tableau_country=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
-			if ($value["country"]!==NULL) {
+			//if ($value["country"]!==NULL) {
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$master_tab[]=$tab; // on stocke le tableau dans un autre	
-			}
+			//}
 		}
 		
 
@@ -37,6 +37,8 @@ class Country
 		foreach ($country as $key => $value) { // on parcourt le tableau precedent
 			foreach ($value as $key2 => $value2) {
 				$array= array();
+						$Request = new Request;
+						$array['gps']=$Request->Request_lat_lon_of_country($key2);
 				foreach ($master_tab as $key3 => $value3) { // on parcourt le tableau principale
 					if ($key2==$value3[0]) { // si le nom de pays est le meme alors on les regroupes
 						$array[]=$value3[1];
@@ -62,8 +64,7 @@ class Country
 		foreach ($received_array as $key => $value) {
 			$Request = new Request;
 			$array=$Request->Request_name_of_country($value['country'],$value['id']);
-			$response_array[]=$array;
-			
+			$response_array[]=$array;	// mise en tableau de la reponse de nominatim
 		}
 		return $response_array;
 
