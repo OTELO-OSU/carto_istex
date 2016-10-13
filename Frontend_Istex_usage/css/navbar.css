@@ -1,0 +1,30 @@
+.navbar {
+    height: 80px !important;
+}
+.navbar-brand {
+    display: inline-block;
+}
+    .navbar-brand img {
+        height: 80px !important;
+        line-height: 60px !important;
+    }
+  
+    .navbar-brand span {
+        line-height: 60px !important;
+        white-space: nowrap;
+        margin-left: 15px;
+        color: #fff;
+    }
+.navbar-sandwich {
+    position: relative !important;
+    display: none;
+}
+.navbar-sandwich-icon {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.navbar-sandwich .menu .icon {
+    position: absolute !important;
+    top: 40% !important;
+    right: 10px !important;
+}

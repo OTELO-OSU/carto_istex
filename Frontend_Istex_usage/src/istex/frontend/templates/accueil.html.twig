@@ -10,20 +10,40 @@
 <script src="../../js/laboratory.js"></script>
 <script src="../../js/author.js"></script>
 <script src="../../js/modal.js"></script>
-
+<script src="../../js/modernizr.js"></script>
+<link rel="stylesheet" href="../../css/navbar.css">
 
 </head>
 <body>
-
-<div class="ui grid">
-        <div class="row">
-            <div class="column">
-                <div class="ui huge message page grid center aligned">
-                    <h1 class="ui huge header">Cartographie Istex</h1>
+     <nav id="example">
+            <div class="navbar ui inverted teal borderless menu">
+                <div class="navbar-sandwich ui dropdown item">
+                    <i class="navbar-sandwich-icon content big icon"></i>
+                    <div class="navbar-sandwich-content menu"></div><!--Keep empty-->
+                </div>
+                <a class="navbar-brand" href="#">
+                    <img src="../../img/logotype.png"/>
+                    <span><strong>Cartographie ISTEX</strong></span>
+                </a>
+                <div class="navbar-menu right menu">
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <div class="navbar-collapsable-item ui dropdown item">
+                        <strong>DROPDOWN</strong>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                        </div>
+                    </div>
+                    <!-- This link will not collapse -->
+                    <a class="item" href="#"><strong>FIXED ITEM</strong></a>
                 </div>
             </div>
-       </div>
-</div>
+        </nav>
    	{% include 'modal_carte.html.twig' %}
 
 
@@ -44,3 +64,12 @@
 <script src="http://istex.github.io/bower_components/angular/angular.min.js"></script>
 <script src="http://istex.github.io/slider/rzslider.js"></script>
 <script src="http://istex.github.io/app.min.js"></script>
+<script src="../../js/navbar.js"></script>
+   <script>
+            (function($) {
+                // Init the Semantic-UI Dropdown
+                $('.dropdown').dropdown();
+                // Init the navbar
+                $('#example').navBar();
+            }(jQuery));
+        </script>
