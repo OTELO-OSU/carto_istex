@@ -3,11 +3,13 @@
 <head>
 	<title>Cartographie ISTEX usage</title>
 	<link rel="stylesheet" type="text/css" href="../../css/semantic/dist/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="http://istex.github.io/styleAngular/style.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="../../css/semantic/dist/semantic.min.js"></script>
 <script src="../../js/country.js"></script>
 <script src="../../js/laboratory.js"></script>
 <script src="../../js/author.js"></script>
+
 
 </head>
 <body>
@@ -22,6 +24,9 @@
        </div>
 </div>
 
+
+   	{% include 'widget_istex.html.twig' %}
+
 <div class="ui three column grid">
  	{% include 'country_list.html.twig' %}
  	{% include 'laboratorys_list.html.twig' %}
@@ -35,3 +40,6 @@
 
 <input type="text" name="query">
 <button>test</button>
+<script src="http://istex.github.io/bower_components/angular/angular.min.js"></script>
+<script src="http://istex.github.io/slider/rzslider.js"></script>
+<script src="http://istex.github.io/app.min.js"></script>
