@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("button").click(function(){
-    	query=$("input").val;
+    $(".istex-search-submit").click(function(){
+    	query=$(".istex-search-input").val;
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query
