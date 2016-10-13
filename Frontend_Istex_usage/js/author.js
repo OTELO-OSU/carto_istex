@@ -16,7 +16,8 @@ $(document).ready(function(){
 	        var occurence=(parsed[k].length);
 	        if (!parsed.hasOwnProperty(k)) 
 	            continue
-	        $( "#authors" ).append('<div class="item"><div class="content"><div class="header">'+k+'('+occurence+')'+'</div> </div> </div>' );     
+            var res = k.split(",");
+	        $( "#authors" ).append('<tbody><tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');     
           }
           else{
             break;
