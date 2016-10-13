@@ -1,8 +1,9 @@
 $(document).ready(function(){
     $("button").click(function(){
+        query=$("input").val;
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getlaboratorys",
         {
-          query: '"environmental impact"AND"rare earth element"'
+          query: query
         },
         function(data){
             var parsed = JSON.parse(data);
