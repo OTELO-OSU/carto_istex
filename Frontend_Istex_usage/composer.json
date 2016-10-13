@@ -1,7 +1,7 @@
 {
     "require": {
         "slim/slim": "^3.5",
-	"twig/twig": "~1.0"
+	"twig/twig": "^1.18"
     },
   "autoload": {
 
