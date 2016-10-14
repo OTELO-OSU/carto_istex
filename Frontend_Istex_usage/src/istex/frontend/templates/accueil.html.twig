@@ -41,14 +41,23 @@
    	{% include 'modal_carte.html.twig' %}
 
 
-   	{% include 'widget_istex.html.twig' %}
+<div class="ui grid container">
+	<div class="ten wide centered column">
+   		{% include 'widget_istex.html.twig' %}
 
-<div class="ui three column grid">
- 	{% include 'country_list.html.twig' %}
- 	{% include 'laboratorys_list.html.twig' %}
-   	{% include 'authors_list.html.twig' %}
+   	</div>
+   	<div class="seven wide column">
+   		{% include 'country_list.html.twig' %}
+   		{% include 'laboratorys_list.html.twig' %}
+   		{% include 'authors_list.html.twig' %}
+
+   	</div>
+   
+	<div class="nine wide column">
+		<istex-results></istex-results>
+	</div>
 </div>
-<istex-results></istex-results>
+
 
 
 
