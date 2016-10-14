@@ -1,11 +1,12 @@
 $(document).ready(function(){
-    $(".istex-search-submit").click(function(){
-    	query=$(".istex-search-input").val;
+    $(".istex-search-bar-wrapper :submit").click(function(){
+    	var query=document.getElementsByClassName('istex-search-input')[0].value
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query
         },
         function(data){
+        	console.log(data)
             var parsed = JSON.parse(data);
 			var r = []
 			var x = 0;
