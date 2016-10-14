@@ -18,7 +18,7 @@ $(document).ready(function(){
 	        var occurence=(Object.keys(parsed[k]).length)-1;
 	        if (!parsed.hasOwnProperty(k)) 
 	            continue
-	        $( "#country" ).append('<div class="item"><div class="content"><div class="header">'+k+'('+occurence+')'+'</div> </div> </div>' );
+	        $( "#country" ).append('<tbody><tr><td>'+k+'</td><td>'+occurence+'</td></tr>');
    		  	}
           	else{
            	 break;

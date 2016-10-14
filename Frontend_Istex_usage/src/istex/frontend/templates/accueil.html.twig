@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>Cartographie ISTEX usage</title>
-	<link rel="stylesheet" type="text/css" href="../../css/semantic/dist/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/semantic/dist/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="http://istex.github.io/styleAngular/style.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="../../css/navbar.css">
+<link rel="stylesheet" href="../css/navbar.css">
 
 </head>
 <body>
@@ -16,7 +16,7 @@
                     <div class="navbar-sandwich-content menu"></div><!--Keep empty-->
                 </div>
                 <a class="navbar-brand" href="#">
-                    <img src="../../img/logotype.png"/>
+                    <img src="../img/logotype.png"/>
                     <span><strong>Cartographie ISTEX</strong></span>
                 </a>
                 <div class="navbar-menu right menu">
@@ -38,6 +38,7 @@
                 </div>
             </div>
         </nav>
+
    	{% include 'modal_carte.html.twig' %}
 
 
@@ -62,17 +63,17 @@
 
 
 
-
 <script src="http://istex.github.io/bower_components/angular/angular.min.js"></script>
 <script src="http://istex.github.io/slider/rzslider.js"></script>
 <script src="http://istex.github.io/app.min.js"></script>
-<script src="../../js/navbar.js"></script>
-<script src="../../css/semantic/dist/semantic.min.js"></script>
-<script src="../../js/country.js"></script>
-<script src="../../js/laboratory.js"></script>
-<script src="../../js/author.js"></script>
-<script src="../../js/modal.js"></script>
-<script src="../../js/modernizr.js"></script>
+<script src="../js/navbar.js"></script>
+<script src="../css/semantic/dist/semantic.min.js"></script>
+<script src="../js/country.js"></script>
+<script src="../js/laboratory.js"></script>
+<script src="../js/author.js"></script>
+<script src="../js/modal.js"></script>
+<script src="../js/modernizr.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script>
             (function($) {
                 // Init the Semantic-UI Dropdown
@@ -80,4 +81,11 @@
                 // Init the navbar
                 $('#example').navBar();
             }(jQuery));
+
+
+
+     
+    </script>
+
+
         </script>
