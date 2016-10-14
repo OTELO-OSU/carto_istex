@@ -8,7 +8,7 @@ class RequestController
 		$curl = curl_init(); // initialisation de curl
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
 		curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=*&output=id,author.affiliations,author.name',
+			  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=OR&output=id,author.affiliations,author.name',
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
@@ -33,7 +33,7 @@ class RequestController
 				$curl = curl_init();// initialisation de curl
 				$query=rawurlencode($query);//encodage des caracteres d'espacers pour les passer dans l'url
 				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&output=id,author.affiliations,author.name',
+				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name',
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
@@ -50,7 +50,7 @@ class RequestController
 				$curl = curl_init();
 				$query=rawurlencode($query);
 				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&output=id,author.affiliations,author.name',
+				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name',
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
