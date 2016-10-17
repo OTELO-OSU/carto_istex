@@ -29,7 +29,7 @@ $(document).ready(function(){
          google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
 
-       /* var table = $('#authors').DataTable( {
+        var table = $('#authors').DataTable( {
           lengthChange: false,
           destroy:true,
           "pageLength": 5, "order": [[ 2, "desc" ]],
@@ -37,7 +37,7 @@ $(document).ready(function(){
             "zeroRecords": "Aucun résultats",
             "info": "Page _PAGE_ sur _PAGES_",
             "infoEmpty": "Aucun résultats",        }
-        } );*/
+        } );
     function drawSeriesChart() {
       //data = []
       //data.push(data3)

@@ -14,8 +14,8 @@ $(document).ready(function(){
 	
 
 $('.leaflet').click(function(){
-$('.leafletview')
-	  .modal('show');
+	$('.leafletview').modal('show');
+	mymap.invalidateSize();
 	});
 
 });

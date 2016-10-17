@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  var mymap = L.map('map').setView([51.505, -0.09], 2);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
     $(".istex-search-bar-wrapper :submit").click(function(){
@@ -24,7 +23,7 @@ $(document).ready(function(){
 	            continue
 	        $( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>');
 	        var marker = L.marker([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]]).addTo(mymap);
-			marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
+			marker.bindPopup("<b>Pays</b>:"+k+"<br>Nombre de documents: "+occurence);
       		}
 	        	
 
@@ -35,14 +34,14 @@ $(document).ready(function(){
            	 break;
           	}
    			 }
-          	/*	var table = $('#country').DataTable( {
+          		var table = $('#country').DataTable( {
 		          lengthChange: false,
 		          "pageLength": 5, "order": [[ 2, "desc" ]],
 		          "language": {
 		            "zeroRecords": "Aucun résultats",
 		            "info": "Page _PAGE_ sur _PAGES_",
 		            "infoEmpty": "Aucun résultats",        }
-		        } );*/
+		        } );
         });
    	});
 });

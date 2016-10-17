@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../../Frontend_Istex_usage/css/navbar.css">
  <link rel="stylesheet" href="../../Frontend_Istex_usage/leaflet/leaflet.css" />
   <script src="../../Frontend_Istex_usage/leaflet/leaflet.js"></script>
+<script src="../../Frontend_Istex_usage/js/modal.js"></script>
 
 
 
@@ -80,7 +81,6 @@
 <script src="http://istex.github.io/app.min.js"></script>
 <script src="../../Frontend_Istex_usage/js/navbar.js"></script>
 <script src="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.js"></script>
-<script src="../../Frontend_Istex_usage/js/modal.js"></script>
 <script src="../../Frontend_Istex_usage/js/country.js"></script>
 <script src="../../Frontend_Istex_usage/js/laboratory.js"></script>
 <script src="../../Frontend_Istex_usage/js/author.js"></script>
@@ -88,6 +88,8 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script>
+     var mymap = L.map('map').setView([51.505, -0.09], 2);
+
             (function($) {
                 // Init the Semantic-UI Dropdown
                 $('.dropdown').dropdown();
