@@ -4,7 +4,7 @@
 	<title>Cartographie ISTEX usage</title>
 	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="http://istex.github.io/styleAngular/style.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/jquery.min.js"></script>
 <link rel="stylesheet" href="../../Frontend_Istex_usage/css/navbar.css">
  <link rel="stylesheet" href="../../Frontend_Istex_usage/leaflet/leaflet.css" />
   <script src="../../Frontend_Istex_usage/leaflet/leaflet.js"></script>
@@ -44,7 +44,7 @@
             </div>
         </nav>
 
-    {% include 'modal_bubble_authors.html.twig' %}
+    {% include 'modal_bubble_authors.html.twig' %} <!--  Differentes inclusion de templates twig -->
    	{% include 'modal_laboratorys.html.twig' %}
     {% include 'modal_leaflet.html.twig' %}
 
@@ -70,15 +70,12 @@
 
 
 
-<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js
-"></script>
-<script src="https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/jquery.dataTables.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/dataTables.semanticui.min.js"></script>
 
-<script src="http://istex.github.io/bower_components/angular/angular.min.js"></script>
-<script src="http://istex.github.io/slider/rzslider.js"></script>
-<script src="http://istex.github.io/app.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/widget_istex/angular.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/widget_istex/rzslider.js"></script>
+<script src="../../Frontend_Istex_usage/js/widget_istex/app.min.js"></script>
 <script src="../../Frontend_Istex_usage/js/navbar.js"></script>
 <script src="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.js"></script>
 <script src="../../Frontend_Istex_usage/js/country.js"></script>
@@ -86,9 +83,9 @@
 <script src="../../Frontend_Istex_usage/js/author.js"></script>
 <script src="../../Frontend_Istex_usage/js/modernizr.js"></script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="../../Frontend_Istex_usage/js/googlechart.js"></script>
    <script>
-     var mymap = L.map('map').setView([51.505, -0.09], 2);
+     var mymap = L.map('map').setView([51.505, -0.09], 2); //declaration de la map leaflet
 
             (function($) {
                 // Init the Semantic-UI Dropdown
