@@ -1,7 +1,7 @@
 $(document).ready(function(){
-            var data3 = [];
-             data3.push(["ID","r","res","occurence"]);
     $(".istex-search-bar-wrapper :submit").click(function(){
+            var data3 = [];
+             data3.push(['ID','Y','X','Laboratoire','Nombre de document']);
           $('#laboratorys tbody').remove();
         var query=document.getElementsByClassName('istex-search-input')[0].value
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getlaboratorys",
@@ -22,35 +22,55 @@ $(document).ready(function(){
           if (!parsed.hasOwnProperty(k)) 
               continue
           var res = k.split(",");
-          $( "#laboratorys" ).append('<tbody><tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');     
-          data3.push([occurence,res[0],res[1],occurence]); 
+          $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');     
+          data3.push([" ",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); 
           }
           else{
             break;
           }
        }
-           google.charts.load('current', {'packages':['corechart']});
+
+          google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
+       /* var table = $('#laboratorys').DataTable( {
+          lengthChange: false,
+          destroy:true,
+          "pageLength": 5, "order": [[ 2, "desc" ]],
+          "language": {
+            "zeroRecords": "Aucun résultats",
+            "info": "Page _PAGE_ sur _PAGES_",
+            "infoEmpty": "Aucun résultats",        }
+        } );*/
 
     function drawSeriesChart() {
-      data = []
-      data.push(data3)
-      var data = google.visualization.arrayToDataTable(data);
+      //data = []
+      //data.push(data3)
+      console.log(data3)
+      var data = google.visualization.arrayToDataTable(data3);
       console.log(data)
       var options = {
-        title: 'Correlation between life expectancy, fertility rate ' +
-               'and population of some world countries (2010)',
-        hAxis: {title: 'Life Expectancy'},
-        vAxis: {title: 'Fertility Rate'},
-        bubble: {textStyle: {fontSize: 11}}
+        legend: 'none',
+        tooltip:{isHtml:true},
+        title: 'Laboratoires pour la requete :'+query,
+        'width':900,
+        'height':600,
+        hAxis: {display:false, baselineColor: '#fff',
+         gridlineColor: '#fff',
+         textPosition: 'none'},
+        vAxis: {display:false , baselineColor: '#fff',
+         gridlineColor: '#fff',
+         textPosition: 'none'},
+        bubble: {textStyle: {fontSize: 11}},
+        explorer: { maxZoomOut: 5 }
       };
 
       var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      
+
       chart.draw(data, options);
     }
+
         });
    	});
-
 });
 
-//LUNDI voir pour google chart array data3 pourquoi string erreur
