@@ -34,6 +34,7 @@ $(document).ready(function(){
            	 break;
           	}
    			 }
+   			 //MARDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
 		          "pageLength": 5, "order": [[ 2, "desc" ]],

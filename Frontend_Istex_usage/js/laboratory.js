@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
             var data3 = [];
+            $('.avert').remove();
              data3.push(['ID','Y','X','Laboratoire','Nombre de document']);
           $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
         var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
@@ -59,8 +60,6 @@ $(document).ready(function(){
       };
 
       var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-      
-
       chart.draw(data, options);
     }
 

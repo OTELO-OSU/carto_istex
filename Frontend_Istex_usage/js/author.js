@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(".istex-search-bar-wrapper :submit").click(function(){
        var data3 = [];
+        $('.avert').remove();
        data3.push(['ID','Y','X','Auteur','Nombre de document']);
       $('#authors tbody').remove();// remise a zero en cas de recherche simultané
       var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
