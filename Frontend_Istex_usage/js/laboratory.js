@@ -28,7 +28,7 @@ $(document).ready(function(){
                     continue
                 var res = k.split(",");
                 $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); // on push les données dans un array
+                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
               else if (x<20) {
                 x++;
@@ -37,7 +37,7 @@ $(document).ready(function(){
                     continue
                 var res = k.split(",");
                 $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
-                data3.push([" ",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); // on push les données dans un array
+                data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
               else{
                 break;
@@ -62,20 +62,31 @@ $(document).ready(function(){
             legend: 'none',
             tooltip:{isHtml:true},
             title: 'Laboratoires pour la requete :'+query,
-            'width':900,
-            'height':600,
-            hAxis: {display:false, baselineColor: '#fff',
-             gridlineColor: '#fff',
-             textPosition: 'none'},
-            vAxis: {display:false , baselineColor: '#fff',
-             gridlineColor: '#fff',
-             textPosition: 'none'},
+            width:900,
+            height:700,
+            hAxis: {display:false,
+              viewWindowMode:'explicit',
+              viewWindow
+             :{max:220},
+             baselineColor: '#fff',
+              gridlineColor: '#fff',
+              textPosition: 'none'},
+            vAxis: {display:false ,viewWindowMode:'explicit',
+              viewWindow
+             :{max:120},
+             baselineColor: '#fff',
+         gridlineColor: '#fff',
+         textPosition: 'none'},
             bubble: {textStyle: {fontSize: 11}},
-            explorer: { maxZoomOut: 5 }
+            
           };
 
           var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+
           chart.draw(data, options);
+          $('.command a').remove();
+          $('.command').append('<a href=" '+chart.getImageURI() +'" download=laboratory.png><i class="download icon"><i></a>');
+
         }
 
     };

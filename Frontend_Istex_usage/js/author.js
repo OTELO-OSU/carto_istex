@@ -58,25 +58,34 @@ $(document).ready(function(){
     function drawSeriesChart() {// fonction qui va créé les bubbles
       var data = google.visualization.arrayToDataTable(data3);
       var options = {
-        legend: 'none',
-        tooltip:{isHtml:true},
-        title: 'Auteurs pour la requete :'+query,
-        'width':900,
-        'height':600,
-        hAxis: {display:false, baselineColor: '#fff',
+            legend: 'none',
+            tooltip:{isHtml:true},
+            title: 'Auteurs pour la requete :'+query,
+            width:900,
+            height:700,
+            hAxis: {display:false,
+              viewWindowMode:'explicit',
+              viewWindow
+             :{max:220},
+             baselineColor: '#fff',
+              gridlineColor: '#fff',
+              textPosition: 'none'},
+            vAxis: {display:false ,viewWindowMode:'explicit',
+              viewWindow
+             :{max:120},
+             baselineColor: '#fff',
          gridlineColor: '#fff',
          textPosition: 'none'},
-        vAxis: {display:false , baselineColor: '#fff',
-         gridlineColor: '#fff',
-         textPosition: 'none'},
-        bubble: {textStyle: {fontSize: 11}},
-        explorer: { maxZoomOut: 5 }
-      };
+            bubble: {textStyle: {fontSize: 11}},
+            
+          };
 
       var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div_authors'));
       
 
       chart.draw(data, options);
+      $('.command a').remove();
+      $('.command').append('<a href=" '+chart.getImageURI() +'" download=authors.png><i class="download icon"><i></a>');
     }
   } 
     $(".reloadauthor").click(function(){
