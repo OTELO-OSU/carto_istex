@@ -1,8 +1,6 @@
 $(document).ready(function(){
     $(".istex-search-bar-wrapper :submit").click(function(){
-       var data3 = [];
         $('.avert').remove();
-       data3.push(['ID','Y','X','Auteur','Nombre de document']);
       $('#authors tbody').remove();// remise a zero en cas de recherche simultané
       var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getauthors",
@@ -11,22 +9,39 @@ $(document).ready(function(){
         }, // requete ajax sur le backend
         function(data){
             var parsed = JSON.parse(data); // transformation en JSON
-			      var r = []
+            data2=parsed;
+            parse_authors(data2);
+          
+        });
+
+          function parse_authors(parsed){
+            var data3 = [];
+            data3.push(['ID','Y','X','Auteur','Nombre de document']);
+            var r = []
             var x = 0;
-	    	for (var k in parsed) { // on parcourt le JSON
-          if (x<20) {
-          x++;
-	        var occurence=(parsed[k].length);
-	        if (!parsed.hasOwnProperty(k)) 
-	            continue
+        for (var k in parsed) { // on parcourt le JSON
+           if (x<5) {
+             x++;
+          var occurence=(parsed[k].length);
+          if (!parsed.hasOwnProperty(k)) 
+                continue
             var res = k.split(",");
-	        $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
-          data3.push([" ",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); 
+             $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
+            data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); // on push les données dans un array
+          }
+          else if (x<20) {
+          x++;
+          var occurence=(parsed[k].length);
+          if (!parsed.hasOwnProperty(k)) 
+              continue
+            var res = k.split(",");
+          $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
+          data3.push(["",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); 
           }
           else{
             break;
           }
-   		 }
+       }
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
 
@@ -63,6 +78,9 @@ $(document).ready(function(){
 
       chart.draw(data, options);
     }
-        });
-   	});
+  } 
+    $(".reloadauthor").click(function(){
+      parse_authors(data2);
+    });
+    });
 });

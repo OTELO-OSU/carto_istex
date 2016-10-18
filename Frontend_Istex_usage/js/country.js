@@ -9,10 +9,10 @@ $(document).ready(function(){
           query: query
         }, // requete ajax sur le backend
         function(data){
-        	console.log(data)
+        	//console.log(data)
             var parsed = JSON.parse(data); // transformation en JSON
-			var r = []
 			var x = 0;
+			var total=Object.keys(parsed).length;
 	    	for (var k in parsed) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
@@ -30,11 +30,7 @@ $(document).ready(function(){
           
           
    		  	}
-          	else{
-           	 break;
-          	}
-   			 }
-   			 //MARDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
+   			else if (total==x) {
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
 		          "pageLength": 5, "order": [[ 2, "desc" ]],
@@ -43,6 +39,13 @@ $(document).ready(function(){
 		            "info": "Page _PAGE_ sur _PAGES_",
 		            "infoEmpty": "Aucun résultats",        } // pagination du tableau precedemment crée
 		        } );
+   			 	
+   			 }
+          	else{
+           	 break;
+          	}
+   			 }
+   			 //MARDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
         });
    	});
 });
