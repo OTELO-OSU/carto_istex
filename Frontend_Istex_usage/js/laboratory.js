@@ -50,10 +50,6 @@ $(document).ready(function(){
               lengthChange: false,
               destroy:true,
               "pageLength": 5, "order": [[ 2, "desc" ]],
-              "language": {
-                "zeroRecords": "Aucun résultats",
-                "info": "Page _PAGE_ sur _PAGES_",
-                "infoEmpty": "Aucun résultats",        }
             } );// pagination du tableau precedemment crée
 
         function drawSeriesChart() { // fonction qui va créé les bubbles
@@ -63,7 +59,7 @@ $(document).ready(function(){
             tooltip:{isHtml:true},
             title: 'Laboratoires pour la requete :'+query,
             width:900,
-            height:700,
+            height:600,
             hAxis: {display:false,
               viewWindowMode:'explicit',
               viewWindow

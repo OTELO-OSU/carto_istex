@@ -1,0 +1,11 @@
+.paging_simple_numbers .previous  {
+    display: none !important;
+}
+
+.paging_simple_numbers .next  {
+    display: none !important;
+}
+
+.ui .pagination .menu{
+	margin-right: 10%;
+}
