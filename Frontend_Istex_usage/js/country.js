@@ -24,15 +24,17 @@ $(document).ready(function(){
 	        $( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
 	        var marker = L.marker([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]]).addTo(mymap); // ajout de marker sur la map leaflet
 			marker.bindPopup("<b>Pays</b>:"+k+"<br>Nombre de documents: "+occurence);
-			var circle = L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
-			    color: 'red',
-			    fillColor: '#f03',
-			    fillOpacity: 0.5,
-			    radius: 500
+			radius=occurence*25000;
+			console.log(radius)
+			L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: radius
 			}).addTo(mymap);
       		}
 	        	
-
+      		//DEMAIN remttre a zero la carte quand une autrre recherhce est lancé!
           
           
    		  	}
@@ -47,7 +49,7 @@ $(document).ready(function(){
            	 break;
           	}
    			 }
-   			 //MARDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
+   			 //MERCREDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
         });
    	});
 });
