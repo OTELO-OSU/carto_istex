@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Cartographie ISTEX usage</title>
 	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/style.css">
@@ -56,16 +57,25 @@
    		{% include 'widget_istex.html.twig' %}
 
    	</div>
-   	<div class="seven wide column">
-   		{% include 'country_list.html.twig' %}
-   		{% include 'laboratorys_list.html.twig' %}
-   		{% include 'authors_list.html.twig' %}
+</div>
+<div class="ui grid container">
 
-   	</div>
-   
-	<div class="nine wide column">
-		<istex-results></istex-results>
+   <div class="istex_result">
+			<istex-results></istex-results>
 	</div>
+</div>
+
+
+<div class="ui stackable three column grid">
+   	<div class="column">
+   		{% include 'country_list.html.twig' %}
+   	</div>
+   	<div class="column">
+   		{% include 'laboratorys_list.html.twig' %}
+   	</div>
+   	<div class="column">
+   		{% include 'authors_list.html.twig' %}
+   	</div>
 </div>
 
 
