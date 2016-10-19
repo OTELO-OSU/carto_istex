@@ -87,7 +87,7 @@ $(document).ready(function(){
 
     };
     $(".reloadlaboratory").click(function(){
-      parse_laboratorys(data2);
+      parse_laboratorys(data2);// on recreer le bubble chart
     });
     });
 });

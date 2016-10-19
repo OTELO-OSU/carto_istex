@@ -85,7 +85,7 @@ $(document).ready(function(){
     }
   } 
     $(".reloadauthor").click(function(){
-      parse_authors(data2);
+      parse_authors(data2); // on recreer le bubble chart
     });
     });
 });
