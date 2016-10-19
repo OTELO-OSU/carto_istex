@@ -40,6 +40,7 @@ $(document).ready(function(){
    			 if (x==total) {
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
+		           destroy:true,
 		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
 		        } );
    			 	

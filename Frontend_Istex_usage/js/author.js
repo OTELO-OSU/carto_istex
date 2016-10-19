@@ -27,7 +27,7 @@ $(document).ready(function(){
                 continue
             var res = k.split(",");
              $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
-            data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); // on push les données dans un array
+            data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 1),Math.floor((Math.random() * 90) + 1),res[0],occurence]); // on push les données dans un array
           }
           else if (x<20) {
           x++;
@@ -36,7 +36,7 @@ $(document).ready(function(){
               continue
             var res = k.split(",");
           $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
-          data3.push(["",Math.floor((Math.random() * 200) + 1),Math.floor((Math.random() * 100) + 1),res[0],occurence]); 
+          data3.push(["",Math.floor((Math.random() * 180) + 1),Math.floor((Math.random() * 90) + 1),res[0],occurence]); 
           }
           else{
             break;
