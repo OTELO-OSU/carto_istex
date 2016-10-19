@@ -2,6 +2,11 @@ $(document).ready(function(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap); // declaration des tiles a utiliser sur leaflet (osm)
 
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
+    	if (typeof(group)!=='undefined') {
+    	console.log(group)
+    	mymap.removeLayer(group);
+    		
+    	}
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
@@ -13,6 +18,7 @@ $(document).ready(function(){
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			var total=Object.keys(parsed).length;
+			var markers = []
 	    	for (var k in parsed) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
@@ -22,20 +28,17 @@ $(document).ready(function(){
 	        if (!parsed.hasOwnProperty(k)) 
 	            continue
 	        $( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
-	        var marker = L.marker([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]]).addTo(mymap); // ajout de marker sur la map leaflet
-			marker.bindPopup("<b>Pays</b>:"+k+"<br>Nombre de documents: "+occurence);
 			radius=occurence*25000;
-			console.log(radius)
-			L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
-			color: 'red',
-			fillColor: '#f03',
+			
+			var circle = L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
+			color: 'blue',
+			fillColor: '#2590ff',
 			fillOpacity: 0.5,
 			radius: radius
-			}).addTo(mymap);
+			}).bindPopup("Country: "+k+"<br>Number of publications: "+occurence);
+			markers.push(circle);
       		}
-	        	
-      		//DEMAIN remttre a zero la carte quand une autrre recherhce est lancé!
-          
+
           
    		  	}
    			else if (total==x) {
@@ -49,6 +52,10 @@ $(document).ready(function(){
            	 break;
           	}
    			 }
+      		group = L.featureGroup(markers);
+      		group.addTo(mymap);
+	        bounds = group.getBounds();	
+
    			 //MERCREDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
         });
    	});

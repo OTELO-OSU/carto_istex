@@ -16,7 +16,9 @@ $(document).ready(function(){
 
 $('.leaflet').click(function(){
 	$('.leafletview').modal('show');
-	mymap.invalidateSize();
+		mymap.invalidateSize();
+		mymap.fitBounds(bounds);
+
 	});
 
 });
