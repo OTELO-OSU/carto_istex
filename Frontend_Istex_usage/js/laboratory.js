@@ -24,30 +24,36 @@ $(document).ready(function(){
 
         function parse_laboratorys(parsed){
             var data3 = [];
-            data3.push(['ID','Y','X','Laboratoire','Nombre de document']);
+            data3.push(['ID','Y','X','Laboratory','Number of publications']);
             var r = []
             var x = 0;
             for (var k in parsed) { // on parcourt le JSON
               if (x<5) {
-                 x++;
-              var occurence=(parsed[k].length);
-              if (!parsed.hasOwnProperty(k)) 
-                    continue
-                var res = k.split(",");
-                $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
-              }
+                if (k==" , ") {}
+                else{
+                    x++;
+                    var occurence=(parsed[k].length);
+                    if (!parsed.hasOwnProperty(k)) 
+                          continue
+                      var res = k.split(",");
+                      data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
+                    }
+                }
               else if (x<20) {
                 x++;
                 var occurence=(parsed[k].length);
                 if (!parsed.hasOwnProperty(k)) 
                     continue
                 var res = k.split(",");
-                $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
                 data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
-              else{
-                break;
+              if (k==" , ") {}
+                else{
+                var occurence=(parsed[k].length);
+                if (!parsed.hasOwnProperty(k)) 
+                    continue
+                var res = k.split(",");
+                $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
               }
            }
 
@@ -57,6 +63,7 @@ $(document).ready(function(){
               lengthChange: false,
               destroy:true,
               "pageLength": 5, "order": [[ 2, "desc" ]],
+              "pagingType": "numbers"
             } );// pagination du tableau precedemment crée
 
         function drawSeriesChart() { // fonction qui va créé les bubbles
@@ -64,7 +71,7 @@ $(document).ready(function(){
           var options = {
             legend: 'none',
             tooltip:{isHtml:true},
-            title: 'Laboratoires pour la requete :'+query,
+            title: 'Laboratory for request :'+query,
             width:900,
             height:600,
             hAxis: {display:false,

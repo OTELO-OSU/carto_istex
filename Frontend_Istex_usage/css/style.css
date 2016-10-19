@@ -4,14 +4,42 @@
 	overflow-y: auto;
 }
 
-.paging_simple_numbers .previous  {
-    display: none !important;
-}
 
-.paging_simple_numbers .next  {
-    display: none !important;
-}
 
 .ui .pagination .menu{
 	margin-right: 10%;
+}
+
+.bubbleauthors{
+	cursor: pointer;
+}
+
+.bubblelaboratorys{
+	cursor: pointer;
+}
+
+.leafletmap{
+	cursor: pointer;
+}
+
+.reloadlaboratory{
+	cursor: pointer;
+}
+.reloadauthor{
+	cursor: pointer;
+}
+.leafletmap{
+	cursor: pointer;
+}
+
+.command_laboratory a{
+	cursor: pointer;
+}
+
+.command_authors a{
+	cursor: pointer;
+}
+
+.ui.pagination.menu{
+	margin-left: -25%;
 }
