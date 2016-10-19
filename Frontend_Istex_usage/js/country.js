@@ -3,9 +3,7 @@ $(document).ready(function(){
 
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
     	if (typeof(group)!=='undefined') {
-    	console.log(group)
-    	mymap.removeLayer(group);
-    		
+    		mymap.removeLayer(group);
     	}
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
@@ -39,15 +37,14 @@ $(document).ready(function(){
 			markers.push(circle);
       		}
 
-          
-   		  	}
-   			else if (total==x) {
+   			 if (x==total) {
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
-		          "pageLength": 5, "order": [[ 2, "desc" ]], // pagination du tableau precedemment crée
+		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
 		        } );
    			 	
    			 }
+   		  	}
           	else{
            	 break;
           	}
@@ -55,8 +52,9 @@ $(document).ready(function(){
       		group = L.featureGroup(markers);
       		group.addTo(mymap);
 	        bounds = group.getBounds();	
-
-   			 //MERCREDI verifier que le pays fonctionne bien avec la pagination car banni nominatim
+	        $('#legend h5').remove();
+          	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
+   			
         });
    	});
 });
