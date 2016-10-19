@@ -1,4 +1,11 @@
 $(document).ready(function(){
+  function strReplaceAll(string, Find, Replace) {
+    try {
+        return string.replace( new RegExp(Find, "gi"), Replace );       
+    } catch(ex) {
+        return string;
+    }
+}
     var data2;
     $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
           $('.avert').remove();
@@ -80,8 +87,8 @@ $(document).ready(function(){
           var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
 
           chart.draw(data, options);
-          $('.command a').remove();
-          $('.command').append('<a href=" '+chart.getImageURI() +'" download=laboratory.png><i class="download icon"><i></a>');
+          $('.command_laboratorys a').remove();
+          $('.command_laboratorys').append('<a href=" '+chart.getImageURI() +'" download=laboratory_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
 
         }
 

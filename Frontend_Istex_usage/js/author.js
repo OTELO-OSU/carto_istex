@@ -1,4 +1,11 @@
 $(document).ready(function(){
+   function strReplaceAll(string, Find, Replace) {
+    try {
+        return string.replace( new RegExp(Find, "gi"), Replace );       
+    } catch(ex) {
+        return string;
+    }
+}
     $(".istex-search-bar-wrapper :submit").click(function(){
         $('.avert').remove();
       $('#authors tbody').remove();// remise a zero en cas de recherche simultané
@@ -80,8 +87,8 @@ $(document).ready(function(){
       
 
       chart.draw(data, options);
-      $('.command a').remove();
-      $('.command').append('<a href=" '+chart.getImageURI() +'" download=authors.png><i class="download icon"><i></a>');
+      $('.command_authors a').remove();
+      $('.command_authors').append('<a href=" '+chart.getImageURI() +'" download=authors_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
     }
   } 
     $(".reloadauthor").click(function(){
