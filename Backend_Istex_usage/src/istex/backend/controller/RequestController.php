@@ -112,7 +112,7 @@ class RequestController
 						$array['laboratory']=$laboratory;
 						$array['university']=$university;
 						$array['author']=$author;
-						var_dump($parse);
+						//var_dump($parse);
 						if (!$laboratory==NULL) {
 						$response_array[]=$array; // on stocke le tableau dans un autre tableau
 						}
