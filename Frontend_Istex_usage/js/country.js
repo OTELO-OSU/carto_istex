@@ -7,9 +7,7 @@ $(document).ready(function(){
         return string;
     }
 }
-	
 
-		
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
     	if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
     		mymap.removeLayer(group);
@@ -78,7 +76,7 @@ $(document).ready(function(){
 		   		var a = document.createElement('a');
 		    	a.href = canvas.toDataURL();
 		    	a.download = "download=country_map_"+strReplaceAll(query," ","_")+".png"
-		    	$('.command_map').appendChild(a); // Append child pas bon
+		    	$('.command_map').append(a); // Append child pas bon
 		    	console.log("test")
 			})
 	

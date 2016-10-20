@@ -6,6 +6,7 @@ $(document).ready(function(){
         return string;
     }
 }
+
     var data2;
     $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
           $('.avert').remove();
