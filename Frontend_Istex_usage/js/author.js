@@ -65,7 +65,7 @@ $(document).ready(function(){
       var options = {
             legend: 'none',
             tooltip:{isHtml:true},
-            title: 'Authors for request :'+query,
+            title: 'BubbleChart of publications per author for query : '+query,
             width:900,
             height:600,
             hAxis: {display:false,

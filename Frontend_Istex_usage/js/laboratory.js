@@ -71,7 +71,7 @@ $(document).ready(function(){
           var options = {
             legend: 'none',
             tooltip:{isHtml:true},
-            title: 'Laboratory for request :'+query,
+            title: 'BubbleChart of publications per laboratory for query : '+query,
             width:900,
             height:600,
             hAxis: {display:false,
