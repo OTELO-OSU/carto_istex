@@ -92,7 +92,10 @@ $(document).ready(function(){
 
       chart.draw(data, options);
       $('.command_authors a').remove();
+      $('#actions_authors #download').remove();
       $('.command_authors').append('<a href=" '+chart.getImageURI() +'" download=authors_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
+      $('#actions_authors').prepend('<div id="download" class="ui right labeled icon button" > <a href="'+chart.getImageURI() +'" download=authors_'+strReplaceAll(query," ","_")+'.png>Download</a><i class="download icon"></i></div>');
+
     }
   } 
     $(".reloadauthor").click(function(){

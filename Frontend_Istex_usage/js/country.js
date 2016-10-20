@@ -7,6 +7,9 @@ $(document).ready(function(){
         return string;
     }
 }
+	
+
+		
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
     	if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
     		mymap.removeLayer(group);
@@ -31,14 +34,25 @@ $(document).ready(function(){
 	        var occurence=(Object.keys(parsed[k]).length)-1;
 	        if (!parsed.hasOwnProperty(k)) 
 	            continue
-			radius=occurence*25000;
-			
+			radius=occurence*30000;
+			if (occurence==1) {
+				radius=75000;
+			}
+			color = '#'+Math.floor(Math.random()*16777215).toString(16);
 			var circle = L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
-			color: 'blue',
-			fillColor: '#2590ff',
+			color: color,
+			fillColor: color ,
 			fillOpacity: 0.5,
 			radius: radius
-			}).bindPopup("Country: "+k+"<br>Number of publications: "+occurence); // creation d'un marker
+			}); // creation d'un marker
+			circle.bindPopup("Country: "+k+"<br>Number of publications: "+occurence);
+			circle.on('mouseover', function (e) {
+            	this.openPopup();
+	        });
+	        circle.on('mouseout', function (e) {
+	            this.closePopup();
+	        });
+			circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
 			markers.push(circle);// push du marker dans le tableau
       		}
 
@@ -58,19 +72,18 @@ $(document).ready(function(){
       		group = L.featureGroup(markers); // on met le groupe de markers dans une layer
       		group.addTo(mymap); // on l'ajoute a la map
 	        bounds = group.getBounds();	// on obtient le bounds pour placer la vue
-	        var url;
-			leafletImage(mymap, function(err, canvas) {
-		    var img = document.createElement('img');
-		    var dimensions = mymap.getSize();
-		    img.width = dimensions.x;
-		    img.height = dimensions.y;
-		    url = canvas.toDataURL()
-		    console.log(url)
-			})
+			
 	        $('.command_map a').remove();
-	        console.log(url)
+	        leafletImage(mymap, function(err, canvas) {
+		   		var a = document.createElement('a');
+		    	a.href = canvas.toDataURL();
+		    	a.download = "download=country_map_"+strReplaceAll(query," ","_")+".png"
+		    	$('.command_map').appendChild(a); // Append child pas bon
+		    	console.log("test")
+			})
+	
 	        //Telechargement a verifier car banni nominatim et verif affichage tout pays dans le tableau
-          	$('.command_map').append('<a href=" '+ url +'" download=country_map_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
+          	//$('.command_map').append('<a onclick="screenshot()" download=country_map_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
    			

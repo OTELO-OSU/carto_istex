@@ -95,8 +95,11 @@ $(document).ready(function(){
 
           chart.draw(data, options);
           $('.command_laboratorys a').remove();
+          $('#actions_laboratorys #download').remove();
           $('.command_laboratorys').append('<a href=" '+chart.getImageURI() +'" download=laboratory_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
+          $('#actions_laboratorys').prepend('<div id="download" class="ui right labeled icon button" > <a href="'+chart.getImageURI() +'" download=laboratory_'+strReplaceAll(query," ","_")+'.png>Download</a><i class="download icon"></i></div>');
 
+                       
         }
 
     };

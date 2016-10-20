@@ -5,7 +5,6 @@
 }
 
 
-
 .ui .pagination .menu{
 	margin-right: 10%;
 }
@@ -42,4 +41,9 @@
 
 .ui.pagination.menu{
 	margin-left: -25%;
+}
+.leaflet-tooltip{
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
 }
