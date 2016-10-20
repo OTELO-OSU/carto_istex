@@ -3,6 +3,8 @@ namespace istex\backend\controller;
 class LaboratoryController 
 {
 
+
+
 	function Sort_by_laboratory($received_array){
 		$tableau_laboratory=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé

@@ -99,9 +99,11 @@ class RequestController
 						}
 						$country = str_replace(".", "", $country);
 						$id=$value['id']; // recuperation de l'id de la publication
-						$laboratory=$parse[0]; // recuperation du nom de labo 
-
-						@$university=$parse[1];
+						//$laboratory=$parse[0]; // recuperation du nom de labo 
+						$laboratory= self::Match_result_for_laboratory($parse);
+						$university= self::Match_result_for_university($parse);
+						
+						//@$university=$parse[1];
 						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						@$author=$value['author'][0]['name']; // recuperation du nom de l'auteur
 						
@@ -110,7 +112,10 @@ class RequestController
 						$array['laboratory']=$laboratory;
 						$array['university']=$university;
 						$array['author']=$author;
+						var_dump($parse);
+						if (!$laboratory==NULL) {
 						$response_array[]=$array; // on stocke le tableau dans un autre tableau
+						}
 
 					}
 
@@ -121,6 +126,51 @@ class RequestController
 
 		}
 	}
+
+
+
+
+
+
+function Match_result_for_laboratory($received_array){
+		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","CENTRE","DEPARTEMENT","BRGM","CNRS");
+		foreach ($tableau_reference_laboratory as $key => $valueref) {
+			foreach ($received_array as $key => $value2) {
+				if (preg_match("/".$valueref."/i", $value2)){
+					return $value2;
+				}
+				else{
+					//echo $value[('laboratory')]."<br>";
+
+				}
+			
+			}				
+		}
+	}
+
+	function Match_result_for_university($received_array){
+		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","UNIVERSITé","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE");
+		foreach ($tableau_reference_university as $key => $valueref) {
+			foreach ($received_array as $key => $value2) {
+				if (preg_match("/".$valueref."/i", $value2)){
+					return $value2;
+				}
+				else{
+					//echo $value[('laboratory')]."<br>";
+
+				}
+			
+			}				
+		}
+	}
+
+
+
+
+
+
+
+
 
 	//Fonction de demande de nom de pays a nominatim
 	function Request_name_of_country($name,$id){
