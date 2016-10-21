@@ -133,7 +133,7 @@ class RequestController
 
 
 function Match_result_for_laboratory($received_array){
-		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","CENTRE","DEPARTEMENT","BRGM","CNRS");
+		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","CENTRE","DEPARTEMENT","CNRS");
 		foreach ($tableau_reference_laboratory as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
 				if (preg_match("/".$valueref."/i", $value2)){
@@ -149,7 +149,7 @@ function Match_result_for_laboratory($received_array){
 	}
 
 	function Match_result_for_university($received_array){
-		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","UNIVERSITé","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE");
+		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","UNIVERSITé","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY");
 		foreach ($tableau_reference_university as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
 				if (preg_match("/".$valueref."/i", $value2)){
