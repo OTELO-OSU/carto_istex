@@ -29,13 +29,10 @@ $app->post('/getlaboratorys', function (Request $req,Response $responseSlim) {
 	$request = new RequestApi();
 	$query  = $req->getparam('query');
     $response = $request->Request_alldoc_querypagebypage($query);
-    //$Sortbylaboratory = new Laboratory;
-   // $laboratory = $Sortbylaboratory->Match_result($response);
-
-    var_dump($response);
-	//$laboratory=$Sortbylaboratory->Sort_by_laboratory($response);
-	//$responseSlim->withHeader('Content-Type', 'application/json');
-   // return json_encode($laboratory);
+    $Sortbylaboratory = new Laboratory;
+	$laboratory=$Sortbylaboratory->Sort_by_laboratory($response);
+	$responseSlim->withHeader('Content-Type', 'application/json');
+    return json_encode($laboratory);
 });
 
 $app->post('/getauthors', function (Request $req,Response $responseSlim) {
