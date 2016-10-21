@@ -423,22 +423,22 @@ select.ui.dropdown {
 .ui.selection.dropdown .menu > .message {
   padding: 0.78571429rem 1.14285714rem;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.selection.dropdown .menu {
     max-height: 8.01428571rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.selection.dropdown .menu {
     max-height: 10.68571429rem;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.selection.dropdown .menu {
     max-height: 16.02857143rem;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.selection.dropdown .menu {
     max-height: 21.37142857rem;
   }
@@ -599,22 +599,22 @@ select.ui.dropdown {
           backface-visibility: hidden;
   -webkit-overflow-scrolling: touch;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.search.dropdown .menu {
     max-height: 8.01428571rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.search.dropdown .menu {
     max-height: 10.68571429rem;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.search.dropdown .menu {
     max-height: 16.02857143rem;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.search.dropdown .menu {
     max-height: 21.37142857rem;
   }
@@ -1083,25 +1083,25 @@ select.ui.dropdown {
     min-width: calc(100% -  17px );
   }
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: 10.28571429rem;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: 15.42857143rem;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: 20.57142857rem;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: 20.57142857rem;

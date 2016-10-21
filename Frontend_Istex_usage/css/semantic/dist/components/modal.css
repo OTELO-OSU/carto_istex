@@ -187,31 +187,31 @@
 
 
 /* Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.modal {
     width: 88%;
     margin: 0em 0em 0em -44%;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.modal {
     width: 850px;
     margin: 0em 0em 0em -425px;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1280px) {
   .ui.modal {
     width: 900px;
     margin: 0em 0em 0em -450px;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.modal {
     width: 950px;
     margin: 0em 0em 0em -475px;
@@ -219,7 +219,7 @@
 }
 
 /* Tablet and Mobile */
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1279px) {
   .ui.modal > .header {
     padding-right: 2.25rem;
   }
@@ -231,7 +231,7 @@
 }
 
 /* Mobile */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.modal > .header {
     padding: 0.75rem 1rem !important;
     padding-right: 2.25rem !important;
@@ -321,7 +321,7 @@
 }
 
 /* Tablet and Mobile */
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1279px) {
   .ui.basic.modal > .close {
     color: #FFFFFF;
   }
@@ -381,7 +381,7 @@
 .undetached.dimmable.dimmed > .pusher {
   z-index: auto;
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1279px) {
   .modals.dimmer .ui.scrolling.modal {
     margin-top: 1rem !important;
     margin-bottom: 1rem !important;
@@ -423,31 +423,31 @@
 }
 
 /* Small Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.small.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.small.modal {
     width: 70.4%;
     margin: 0em 0em 0em -35.2%;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.small.modal {
     width: 680px;
     margin: 0em 0em 0em -340px;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1280px) {
   .ui.small.modal {
     width: 720px;
     margin: 0em 0em 0em -360px;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.small.modal {
     width: 760px;
     margin: 0em 0em 0em -380px;
@@ -458,31 +458,31 @@
 .ui.large.modal > .header {
   font-size: 1.6em;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1030px) {
   .ui.large.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1031px) {
   .ui.large.modal {
     width: 88%;
     margin: 0em 0em 0em -44%;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1280px) {
   .ui.large.modal {
     width: 1020px;
     margin: 0em 0em 0em -510px;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1280px) {
   .ui.large.modal {
     width: 1080px;
     margin: 0em 0em 0em -540px;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1921px) {
   .ui.large.modal {
     width: 1140px;
     margin: 0em 0em 0em -570px;

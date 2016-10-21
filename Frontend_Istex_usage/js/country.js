@@ -61,7 +61,8 @@ $(document).ready(function(){
 		          lengthChange: false,
 		           destroy:true,
 		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
-		          "pagingType": "numbers"
+		          "pagingType": "numbers",  
+		          responsive: true
 		        } );
    			 	
    			 }

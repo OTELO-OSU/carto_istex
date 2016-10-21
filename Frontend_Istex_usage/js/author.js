@@ -57,7 +57,8 @@ $(document).ready(function(){
           lengthChange: false,
           destroy:true,
           "pageLength": 5, "order": [[ 2, "desc" ]],
-          "pagingType": "numbers"
+          "pagingType": "numbers",
+          responsive: true
         } );// pagination du tableau precedemment crée
 
     function drawSeriesChart() {// fonction qui va créé les bubbles
