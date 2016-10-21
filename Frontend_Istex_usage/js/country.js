@@ -52,10 +52,10 @@ $(document).ready(function(){
 	        });
 			circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
 			markers.push(circle);// push du marker dans le tableau
+   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
       		}
 
    		  	}
-   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
    			 if (x==total) {
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
