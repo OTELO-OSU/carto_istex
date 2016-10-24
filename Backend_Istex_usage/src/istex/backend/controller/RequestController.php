@@ -118,6 +118,9 @@ class RequestController
 						
 
 					}
+					else{
+						$response_array[]=1;
+					}
 
 				
 			}
