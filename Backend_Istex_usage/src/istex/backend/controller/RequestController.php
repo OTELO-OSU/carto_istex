@@ -109,8 +109,8 @@ class RequestController
 						
 						$array['id']=$id; // on stocke les differents champs dans un tableau
 						$array['country']=$country;
-						$array['laboratory']=$laboratory;
-						$array['university']=$university;
+						$array['laboratory']=$laboratory[0];
+						$array['university']=$university[0];
 						$array['author']=$author;
 						//var_dump($parse);
 						
@@ -130,14 +130,19 @@ class RequestController
 
 
 
+function stripAccents($string){
+	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
+
 
 function Match_result_for_laboratory($received_array){
 		$array = array();
-		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P");
+		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO");
 		foreach ($tableau_reference_laboratory as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
-				if (preg_match("/".$valueref."/i", $value2)){
-					$array[]=$value2;
+				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
+					$array[]= $value2;
 					return $array;
 					
 				}
@@ -152,11 +157,11 @@ function Match_result_for_laboratory($received_array){
 	}
 	function Match_result_for_university($received_array){
 		$array = array();
-		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","UNIVERSITé","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION");
+		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA");
 		foreach ($tableau_reference_university as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
-				if (preg_match("/".$valueref."/i", $value2)){
-					$array[]=$value2;
+				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
+					$array[]= $value2;
 					return $array;
 
 				}
@@ -168,8 +173,6 @@ function Match_result_for_laboratory($received_array){
 			}				
 		}
 	}
-
-
 
 
 
