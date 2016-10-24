@@ -3,7 +3,7 @@ namespace istex\backend\controller;
 use \istex\backend\controller\RequestController as RequestApi;
 class CountryController 
 {
-	function Sort_by_country($received_array){
+	function Sort_by_country($received_array,$noaff){
 		//var_dump($received_array);
 		$tableau_country=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
@@ -55,14 +55,19 @@ class CountryController
 				
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
 			//var_dump($countrywithid);
-			return $countrywithid;
+			$response=array();
+			$array=array();
+			$array["noaff"]=$noaff[0];
+			$response[]=$array;
+			$response["documents"]=$countrywithid;
+			return $response;
 	
 	}
 
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
 	function get_name($received_array){
 		$response_array= array();
-		foreach ($received_array as $key => $value) {
+		foreach ($received_array[1] as $key => $value) {
 			$Request = new RequestApi;
 			$array=$Request->Request_name_of_country($value['country'],$value['id']);
 			$response_array[]=$array;	// mise en tableau de la reponse de nominatim

@@ -7,7 +7,7 @@ class LaboratoryController
 
 	function Sort_by_laboratory($received_array){
 		$tableau_laboratory=[]; // Initialisation tableau
-		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
+		foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
@@ -58,7 +58,13 @@ class LaboratoryController
 					
 		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
 		//var_dump($laboratorywithid);
-		return $laboratorywithid;
+		$response=array();
+		$array=array();
+		$array["noaff"]=$received_array[0];
+		$response[]=$array;
+		$response["documents"]=$laboratorywithid;
+
+		return $response;
 
 
 	}

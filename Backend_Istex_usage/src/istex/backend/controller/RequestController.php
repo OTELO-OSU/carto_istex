@@ -47,9 +47,9 @@ class RequestController
 				$err = curl_error($curl);
 				curl_close($curl);
 
-				$curl = curl_init();
+				$curl2 = curl_init();
 				$query=rawurlencode($query);
-				curl_setopt_array($curl, array(
+				curl_setopt_array($curl2, array(
 				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name',
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
@@ -58,15 +58,16 @@ class RequestController
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET"
 			));
-				$response3 = curl_exec($curl); 
+				$response3 = curl_exec($curl2); 
 				$response3 = json_decode($response3);
 				$response3 = json_decode(json_encode($response3->hits),true); 
-				$err = curl_error($curl);
-				curl_close($curl);
+				$err = curl_error($curl2);
+				curl_close($curl2);
 				
 				 	
 
-				$result = array_merge($response1, $response2, $response3); // on merge les differents tableau de reponse en un seul
+				$result = array_merge($response1, $response2,$response3); // on merge les differents tableau de reponse en un seul
+				
 			 	}	
 
 			 else{
@@ -76,6 +77,7 @@ class RequestController
 			
 			
 			$response_array= array();// initialisation d'un tableau
+			$noaffiliations= array();// initialisation d'un tableau
 			
 			
 
@@ -119,13 +121,22 @@ class RequestController
 
 					}
 					else{
-						$response_array[]=1;
+						$noaffiliations[]=1;
 					}
+
+
 
 				
 			}
+			$response=array();
+			$array=array();
+			$array["noaff"]=count($noaffiliations);
+			$response[]=$array;
+			$response[]=$response_array;
+
 			//echo count($response_array)." resultats avec affiliations<br>";
-			return $response_array;
+			
+			return $response;
 
 		}
 	}

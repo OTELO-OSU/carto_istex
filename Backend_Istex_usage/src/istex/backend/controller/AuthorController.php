@@ -6,7 +6,7 @@ class AuthorController
 	function Sort_by_author($received_array){
 		$tableau_author=[]; // Initialisation tableau
 		$authorbylabo=[];
-		foreach ($received_array as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
+		foreach ($received_array[1] as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['author']." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
@@ -54,8 +54,12 @@ class AuthorController
 					
 					
 			arsort($authorwithid);////tri de l'auteur qui a le plus de documents au plus petit nombre
-			//var_dump($authorwithid);
-			return $authorwithid;
+			$response=array();
+			$array=array();
+			$array["noaff"]=$received_array[0];
+			$response[]=$array;
+			$response["documents"]=$authorwithid;
+			return $response;
 	
 
 	}

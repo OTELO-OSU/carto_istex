@@ -15,12 +15,12 @@ $c = new \Slim\Container($configuration);
 $app = new \Slim\App($c);
 
 $app->post('/getcountrys', function (Request $req,Response $responseSlim) {
-    $request = new RequestApi();
+    	$request = new RequestApi();
 	$query  = $req->getparam('query');
-    $response = $request->Request_alldoc_querypagebypage($query);
+    	$response = $request->Request_alldoc_querypagebypage($query);
 	$country = new Country();
 	$sortcountry = $country->get_name($response);   
-	$sortcountry=$country->Sort_by_country($sortcountry);
+	$sortcountry=$country->Sort_by_country($sortcountry,$response);
 	$responseSlim->withHeader('Content-Type', 'application/json');
     return json_encode($sortcountry);
 });
@@ -28,8 +28,8 @@ $app->post('/getcountrys', function (Request $req,Response $responseSlim) {
 $app->post('/getlaboratorys', function (Request $req,Response $responseSlim) {
 	$request = new RequestApi();
 	$query  = $req->getparam('query');
-    $response = $request->Request_alldoc_querypagebypage($query);
-    $Sortbylaboratory = new Laboratory;
+    	$response = $request->Request_alldoc_querypagebypage($query);
+    	$Sortbylaboratory = new Laboratory;
 	$laboratory=$Sortbylaboratory->Sort_by_laboratory($response);
 	$responseSlim->withHeader('Content-Type', 'application/json');
     return json_encode($laboratory);
