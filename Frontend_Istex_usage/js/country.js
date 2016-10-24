@@ -24,10 +24,13 @@ $(document).ready(function(){
 			var x = 0;
 			var total=Object.keys(parsed).length;
 			var markers = [] // tableau qui contiendra les differents markers
+			var undefinedaffiliations=0;
 	    	for (var k in parsed) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
-         	if (k=="") {}
+         	if (k=="") {
+         		undefinedaffiliations++;
+         	}
          	else{
 	        var occurence=(Object.keys(parsed[k]).length)-1;
 	        if (!parsed.hasOwnProperty(k)) 
@@ -64,6 +67,8 @@ $(document).ready(function(){
 		          "pagingType": "numbers",  
 		          responsive: true
 		        } );
+		        $('.country').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
+
    			 	
    			 }
 
