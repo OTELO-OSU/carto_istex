@@ -17,7 +17,8 @@ $(document).ready(function(){
         }, // requete ajax sur le backend
         function(data){
             var parsed = JSON.parse(data); // transformation en JSON
-            data2=parsed;
+             data2=parsed['documents'];
+            undefinedaff=parsed['0']['noaff']['noaff'];
             parse_authors(data2);
           
         });
@@ -60,7 +61,7 @@ $(document).ready(function(){
           }
 
        }
-      $('.authors').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
+      $('.authors').append('<h5>Results without affiliations: '+undefinedaff+'</h5>');
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
 

@@ -8,6 +8,7 @@ $(document).ready(function(){
 }
 
     var data2;
+    var undefinedaff;
     $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
           $('.avert').remove();
           $('.laboratory h5').remove();
@@ -19,7 +20,8 @@ $(document).ready(function(){
           },// requete ajax sur le backend
           function(data){
             var parsed = JSON.parse(data); // transformation en JSON
-            data2=parsed;
+            data2=parsed['documents'];
+            undefinedaff=parsed['0']['noaff']['noaff'];
             parse_laboratorys(data2);
           });
 
@@ -29,7 +31,6 @@ $(document).ready(function(){
             data3.push(['ID','Y','X','Laboratory','Number of publications']);
             var r = []
             var x = 0;
-            var undefinedaffiliations;
             for (var k in parsed) { // on parcourt le JSON
               if (x<5) {
                 if (k==" , ") {}
@@ -50,9 +51,7 @@ $(document).ready(function(){
                 var res = k.split(",");
                 data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
-              if (k==" , ") {
-                undefinedaffiliations=(parsed[k].length);
-              }
+              if (k==" , ") {}
                 else{
                 var occurence=(parsed[k].length);
                 if (!parsed.hasOwnProperty(k)) 
@@ -61,7 +60,7 @@ $(document).ready(function(){
                 $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
               }
            }
-          $('.laboratory').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
+          $('.laboratory').append('<h5>Results without affiliations: '+undefinedaff+'</h5>');
           google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
           google.charts.setOnLoadCallback(drawSeriesChart);
             var table = $('#laboratorys').DataTable( {

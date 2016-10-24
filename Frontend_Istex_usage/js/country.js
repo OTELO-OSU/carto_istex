@@ -20,28 +20,28 @@ $(document).ready(function(){
           query: query
         }, // requete ajax sur le backend
         function(data){
-        	//console.log(data)
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
-			var total=Object.keys(parsed).length;
+			undefinedaff=parsed['0']['noaff']['noaff'];
+			var total=Object.keys(parsed['documents']).length;
 			var markers = [] // tableau qui contiendra les differents markers
 			var undefinedaffiliations;
-	    	for (var k in parsed) { // on parcourt le JSON
+	    	for (var k in parsed['documents']) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
          	if (k=="") {
-         		undefinedaffiliations=(Object.keys(parsed[k]).length)-1;
+         		undefinedaffiliations=(Object.keys(parsed['documents'][k]).length)-1;
          	}
          	else{
-	        var occurence=(Object.keys(parsed[k]).length)-1;
-	        if (!parsed.hasOwnProperty(k)) 
+	        var occurence=(Object.keys(parsed['documents'][k]).length)-1;
+	        if (!parsed['documents'].hasOwnProperty(k)) 
 	            continue
 			radius=occurence*30000;
 			if (occurence==1) {
 				radius=75000;
 			}
 			color = '#'+Math.floor(Math.random()*16777215).toString(16);
-			var circle = L.circle([parsed[k]["gps"]["lat"], parsed[k]["gps"]["lon"]], {
+			var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
 			color: color,
 			fillColor: color ,
 			fillOpacity: 0.5,
@@ -68,6 +68,7 @@ $(document).ready(function(){
 		          "pagingType": "numbers",  
 		          responsive: true
 		        } );
+		        undefinedaffiliations = undefinedaffiliations+undefinedaff;
 		        $('.country').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
 
    			 	
