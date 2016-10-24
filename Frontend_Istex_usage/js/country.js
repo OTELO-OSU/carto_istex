@@ -79,17 +79,12 @@ $(document).ready(function(){
       		group.addTo(mymap); // on l'ajoute a la map
 	        bounds = group.getBounds();	// on obtient le bounds pour placer la vue
 			
-	        $('.command_map a').remove();
-	        leafletImage(mymap, function(err, canvas) {
-		   		var a = document.createElement('a');
-		    	a.href = canvas.toDataURL();
-		    	a.download = "download=country_map_"+strReplaceAll(query," ","_")+".png"
-		    	$('.command_map').append(a); // Append child pas bon
-		    	console.log("test")
-			})
-	
-	        //Telechargement a verifier car banni nominatim et verif affichage tout pays dans le tableau
-          	//$('.command_map').append('<a onclick="screenshot()" download=country_map_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
+	       	$('#actions_leaflet #download').remove();
+	        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
+			$('.print').on('click', function() {
+			$.print("#map");
+		});
+
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
    			
