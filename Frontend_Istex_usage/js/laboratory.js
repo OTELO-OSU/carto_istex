@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  function strReplaceAll(string, Find, Replace) {
+  function strReplaceAll(string, Find, Replace) { // fonction de remplacement des espace en underscore
     try {
         return string.replace( new RegExp(Find, "gi"), Replace );       
     } catch(ex) {
@@ -32,7 +32,7 @@ $(document).ready(function(){
             var r = []
             var x = 0;
             for (var k in parsed) { // on parcourt le JSON
-              if (x<5) {
+              if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
                 if (k==" , ") {}
                 else{
                     x++;
@@ -43,7 +43,7 @@ $(document).ready(function(){
                       data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
                     }
                 }
-              else if (x<20) {
+              else if (x<20) { // les 20 premiers affichers dans le bubble chart
                 x++;
                 var occurence=(parsed[k].length);
                 if (!parsed.hasOwnProperty(k)) 

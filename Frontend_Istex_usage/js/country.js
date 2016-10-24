@@ -1,12 +1,5 @@
 $(document).ready(function(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap); // declaration des tiles a utiliser sur leaflet (osm)
- function strReplaceAll(string, Find, Replace) {
-    try {
-        return string.replace( new RegExp(Find, "gi"), Replace );       
-    } catch(ex) {
-        return string;
-    }
-}
 
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
     	if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
