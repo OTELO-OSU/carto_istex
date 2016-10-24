@@ -10,6 +10,7 @@ $(document).ready(function(){
     var data2;
     $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
           $('.avert').remove();
+          $('.laboratory h5').remove();
           $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
           var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
           $.post("http://localhost/Backend_Istex_usage/src/index.php/getlaboratorys",
@@ -28,6 +29,7 @@ $(document).ready(function(){
             data3.push(['ID','Y','X','Laboratory','Number of publications']);
             var r = []
             var x = 0;
+            var undefinedaffiliations;
             for (var k in parsed) { // on parcourt le JSON
               if (x<5) {
                 if (k==" , ") {}
@@ -48,7 +50,9 @@ $(document).ready(function(){
                 var res = k.split(",");
                 data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
-              if (k==" , ") {}
+              if (k==" , ") {
+                undefinedaffiliations=(parsed[k].length);
+              }
                 else{
                 var occurence=(parsed[k].length);
                 if (!parsed.hasOwnProperty(k)) 
@@ -57,7 +61,7 @@ $(document).ready(function(){
                 $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
               }
            }
-
+          $('.laboratory').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
           google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
           google.charts.setOnLoadCallback(drawSeriesChart);
             var table = $('#laboratorys').DataTable( {

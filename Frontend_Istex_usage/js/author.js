@@ -28,13 +28,16 @@ $(document).ready(function(){
             var x = 0;
         for (var k in parsed) { // on parcourt le JSON
            if (x<5) {
-             x++;
-          var occurence=(parsed[k].length);
-          if (!parsed.hasOwnProperty(k)) 
-                continue
-            var res = k.split(",");
-            data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
-          }
+             if (k==" , ") {}
+                else{
+                 x++;
+              var occurence=(parsed[k].length);
+              if (!parsed.hasOwnProperty(k)) 
+                    continue
+                var res = k.split(",");
+                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
+              }
+            }
           else if (x<20) {
           x++;
           var occurence=(parsed[k].length);
@@ -43,13 +46,20 @@ $(document).ready(function(){
             var res = k.split(",");
           data3.push(["",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
           }
+          if (k==" , ") {
+                undefinedaffiliations=(parsed[k].length);
+              }
+          else{
            var occurence=(parsed[k].length);
           if (!parsed.hasOwnProperty(k)) 
               continue
             var res = k.split(",");
           $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
+            
+          }
 
        }
+      $('.authors').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
 

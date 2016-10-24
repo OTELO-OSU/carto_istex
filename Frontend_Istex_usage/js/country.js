@@ -13,6 +13,7 @@ $(document).ready(function(){
     		mymap.removeLayer(group);
     	}
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
+    	 $('.country h5').remove();
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
         {
@@ -24,12 +25,12 @@ $(document).ready(function(){
 			var x = 0;
 			var total=Object.keys(parsed).length;
 			var markers = [] // tableau qui contiendra les differents markers
-			var undefinedaffiliations=0;
+			var undefinedaffiliations;
 	    	for (var k in parsed) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
          	if (k=="") {
-         		undefinedaffiliations++;
+         		undefinedaffiliations=(Object.keys(parsed[k]).length)-1;
          	}
          	else{
 	        var occurence=(Object.keys(parsed[k]).length)-1;
