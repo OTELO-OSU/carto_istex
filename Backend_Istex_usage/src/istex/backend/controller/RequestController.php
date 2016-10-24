@@ -130,11 +130,10 @@ class RequestController
 			}
 			$response=array();
 			$array=array();
-			$array["noaff"]=count($noaffiliations);
+			$array["noaff"]=count($noaffiliations); // nombre de documents sans affiliations
 			$response[]=$array;
 			$response[]=$response_array;
 
-			//echo count($response_array)." resultats avec affiliations<br>";
 			
 			return $response;
 
@@ -144,13 +143,13 @@ class RequestController
 
 
 
-function stripAccents($string){
+function stripAccents($string){ // Fonction de remplacement des accents
 	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 }
 
 
-function Match_result_for_laboratory($received_array){
+function Match_result_for_laboratory($received_array){ // fonction de comparaison des laboratoires
 		$array = array();
 		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO");
 		foreach ($tableau_reference_laboratory as $key => $valueref) {
@@ -161,7 +160,6 @@ function Match_result_for_laboratory($received_array){
 					
 				}
 				else{
-					//echo $value[('laboratory')]."<br>";
 
 				}
 			
@@ -169,7 +167,7 @@ function Match_result_for_laboratory($received_array){
 				
 		}
 	}
-	function Match_result_for_university($received_array){
+	function Match_result_for_university($received_array){  // fonction de comparaison des institutions
 		$array = array();
 		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV",);
 		foreach ($tableau_reference_university as $key => $valueref) {
@@ -180,7 +178,6 @@ function Match_result_for_laboratory($received_array){
 
 				}
 				else{
-					//echo $value[('laboratory')]."<br>";
 
 				}
 			
