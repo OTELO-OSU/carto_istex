@@ -23,7 +23,6 @@ $(document).ready(function(){
 	    		if (x<20) {
          			x++;
          	if (k=="") {
-         		//undefinedaffiliations=(Object.keys(parsed['documents'][k]).length)-1;
          	}
          	else{
 	        var occurence=(Object.keys(parsed['documents'][k]).length)-1;
@@ -60,7 +59,6 @@ $(document).ready(function(){
 		          "pagingType": "numbers",  
 		          responsive: true
 		        } );
-		        //undefinedaffiliations = undefinedaffiliations+undefinedaff;
 		        $('.country').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
 
    			 	
