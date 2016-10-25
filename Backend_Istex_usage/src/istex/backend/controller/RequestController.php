@@ -31,7 +31,6 @@ class RequestController
 			 	$response1 = json_decode(json_encode($responseencoded->hits),true); // Passage du format JSON en tableau php
 
 				$curl = curl_init();// initialisation de curl
-				$query=rawurlencode($query);//encodage des caracteres d'espacers pour les passer dans l'url
 				curl_setopt_array($curl, array(
 				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name',
 				  CURLOPT_RETURNTRANSFER => true,
@@ -48,7 +47,6 @@ class RequestController
 				curl_close($curl);
 
 				$curl2 = curl_init();
-				$query=rawurlencode($query);
 				curl_setopt_array($curl2, array(
 				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name',
 				  CURLOPT_RETURNTRANSFER => true,
