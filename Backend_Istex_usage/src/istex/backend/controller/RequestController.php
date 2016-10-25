@@ -116,8 +116,12 @@ class RequestController
 						$array['author']=$author;
 						//var_dump($parse);
 						
-						$response_array[]=$array; // on stocke le tableau dans un autre tableau
-						
+						if ($laboratory[0]==NULL) {
+						//	$noaffiliations[]=1;
+						}
+						else{
+							$response_array[]=$array; // on stocke le tableau dans un autre tableau
+						}
 
 					}
 					else{
