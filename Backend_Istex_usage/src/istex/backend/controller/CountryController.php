@@ -4,15 +4,18 @@ use \istex\backend\controller\RequestController as RequestApi;
 class CountryController 
 {
 	function Sort_by_country($received_array,$noaff){
-		//var_dump($received_array);
 		$tableau_country=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
-			//if ($value["country"]!==NULL) {
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
-			$master_tab[]=$tab; // on stocke le tableau dans un autre	
-			//}
+			if ($value['country']==NULL) {
+				$noaff[0]['noaff']++;
+			}
+			else{
+				$master_tab[]=$tab;// on stocke le tableau dans un autre
+				}
+
 		}
 		
 
@@ -54,7 +57,6 @@ class CountryController
 
 				
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
-			//var_dump($countrywithid);
 			$response=array();
 			$array=array();
 			$array["noaff"]=$noaff[0];

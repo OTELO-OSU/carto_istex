@@ -12,7 +12,13 @@ class LaboratoryController
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$tab[]=$value['author'];
-			$master_tab[]=$tab;// on stocke le tableau dans un autre
+			if ($value['laboratory']==NULL) {
+				$received_array[0]['noaff']++;
+			}
+			else{
+				$master_tab[]=$tab;// on stocke le tableau dans un autre
+				}
+
 		}
 		
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
@@ -57,7 +63,6 @@ class LaboratoryController
 				
 					
 		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
-		//var_dump($laboratorywithid);
 		$response=array();
 		$array=array();
 		$array["noaff"]=$received_array[0];
