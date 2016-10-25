@@ -23,12 +23,11 @@ $(document).ready(function(){
 	    		if (x<20) {
          			x++;
          	if (k=="") {
-         		undefinedaffiliations=(Object.keys(parsed['documents'][k]).length)-1;
+         		//undefinedaffiliations=(Object.keys(parsed['documents'][k]).length)-1;
          	}
          	else{
 	        var occurence=(Object.keys(parsed['documents'][k]).length)-1;
-	        if (!parsed['documents'].hasOwnProperty(k)) 
-	            continue
+	        if (parsed['documents'].hasOwnProperty(k)) 
 			radius=occurence*30000;
 			if (occurence==1) {
 				radius=75000;
@@ -61,8 +60,8 @@ $(document).ready(function(){
 		          "pagingType": "numbers",  
 		          responsive: true
 		        } );
-		        undefinedaffiliations = undefinedaffiliations+undefinedaff;
-		        $('.country').append('<h5>Results without affiliations: '+undefinedaffiliations+'</h5>');
+		        //undefinedaffiliations = undefinedaffiliations+undefinedaff;
+		        $('.country').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
 
    			 	
    			 }

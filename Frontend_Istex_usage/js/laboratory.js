@@ -37,8 +37,7 @@ $(document).ready(function(){
                 else{
                     x++;
                     var occurence=(parsed[k].length);
-                    if (!parsed.hasOwnProperty(k)) 
-                          continue
+                    if (parsed.hasOwnProperty(k)) 
                       var res = k.split(",");
                       data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
                     }
@@ -46,21 +45,20 @@ $(document).ready(function(){
               else if (x<20) { // les 20 premiers affichers dans le bubble chart
                 x++;
                 var occurence=(parsed[k].length);
-                if (!parsed.hasOwnProperty(k)) 
-                    continue
+                if (parsed.hasOwnProperty(k))   
                 var res = k.split(",");
                 data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
               }
               if (k==" , ") {}
                 else{
                 var occurence=(parsed[k].length);
-                if (!parsed.hasOwnProperty(k)) 
-                    continue
+                if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
                 $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
               }
            }
-          $('.laboratory').append('<h5>Results without affiliations: '+undefinedaff+'</h5>');
+          $('.laboratory h5').remove();
+          $('.laboratory').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
           google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
           google.charts.setOnLoadCallback(drawSeriesChart);
             var table = $('#laboratorys').DataTable( {
