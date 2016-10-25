@@ -73,7 +73,7 @@ $(document).ready(function(){
 			
 	       	$('#actions_leaflet #download').remove();
 	        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
-			$('.print').on('click', function() {
+			$('.print').on('click', function() {//print de la map
 			$.print("#map");
 		});
 
