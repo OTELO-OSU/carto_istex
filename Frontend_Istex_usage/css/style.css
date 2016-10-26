@@ -47,3 +47,14 @@
 	border: none !important;
 	box-shadow: none !important;
 }
+.paging_numbers {
+	margin-right: 320px !important;
+}
+
+.ui.pagination.menu .item{
+	min-width: 1em !important;
+}
+
+.row{
+	box-sizing: content-box;
+}

@@ -69,6 +69,7 @@ $(document).ready(function(){
               responsive: true
             } );// pagination du tableau precedemment crée
 
+
         function drawSeriesChart() { // fonction qui va créé les bubbles
           var data = google.visualization.arrayToDataTable(data3);
           var options = {
