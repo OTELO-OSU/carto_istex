@@ -58,3 +58,8 @@
 .row{
 	box-sizing: content-box;
 }
+
+  #map { height: 450px; }
+  #content{
+    height: 550px;
+  }

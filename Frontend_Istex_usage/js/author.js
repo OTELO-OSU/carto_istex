@@ -94,6 +94,36 @@ $(document).ready(function(){
    
   } 
 
+
+  function reload_bubble_author(parsed){
+        data3 = [];
+        data3.push(['ID','Y','X','Author','Number of publications']);
+        var r = []
+        var x = 0;
+        for (var k in parsed) { // on parcourt le JSON
+           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
+             if (k==" , ") {}
+                else{
+                  x++;
+                  var occurence=(parsed[k].length);
+              if (parsed.hasOwnProperty(k)) 
+                var res = k.split(",");
+                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
+              }
+            }
+          else if (x<20) { // les 20 premiers affichers dans le bubble chart
+             x++;
+            var occurence=(parsed[k].length);
+          if (parsed.hasOwnProperty(k)) 
+            var res = k.split(",");
+            data3.push(["",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
+          }
+        }
+        google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
+      google.charts.setOnLoadCallback(drawSeriesChart);
+
+      }
+
     $(".istex-search-bar-wrapper :submit").click(function(){
         $('.avert').remove();
         $('.authors h5').remove();
@@ -105,15 +135,15 @@ $(document).ready(function(){
         }, // requete ajax sur le backend
         function(data){
             var parsed = JSON.parse(data); // transformation en JSON
-             data2=parsed['documents'];
+             parseauthor=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
-            parse_authors(data2);
+            parse_authors(parseauthor);
           
         });
 
           
     $(".reloadauthor").click(function(){
-      parse_authors(data2); // on recreer le bubble chart
+      reload_bubble_author(parseauthor); // on recreer le bubble chart
        });
     });
 });
