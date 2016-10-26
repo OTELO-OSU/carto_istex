@@ -6,7 +6,7 @@ $(document).ready(function(){
     		mymap.removeLayer(group);
     	}
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
-    	 $('.country h5').remove();
+    	$('.country h5').remove();
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
         {
@@ -24,31 +24,31 @@ $(document).ready(function(){
          			x++;
          	if (k=="") {
          	}
-         	else{
-	        var occurence=(Object.keys(parsed['documents'][k]).length)-1;
-	        if (parsed['documents'].hasOwnProperty(k)) 
-			radius=occurence*30000;
-			if (occurence==1) {
-				radius=75000;
-			}
-			color = '#'+Math.floor(Math.random()*16777215).toString(16);
-			var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
-			color: color,
-			fillColor: color ,
-			fillOpacity: 0.5,
-			radius: radius
-			}); // creation d'un marker
-			circle.bindPopup("Country: "+k+"<br>Number of publications: "+occurence);
-			circle.on('mouseover', function (e) {
-            	this.openPopup();
-	        });
-	        circle.on('mouseout', function (e) {
-	            this.closePopup();
-	        });
-			circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
-			markers.push(circle);// push du marker dans le tableau
-   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
-      		}
+	         	else{
+			        	var occurence=(Object.keys(parsed['documents'][k]).length)-1;
+			        if (parsed['documents'].hasOwnProperty(k)) 
+						radius=occurence*30000;
+					if (occurence==1) {
+						radius=75000;
+					}
+					color = '#'+Math.floor(Math.random()*16777215).toString(16);
+					var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
+						color: color,
+						fillColor: color ,
+						fillOpacity: 0.5,
+						radius: radius
+					}); // creation d'un marker
+					circle.bindPopup("Country: "+k+"<br>Number of publications: "+occurence);
+					circle.on('mouseover', function (e) {
+		            	this.openPopup();
+			        });
+			        circle.on('mouseout', function (e) {
+			            this.closePopup();
+			        });
+					circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
+					markers.push(circle);// push du marker dans le tableau
+		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
+	      		}
 
    		  	}
    			 if (x==total) {
@@ -72,8 +72,8 @@ $(document).ready(function(){
 	       	$('#actions_leaflet #download').remove();
 	        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
 			$('.print').on('click', function() {//print de la map
-			$.print("#map");
-		});
+				$.print("#map");
+			});
 
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
