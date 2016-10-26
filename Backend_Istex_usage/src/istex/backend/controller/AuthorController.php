@@ -11,7 +11,12 @@ class AuthorController
 			$tab[]=$value['author']." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$tab[]=$value['laboratory'];
-			$master_tab[]=$tab;// on stocke le tableau dans un autre
+			if ($value['laboratory']==NULL)  {
+				$received_array[0]['noaff']++;
+			}
+			else{
+				$master_tab[]=$tab;// on stocke le tableau dans un autre
+			}
 		}
 		
 		foreach ($master_tab as $key2 => $value2) {// on parcourt le tableau precedemment créé

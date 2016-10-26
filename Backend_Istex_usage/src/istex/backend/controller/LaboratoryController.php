@@ -12,8 +12,8 @@ class LaboratoryController
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			$tab[]=$value['author'];
-			if ($value['laboratory']==NULL) {
-				$received_array[0]['noaff']++;
+			if (($value['laboratory']==NULL && $value['university']==NULL) OR ($value['laboratory']==NULL) OR ($value['university']==NULL) ) {
+					$received_array[0]['noaff']++;
 			}
 			else{
 				$master_tab[]=$tab;// on stocke le tableau dans un autre
