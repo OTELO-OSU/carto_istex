@@ -50,6 +50,7 @@ $(document).ready(function(){
         data3.push(['ID','Y','X','Author','Number of publications']);
         var r = []
         var x = 0;
+        var documentswithaffiliations=0;
         for (var k in parsed) { // on parcourt le JSON
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
              if (k==" , ") {}
@@ -76,10 +77,14 @@ $(document).ready(function(){
                $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
             
           }
-
+            documentswithaffiliations=documentswithaffiliations+occurence;
        }
       $('.authors h5').remove();
-      $('.authors').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
+      var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
+      total = total*100;          
+      total= Math.round(total); 
+      total= total/100;  
+      $('.authors').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChart);
 

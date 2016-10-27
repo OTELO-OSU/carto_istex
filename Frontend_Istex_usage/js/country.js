@@ -17,8 +17,8 @@ $(document).ready(function(){
 			var x = 0;
 			undefinedaff=parsed['0']['noaff']['noaff'];
 			var total=Object.keys(parsed['documents']).length;
+			var documentswithaffiliations=0;
 			var markers = [] // tableau qui contiendra les differents markers
-			var undefinedaffiliations;
 	    	for (var k in parsed['documents']) { // on parcourt le JSON
 	    		if (x<20) {
          			x++;
@@ -26,6 +26,7 @@ $(document).ready(function(){
          	}
 	         	else{
 			        	var occurence=(Object.keys(parsed['documents'][k]).length)-1;
+			        	documentswithaffiliations=documentswithaffiliations+occurence;
 			        if (parsed['documents'].hasOwnProperty(k)) 
 						radius=occurence*30000;
 					if (occurence==1) {
@@ -59,7 +60,12 @@ $(document).ready(function(){
 		          "pagingType": "numbers",  
 		          responsive: true
 		        } );
-		        $('.country').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
+
+     			var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
+			    total = total*100;          
+			    total= Math.round(total); 
+			    total= total/100;  
+		        $('.country').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
 
    			 	
    			 }

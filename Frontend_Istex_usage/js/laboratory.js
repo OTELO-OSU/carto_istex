@@ -49,6 +49,7 @@ $(document).ready(function(){
         data3.push(['ID','Y','X','Laboratory','Number of publications']);
         var r = []
         var x = 0;
+        var documentswithaffiliations=0;
         for (var k in parsed) { // on parcourt le JSON
           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
             if (k==" , ") {}
@@ -74,9 +75,15 @@ $(document).ready(function(){
               var res = k.split(",");
             $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
           }
+          documentswithaffiliations=documentswithaffiliations+occurence;
        }
       $('.laboratory h5').remove();
-      $('.laboratory').append('<h5>Results with bad affiliations: '+undefinedaff+'</h5>');
+      console.log(undefinedaff+documentswithaffiliations)
+      var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
+      total = total*100;          
+      total= Math.round(total); 
+      total= total/100;  
+      $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChart);
         var table = $('#laboratorys').DataTable( {
