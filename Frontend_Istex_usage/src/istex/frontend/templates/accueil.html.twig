@@ -98,6 +98,10 @@
 
 <script type="text/javascript" src="../../Frontend_Istex_usage/js/googlechart.js"></script>
    <script>
+   $(document).ready(function(){
+
+     $('.istex-advanced-wrapper').remove(); // remove option avancé widget istex
+   });
      var mymap = L.map('map').setView([51.505, -0.09], 4); //declaration de la map leaflet
 
             (function($) {
