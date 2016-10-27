@@ -66,3 +66,9 @@
 
 
   @page { size: landscape; }
+  @media print{
+  	#map{
+  		top: 15%;
+  	}
+
+  }
