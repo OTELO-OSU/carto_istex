@@ -46,8 +46,10 @@ $(document).ready(function(){
 			        circle.on('mouseout', function (e) {
 			            this.closePopup();
 			        });
+
 					circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
 					markers.push(circle);// push du marker dans le tableau
+
 		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
 	      		}
 
@@ -74,7 +76,8 @@ $(document).ready(function(){
       		group = L.featureGroup(markers); // on met le groupe de markers dans une layer
       		group.addTo(mymap); // on l'ajoute a la map
 	        bounds = group.getBounds();	// on obtient le bounds pour placer la vue
-			
+			mymap.invalidateSize();  //Resize de la map hidden div
+			mymap.fitBounds(bounds); // zoom sur la partie qui des poi qui nous interessent
 	       	$('#actions_leaflet #download').remove();
 	        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
 			$('.print').on('click', function() {//print de la map
