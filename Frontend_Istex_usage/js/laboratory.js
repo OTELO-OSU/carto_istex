@@ -78,7 +78,6 @@ $(document).ready(function(){
           documentswithaffiliations=documentswithaffiliations+occurence;
        }
       $('.laboratory h5').remove();
-      console.log(undefinedaff+documentswithaffiliations)
       var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
       total = total*100;          
       total= Math.round(total); 
