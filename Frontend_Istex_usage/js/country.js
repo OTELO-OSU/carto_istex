@@ -2,11 +2,9 @@ $(document).ready(function(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap); // declaration des tiles a utiliser sur leaflet (osm)
 
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
-    	if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
-    		mymap.removeLayer(group);
-    	}
+    	
+    
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
-    	$('.country h5').remove();
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
         {
@@ -67,8 +65,11 @@ $(document).ready(function(){
 			    total = total*100;          
 			    total= Math.round(total); 
 			    total= total/100;  
+			    $('.country h5').remove();
 		        $('.country').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
-
+		        if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
+    		mymap.removeLayer(group);
+    	}
    			 	
    			 }
 

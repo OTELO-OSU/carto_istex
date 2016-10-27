@@ -63,3 +63,6 @@
   #content{
     height: 550px;
   }
+
+
+  @page { size: landscape; }
