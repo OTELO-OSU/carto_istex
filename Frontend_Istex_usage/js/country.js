@@ -6,7 +6,7 @@ $(document).ready(function(){
     
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-        $.post("http://localhost/Backend_Istex_usage/src/index.php/getcountrys",
+        $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query
         }, // requete ajax sur le backend

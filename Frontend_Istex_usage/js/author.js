@@ -134,7 +134,7 @@ $(document).ready(function(){
         $('.authors h5').remove();
         $('#authors tbody').remove();// remise a zero en cas de recherche simultané
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-        $.post("http://localhost/Backend_Istex_usage/src/index.php/getauthors",
+        $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
         {
           query: query
         }, // requete ajax sur le backend

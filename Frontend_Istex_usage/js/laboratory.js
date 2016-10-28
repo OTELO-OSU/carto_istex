@@ -130,7 +130,7 @@ function reload_bubble_labo(parsed){
           $('.laboratory h5').remove();
           $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
           var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-          $.post("http://localhost/Backend_Istex_usage/src/index.php/getlaboratorys",
+          $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend
