@@ -19,13 +19,13 @@ $(document).ready(function(){
       hAxis: {display:false,
         viewWindowMode:'explicit',
         viewWindow
-       :{max:220},
+       :{max:420},
        baselineColor: '#fff',
         gridlineColor: '#fff',
         textPosition: 'none'},
       vAxis: {display:false ,viewWindowMode:'explicit',
         viewWindow
-       :{max:120},
+       :{max:320},
        baselineColor: '#fff',
    gridlineColor: '#fff',
    textPosition: 'none'},
@@ -58,7 +58,7 @@ $(document).ready(function(){
                 var occurence=(parsed[k].length);
                 if (parsed.hasOwnProperty(k)) 
                   var res = k.split(",");
-                  data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0]+", "+res[1],occurence]); // on push les données dans un array
+                  data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0]+", "+res[1],occurence]); // on push les données dans un array
                 }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
@@ -66,7 +66,7 @@ $(document).ready(function(){
             var occurence=(parsed[k].length);
             if (parsed.hasOwnProperty(k))   
             var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0]+", "+res[1],occurence]); // on push les données dans un array
+            data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0]+", "+res[1],occurence]); // on push les données dans un array
           }
           if (k==" , ") {}
             else{
@@ -109,7 +109,7 @@ function reload_bubble_labo(parsed){
                   var occurence=(parsed[k].length);
               if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); // on push les données dans un array
+                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
               }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
@@ -117,7 +117,7 @@ function reload_bubble_labo(parsed){
             var occurence=(parsed[k].length);
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
+            data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
