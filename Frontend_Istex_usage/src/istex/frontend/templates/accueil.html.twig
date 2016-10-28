@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Cartographie ISTEX usage</title>
+	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/style.css">
+  <script src="../../Frontend_Istex_usage/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="../../Frontend_Istex_usage/css/navbar.css">
+  <link rel="stylesheet" href="../../Frontend_Istex_usage/leaflet/leaflet.css" />
+  <script src="../../Frontend_Istex_usage/leaflet/leaflet.js"></script>
+  <script src="../../Frontend_Istex_usage/js/print.js"></script>
+  <script src="../../Frontend_Istex_usage/js/modal.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://istex.github.io/styleAngular/style.min.css">
+
+</head>
+<body>
+     <nav id="example">
+            <div class="navbar ui inverted teal borderless menu">
+                <div class="navbar-sandwich ui dropdown item">
+                    <i class="navbar-sandwich-icon content big icon"></i>
+                    <div class="navbar-sandwich-content menu"></div><!--Keep empty-->
+                </div>
+                <a class="navbar-brand" href="#">
+                    <img src="../../Frontend_Istex_usage/img/UL_logo.png" width="180" height="40" alt="Université de lorraine"/>
+                    <img src="../../Frontend_Istex_usage/img/OTELO.png" width="234" height="24" alt="Otelo"/>
+                    <img src="../../Frontend_Istex_usage/img/cnrs.png" width="80" height="30" alt="CNRS"/>
+
+                    <span><strong>Cartographie ISTEX</strong></span>
+                </a>
+                <div class="navbar-menu right menu">
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
+                    <div class="navbar-collapsable-item ui dropdown item">
+                        <strong>DROPDOWN</strong>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                            <a class="item" href="#"><strong>ITEM</strong></a>
+                        </div>
+                    </div>
+                    <!-- This link will not collapse -->
+                    <a class="item" href="#"><strong>FIXED ITEM</strong></a>
+                </div>
+            </div>
+        </nav>
+
+    {% include 'modal_bubble_authors.html.twig' %} <!--  Differentes inclusion de templates twig -->
+   	{% include 'modal_laboratorys.html.twig' %}
+    {% include 'modal_leaflet.html.twig' %}
+
+
+<div class="ui grid container">
+	<div class="ten wide centered column">
+   		{% include 'widget_istex.html.twig' %}
+
+   	</div>
+</div>
+<div class="ui grid container">
+
+   <div class="istex_result">
+			<istex-results></istex-results>
+	</div>
+</div>
+
+
+<div class="ui stackable three column grid">
+   	<div class="column">
+   		{% include 'country_list.html.twig' %}
+   	</div>
+   	<div class="column">
+   		{% include 'laboratorys_list.html.twig' %}
+   	</div>
+   	<div class="column">
+   		{% include 'authors_list.html.twig' %}
+   	</div>
+</div>
+
+
+
+
+
+<script src="../../Frontend_Istex_usage/js/jquery.dataTables.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/dataTables.semanticui.min.js"></script>
+
+<script src="../../Frontend_Istex_usage/js/widget_istex/angular.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/widget_istex/rzslider.js"></script>
+<script src="../../Frontend_Istex_usage/js/widget_istex/app.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/navbar.js"></script>
+<script src="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.js"></script>
+<script src="../../Frontend_Istex_usage/js/country.js"></script>
+<script src="../../Frontend_Istex_usage/js/laboratory.js"></script>
+<script src="../../Frontend_Istex_usage/js/author.js"></script>
+<script src="../../Frontend_Istex_usage/js/modernizr.js"></script>
+
+<script type="text/javascript" src="../../Frontend_Istex_usage/js/googlechart.js"></script>
+   <script>
+   $(document).ready(function(){
+
+     $('.istex-advanced-wrapper').remove(); // remove option avancé widget istex
+   });
+     var mymap = L.map('map').setView([51.505, -0.09], 4); //declaration de la map leaflet
+
+            (function($) {
+                // Init the Semantic-UI Dropdown
+                $('.dropdown').dropdown();
+                // Init the navbar
+                $('#example').navBar();
+            }(jQuery));
+
+
+
+     
+    </script>
