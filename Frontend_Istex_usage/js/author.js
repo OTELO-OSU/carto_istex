@@ -121,7 +121,7 @@ $(document).ready(function(){
             var occurence=(parsed[k].length);
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
-            data3.push(["",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
+            data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
