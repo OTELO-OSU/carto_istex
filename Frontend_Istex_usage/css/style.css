@@ -59,13 +59,19 @@
 	box-sizing: content-box;
 }
 
-  #map { height: 450px; }
+  #map {
+   height: 450px;
+    }
   #content{
     height: 550px;
   }
 
+  @page {
+   size: landscape;
+   margin: 9mm 0mm 0mm 16.5mm;  
+    }
 
-  @page { size: landscape; }
+    
   @media print{
   	#map{
   		top: 15%;
