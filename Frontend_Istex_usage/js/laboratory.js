@@ -98,7 +98,7 @@ $(document).ready(function(){
 };
 function reload_bubble_labo(parsed){
         data3 = [];
-        data3.push(['ID','Y','X','Author','Number of publications']);
+        data3.push(['ID','Y','X','Laboratory','Number of publications']);
         var r = []
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
@@ -117,7 +117,7 @@ function reload_bubble_labo(parsed){
             var occurence=(parsed[k].length);
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
-            data3.push(["",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
+            data3.push([" ",Math.floor((Math.random() * 180) + 10),Math.floor((Math.random() * 90) + 10),res[0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
