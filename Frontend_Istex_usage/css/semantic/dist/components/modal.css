@@ -187,13 +187,13 @@
 
 
 /* Modal Width */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 1031px) {
+@media only screen and (min-width: 1120px) {
   .ui.modal {
     width: 88%;
     margin: 0em 0em 0em -44%;
@@ -231,7 +231,7 @@
 }
 
 /* Mobile */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.modal > .header {
     padding: 0.75rem 1rem !important;
     padding-right: 2.25rem !important;
@@ -423,13 +423,13 @@
 }
 
 /* Small Modal Width */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.small.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 1031px) {
+@media only screen and (min-width: 1120px) {
   .ui.small.modal {
     width: 70.4%;
     margin: 0em 0em 0em -35.2%;
@@ -458,13 +458,13 @@
 .ui.large.modal > .header {
   font-size: 1.6em;
 }
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.large.modal {
     width: 95%;
     margin: 0em 0em 0em -47.5%;
   }
 }
-@media only screen and (min-width: 1031px) {
+@media only screen and (min-width: 1120px) {
   .ui.large.modal {
     width: 88%;
     margin: 0em 0em 0em -44%;

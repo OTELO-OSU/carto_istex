@@ -140,7 +140,7 @@
 }
 
 /* Responsive */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.table:not(.unstackable) {
     width: 100%;
   }

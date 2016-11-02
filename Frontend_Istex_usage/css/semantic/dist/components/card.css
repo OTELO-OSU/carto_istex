@@ -754,7 +754,7 @@ a.ui.card:hover,
 
 
 /* Mobile Only */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.two.doubling.cards {
     margin-left: 0em;
     margin-right: 0em;
@@ -839,7 +839,7 @@ a.ui.card:hover,
 }
 
 /* Tablet Only */
-@media only screen and (min-width: 1031px) and (max-width: 1279px) {
+@media only screen and (min-width: 1120px) and (max-width: 1279px) {
   .ui.two.doubling.cards {
     margin-left: 0em;
     margin-right: 0em;
@@ -927,7 +927,7 @@ a.ui.card:hover,
       Stackable
 --------------------*/
 
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.stackable.cards {
     display: block !important;
   }

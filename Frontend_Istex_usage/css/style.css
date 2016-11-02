@@ -48,7 +48,7 @@
 }
 
 .ui.pagination.menu{
-	margin-left: -25%;
+	left: 10px;
 }
 .leaflet-tooltip{
 	background: transparent !important;

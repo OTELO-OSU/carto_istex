@@ -280,7 +280,7 @@
 
 
 /* Mobile (Default) */
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1119px) {
   .ui.steps {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
