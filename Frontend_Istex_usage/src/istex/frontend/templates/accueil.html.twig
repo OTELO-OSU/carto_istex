@@ -16,36 +16,25 @@
 </head>
 <body>
      <nav id="example">
-            <div class="navbar ui inverted teal borderless menu">
-                <div class="navbar-sandwich ui dropdown item">
-                    <i class="navbar-sandwich-icon content big icon"></i>
-                    <div class="navbar-sandwich-content menu"></div><!--Keep empty-->
-                </div>
+          <div class="navbar ui inverted teal menu ">
+              
                 <a class="navbar-brand" href="#">
-                    <img src="../../Frontend_Istex_usage/img/UL_logo.png" width="180" height="40" alt="Université de lorraine"/>
-                    <img src="../../Frontend_Istex_usage/img/OTELO.png" width="234" height="24" alt="Otelo"/>
-                    <img src="../../Frontend_Istex_usage/img/cnrs.png" width="80" height="30" alt="CNRS"/>
-
                     <span><strong>Cartographie ISTEX</strong></span>
                 </a>
-                <div class="navbar-menu right menu">
-                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
-                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
-                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
-                    <a class="item navbar-collapsable-item" href="#"><strong>ITEM</strong></a>
-                    <div class="navbar-collapsable-item ui dropdown item">
-                        <strong>DROPDOWN</strong>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <a class="item" href="#"><strong>ITEM</strong></a>
-                            <a class="item" href="#"><strong>ITEM</strong></a>
-                            <a class="item" href="#"><strong>ITEM</strong></a>
-                        </div>
-                    </div>
-                    <!-- This link will not collapse -->
-                    <a class="item" href="#"><strong>FIXED ITEM</strong></a>
-                </div>
+                <div id='logos' class="navbar-menu right menu">
+                     <div class="item">
+                    <img id="ul" class="ui small image"  src="../../Frontend_Istex_usage/img/UL_logo.png"  alt="Université de lorraine"/>
+                   </div>
+                <div class="item">
+                    <img class="ui small image"  src="../../Frontend_Istex_usage/img/OTELO.png"  alt="Otelo"/>
+                  </div>
+                  <div class="item">
+                    <img class="ui small image" id="cnrs"  src="../../Frontend_Istex_usage/img/cnrs.png"  alt="CNRS"/>
+                 </div>
+               
+           
             </div>
+           
         </nav>
 
     {% include 'modal_bubble_authors.html.twig' %} <!--  Differentes inclusion de templates twig -->
