@@ -1,5 +1,5 @@
-$(document).ready(function(){
-  var data3;
+  var query;
+  var data4;
    function strReplaceAll(string, Find, Replace) { // fonction de remplacement des espace en underscore
       try {
           return string.replace( new RegExp(Find, "gi"), Replace );       
@@ -8,8 +8,8 @@ $(document).ready(function(){
       }
     }
 
- function drawSeriesChart() {// fonction qui va créé les bubbles
-      var data = google.visualization.arrayToDataTable(data3);
+ function drawSeriesChartauthor() {// fonction qui va créé les bubbles
+      var data = google.visualization.arrayToDataTable(data4);
       var options = {
             legend: 'none',
             tooltip:{isHtml:true},
@@ -46,8 +46,8 @@ $(document).ready(function(){
 
 
     function parse_authors(parsed){
-        data3 = [];
-        data3.push(['ID','Y','X','Author','Number of publications']);
+        data4 = [];
+        data4.push(['ID','Y','X','Author','Number of publications']);
         var r = []
         var x = 0;
         var documentswithaffiliations=0;
@@ -59,7 +59,7 @@ $(document).ready(function(){
                   var occurence=(parsed[k].length);
               if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); // on push les données dans un array
+                data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); // on push les données dans un array
               }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
@@ -67,7 +67,7 @@ $(document).ready(function(){
             var occurence=(parsed[k].length);
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); 
+            data4.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); 
           }
           if (k==" , ") {}
           else{
@@ -86,7 +86,7 @@ $(document).ready(function(){
       total= total/100;  
       $('.authors').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChart);
+      google.charts.setOnLoadCallback(drawSeriesChartauthor);
 
       var table = $('#authors').DataTable( {
           lengthChange: false,
@@ -101,8 +101,8 @@ $(document).ready(function(){
 
 
   function reload_bubble_author(parsed){
-        data3 = [];
-        data3.push(['ID','Y','X','Author','Number of publications']);
+        data4 = [];
+        data4.push(['ID','Y','X','Author','Number of publications']);
         var r = []
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
@@ -113,7 +113,7 @@ $(document).ready(function(){
                   var occurence=(parsed[k].length);
               if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
+                data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
               }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
@@ -121,18 +121,16 @@ $(document).ready(function(){
             var occurence=(parsed[k].length);
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
+            data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChart);
+      google.charts.setOnLoadCallback(drawSeriesChartauthor);
 
       }
 
-    $(".istex-search-bar-wrapper :submit").click(function(){
-        $('.avert').remove();
-        $('.authors h5').remove();
-        $('#authors tbody').remove();// remise a zero en cas de recherche simultané
+  function searchauthors(){
+       
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
         {
@@ -150,5 +148,4 @@ $(document).ready(function(){
     $(".reloadauthor").click(function(){
       reload_bubble_author(parseauthor); // on recreer le bubble chart
        });
-    });
-});
+    };

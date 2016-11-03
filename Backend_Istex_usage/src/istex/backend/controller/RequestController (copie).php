@@ -4,41 +4,38 @@ class RequestController
 {
 	//requetes curl 
 	
-	function simpleCachedCurl($url,$expires,$curlopt,$query){
-   		//$query= bin2hex($query);
+	function simpleCachedCurl($url,$expires,$curlopt){
+    $hash = md5($url);
+    $filename = dirname(__FILE__).'/cache/' . $hash . '.cache';
+    $changed = file_exists($filename) ? filemtime($filename) : 0;
+    $now = time();
+    $diff = $now - $changed;   
+    if ( !$changed || ($diff > $expires) ) {
         $ch = curl_init();
         $curlopt = array(CURLOPT_URL => $url) + $curlopt ;
         curl_setopt_array($ch, $curlopt);
-       // $m = new \Memcached();
-		//$m->addServer('localhost', 11211);
-		//$cache=$m->get($query);
-       // if($cache){
-	       
-	    //   return $cache;
-    	//}
-    	//else{
-    		 $rawData = curl_exec($ch);
-	       curl_close($ch);
-	      //  $cache=$m->set($query, $rawData, 120);
-	        return $rawData;
-	        //JEUDI TESTER AVEC WIRESHARK plus approfondi
-    	//}
-
+        $rawData = curl_exec($ch);
+        curl_close($ch);
+        if(!$rawData){
+            if($changed){
+                $cache = unserialize(file_get_contents($filename));
+                return $cache;
+            }else{
+                return false;
+            }
+        }
+        $cache = fopen($filename, 'wb');
+        $write = fwrite($cache, serialize($rawData));
+        fclose($cache);
+        return $rawData;
+    }
+    $cache = unserialize(file_get_contents($filename));
+    return $cache;
 }
 
 
-	
-
 	function Request_alldoc_querypagebypage($query){
 		//$curl = curl_init(); // initialisation de curl
-		$hash= md5($query);
-		$m = new \Memcached();
-		$m->addServer('localhost', 11211);
-		$cache=$m->get($hash);
-		if ($cache) {
-			return $cache;
-		}
-		else{
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
 		$url='https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name';
 		$curlopt=array(CURLOPT_RETURNTRANSFER => true,
@@ -47,7 +44,7 @@ class RequestController
 			  CURLOPT_TIMEOUT => 40,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "GET");
-		$response=self::simpleCachedCurl($url,"180",$curlopt,$query);
+		$response=self::simpleCachedCurl($url,"180",$curlopt);
 		/*curl_setopt_array($curl, array(
 			  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name',
 			  CURLOPT_RETURNTRANSFER => true,
@@ -91,7 +88,7 @@ class RequestController
 			  	CURLOPT_TIMEOUT => 40,
 			  	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  	CURLOPT_CUSTOMREQUEST => "GET");
-				$response2=self::simpleCachedCurl($url,"180",$curlopt,$query);
+				$response2=self::simpleCachedCurl($url,"180",$curlopt);
 				$response2 = json_decode($response2);
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
@@ -118,7 +115,7 @@ class RequestController
 			  	CURLOPT_TIMEOUT => 40,
 			  	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  	CURLOPT_CUSTOMREQUEST => "GET");
-				$response3=self::simpleCachedCurl($url,"180",$curlopt,$query);
+				$response3=self::simpleCachedCurl($url,"180",$curlopt);
 				$response3 = json_decode($response3);
 				$response3 = json_decode(json_encode($response3->hits),true); 
 
@@ -198,10 +195,10 @@ class RequestController
 			$response[]=$response_array;
 
 			//echo count($response_array)." resultats avec affiliations<br>";
-	        $cache=$m->set($hash, $response, 120);
+			
 			return $response;
 
-		}
+		
 	}
 
 

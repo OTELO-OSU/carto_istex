@@ -1,5 +1,5 @@
-$(document).ready(function(){
   var data3;
+  var query;
   function strReplaceAll(string, Find, Replace) { // fonction de remplacement des espace en underscore
       try {
           return string.replace( new RegExp(Find, "gi"), Replace );       
@@ -8,7 +8,7 @@ $(document).ready(function(){
       }
   }
 
-  function drawSeriesChart() { // fonction qui va créé les bubbles
+  function drawSeriesChartlabo() { // fonction qui va créé les bubbles
     var data = google.visualization.arrayToDataTable(data3);
     var options = {
       legend: 'none',
@@ -84,7 +84,7 @@ $(document).ready(function(){
       total= total/100;  
       $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChart);
+      google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
           lengthChange: false,
           destroy:true,
@@ -121,15 +121,13 @@ function reload_bubble_labo(parsed){
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChart);
+      google.charts.setOnLoadCallback(drawSeriesChartlabo);
 
       }
 
-    $(".istex-search-bar-wrapper :submit").click(function(){ //event click sur rechercher
-          $('.avert').remove();
-          $('.laboratory h5').remove();
-          $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
-          var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+
+    function searchlaboratory(){ 
+          query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
           $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
@@ -143,6 +141,5 @@ function reload_bubble_labo(parsed){
           $(".reloadlaboratory").click(function(){
             reload_bubble_labo(parselabo);// on recreer le bubble chart
           });
-    });
-});
+    };
 

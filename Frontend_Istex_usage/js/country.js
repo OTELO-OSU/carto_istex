@@ -3,7 +3,11 @@ $(document).ready(function(){
 
     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
     	
-    
+    	$('.avert').remove();
+        $('.laboratory h5').remove();
+        $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
+        $('.authors h5').remove();
+        $('#authors tbody').remove();// remise a zero en cas de recherche simultané
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
@@ -11,6 +15,8 @@ $(document).ready(function(){
           query: query
         }, // requete ajax sur le backend
         function(data){
+        	searchlaboratory();
+        	searchauthors();
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff']['noaff'];
@@ -88,6 +94,6 @@ $(document).ready(function(){
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
    			
-        });
+        })
    	});
 });
