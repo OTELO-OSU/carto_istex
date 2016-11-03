@@ -128,7 +128,7 @@ function reload_bubble_labo(parsed){
 
     function searchlaboratory(){ 
           query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-          $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
+          $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend

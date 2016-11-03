@@ -4,27 +4,14 @@ class RequestController
 {
 	//requetes curl 
 	
-	function simpleCachedCurl($url,$expires,$curlopt,$query){
-   		//$query= bin2hex($query);
+	function Curlrequest($url,$curlopt){
         $ch = curl_init();
         $curlopt = array(CURLOPT_URL => $url) + $curlopt ;
         curl_setopt_array($ch, $curlopt);
-       // $m = new \Memcached();
-		//$m->addServer('localhost', 11211);
-		//$cache=$m->get($query);
-       // if($cache){
-	       
-	    //   return $cache;
-    	//}
-    	//else{
-    		 $rawData = curl_exec($ch);
-	       curl_close($ch);
-	      //  $cache=$m->set($query, $rawData, 120);
-	        return $rawData;
-	        //JEUDI TESTER AVEC WIRESHARK plus approfondi
-    	//}
-
-}
+    	$rawData = curl_exec($ch);
+	    curl_close($ch);
+	    return $rawData;
+	}
 
 
 	
@@ -47,7 +34,7 @@ class RequestController
 			  CURLOPT_TIMEOUT => 40,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "GET");
-		$response=self::simpleCachedCurl($url,"180",$curlopt,$query);
+		$response=self::Curlrequest($url,$curlopt);
 		/*curl_setopt_array($curl, array(
 			  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name',
 			  CURLOPT_RETURNTRANSFER => true,
@@ -91,7 +78,7 @@ class RequestController
 			  	CURLOPT_TIMEOUT => 40,
 			  	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  	CURLOPT_CUSTOMREQUEST => "GET");
-				$response2=self::simpleCachedCurl($url,"180",$curlopt,$query);
+				$response2=self::Curlrequest($url,$curlopt);
 				$response2 = json_decode($response2);
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
@@ -118,7 +105,7 @@ class RequestController
 			  	CURLOPT_TIMEOUT => 40,
 			  	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  	CURLOPT_CUSTOMREQUEST => "GET");
-				$response3=self::simpleCachedCurl($url,"180",$curlopt,$query);
+				$response3=self::Curlrequest($url,$curlopt);
 				$response3 = json_decode($response3);
 				$response3 = json_decode(json_encode($response3->hits),true); 
 

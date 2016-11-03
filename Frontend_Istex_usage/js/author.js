@@ -125,14 +125,15 @@
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChartauthor);
+      google.charts.setOnLoadCallback(drawSeriesChartauthor
+        );
 
       }
 
   function searchauthors(){
        
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-        $.post("http://localhost/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
+        $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
         {
           query: query
         }, // requete ajax sur le backend
