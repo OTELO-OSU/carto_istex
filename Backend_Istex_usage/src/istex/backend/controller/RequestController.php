@@ -2,8 +2,7 @@
 namespace istex\backend\controller;
 class RequestController 
 {
-	//requetes curl 
-	
+	//fonction requetes curl 
 	function Curlrequest($url,$curlopt){
         $ch = curl_init();
         $curlopt = array(CURLOPT_URL => $url) + $curlopt ;
@@ -18,14 +17,14 @@ class RequestController
 
 	function Request_alldoc_querypagebypage($query){
 		//$curl = curl_init(); // initialisation de curl
-		$hash= md5($query);
-		$m = new \Memcached();
-		$m->addServer('localhost', 11211);
-		$cache=$m->get($hash);
-		if ($cache) {
+		$hash= md5($query); // on hash la query
+		$m = new \Memcached(); // initialisation memcached
+		$m->addServer('localhost', 11211); // ajout server memecached
+		$cache=$m->get($hash);//on lit la memoire
+		if ($cache) { // si présent dans la memoire on retourne le cache
 			return $cache;
 		}
-		else{
+		else{ // sinon on effectue la query
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
 		$url='https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name';
 		$curlopt=array(CURLOPT_RETURNTRANSFER => true,
@@ -185,7 +184,7 @@ class RequestController
 			$response[]=$response_array;
 
 			//echo count($response_array)." resultats avec affiliations<br>";
-	        $cache=$m->set($hash, $response, 120);
+	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
 			return $response;
 
 		}
@@ -200,9 +199,9 @@ function stripAccents($string){
 }
 
 
-function Match_result_for_laboratory($received_array){
+function Match_result_for_laboratory($received_array){ // Fonction permettant de rechercher si les affiliations on un bon laboratoires
 		$array = array();
-		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE");
+		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"); // tableau pour effectuer la comparaison
 		foreach ($tableau_reference_laboratory as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
 				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
@@ -219,9 +218,9 @@ function Match_result_for_laboratory($received_array){
 				
 		}
 	}
-	function Match_result_for_university($received_array){
+	function Match_result_for_university($received_array){// Fonction permettant de rechercher si les affiliations on une bonne institution
 		$array = array();
-		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV",);
+		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV",);// tableau pour effectuer la comparaison
 		foreach ($tableau_reference_university as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
 				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){

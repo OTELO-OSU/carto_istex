@@ -19,6 +19,7 @@ class LaboratoryController
 				$master_tab[]=$tab;// on stocke le tableau dans un autre
 				}
 
+
 		}
 		
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
@@ -32,6 +33,28 @@ class LaboratoryController
 				
 
 				}
+				/*foreach ($master_tab as $key => $value) {
+					//echo "Référence:".$value2[0];
+					//echo "<br>Valeur:".$value[0];
+					 $leven=levenshtein($value2[0], $value[0]);
+					// echo $leven;
+					//echo "<br><br>";
+			if ($leven<=30) {// array key exist permet de verifier si une clé existe dans un tableau
+			$value3=$value2[0];
+			if (array_key_exists($index, $tableau_laboratory)) {
+				$tableau_laboratory[$value3]++;// si elle existe on ajoute 1 a chaque valeur
+
+			}
+			else{
+				$tableau_laboratory[$value3] = 1;// sinon on laisse a 1
+				
+
+				}
+					
+				}
+			}*/
+			//var_dump($tableau_laboratory);
+
 			}
 
 			$laboratory=array();
@@ -47,7 +70,12 @@ class LaboratoryController
 					$arraydocument=array();
 					
 					foreach ($master_tab as $key3 => $value3) {// on parcourt le tableau principale
+				//	$leven=levenshtein($key2, $value3[0]);
 						if ($key2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
+					// echo $leven;
+					//echo "<br><br>";
+				//if ($leven<=20) {
+				
 						$array= array();
 						$array[]=$value3[2];
 						$array[]=$value3[1];
