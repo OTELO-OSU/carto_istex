@@ -34,21 +34,7 @@ class RequestController
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "GET");
 		$response=self::Curlrequest($url,$curlopt);
-		/*curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name',
-			  CURLOPT_RETURNTRANSFER => true,
-			  CURLOPT_ENCODING => "",
-			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 40,
-			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			  CURLOPT_CUSTOMREQUEST => "GET",
-			  //CURLOPT_FORBID_REUSE => true
-		)); // Reglage des differentes variable de CURL
-		
-		$response = curl_exec($curl); //Execution de la requete
-		$err = curl_error($curl); //En cas d'erreur
-		curl_close($curl);// fermeture du socket curl
-		*/
+	
 
 		
 			 $responseencoded=json_decode($response); // decodage de la chaine JSON
@@ -56,20 +42,7 @@ class RequestController
 			 if ($responseencoded->total>=5000) {  // Si les resultats de la requete son superieur a 5000
 			 	$response1 = json_decode(json_encode($responseencoded->hits),true); // Passage du format JSON en tableau php
 
-				/*$curl = curl_init();// initialisation de curl
-				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name',
-				  CURLOPT_RETURNTRANSFER => true,
-				  CURLOPT_ENCODING => "",
-				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 40,
-				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => "GET",
-			 // CURLOPT_FORBID_REUSE => true
-				));*/
-				//$response2 = curl_exec($curl); 
-				//$err = curl_error($curl);
-				//curl_close($curl);
+				
 				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
@@ -81,22 +54,7 @@ class RequestController
 				$response2 = json_decode($response2);
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
-				/*$curl2 = curl_init();
-				curl_setopt_array($curl2, array(
-				  CURLOPT_URL => 'https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name',
-				  CURLOPT_RETURNTRANSFER => true,
-				  CURLOPT_ENCODING => "",
-				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 40,
-				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => "GET",
-			 // CURLOPT_FORBID_REUSE => true
-			));
-				$response3 = curl_exec($curl2); 
-				$response3 = json_decode($response3);
-				$response3 = json_decode(json_encode($response3->hits),true); 
-				$err = curl_error($curl2);
-				curl_close($curl2);*/
+				
 				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
@@ -118,7 +76,6 @@ class RequestController
 			 else{
 			 	$result=json_decode(json_encode($responseencoded->hits),true); // Si moins de 5000 resultats on garde le resultats de la premiere requetes
 			 }
-			 //echo count($result)." resultats<br>";
 			
 			
 			$response_array= array();// initialisation d'un tableau
@@ -150,7 +107,6 @@ class RequestController
 						$laboratory= self::Match_result_for_laboratory($parse);
 						$university= self::Match_result_for_university($parse);
 						
-						//@$university=$parse[1];
 						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						@$author=$value['author'][0]['name']; // recuperation du nom de l'auteur
 						
@@ -159,7 +115,6 @@ class RequestController
 						$array['laboratory']=$laboratory[0];
 						$array['university']=$university[0];
 						$array['author']=$author;
-						//var_dump($parse);
 						
 						
 						$response_array[]=$array; // on stocke le tableau dans un autre tableau
@@ -183,7 +138,6 @@ class RequestController
 			$response[]=$array;
 			$response[]=$response_array;
 
-			//echo count($response_array)." resultats avec affiliations<br>";
 	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
 			return $response;
 
@@ -210,7 +164,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 					
 				}
 				else{
-					//echo $value[('laboratory')]."<br>";
 
 				}
 			
@@ -229,7 +182,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 
 				}
 				else{
-					//echo $value[('laboratory')]."<br>";
 
 				}
 			
@@ -245,7 +197,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 
 	//Fonction de demande de nom de pays a nominatim
 	function Request_name_of_country($name,$id){
-				//sleep(2);
 				$curl = curl_init();
 				$name=rawurlencode($name);
 				curl_setopt_array($curl, array(
@@ -260,8 +211,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
 				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
-				//@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); 
-				//@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); 
 
 				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
 				$array=array();
@@ -272,7 +221,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				}
 				
 
-				//var_dump($country);
 
 				$err = curl_error($curl);
 				curl_close($curl);
