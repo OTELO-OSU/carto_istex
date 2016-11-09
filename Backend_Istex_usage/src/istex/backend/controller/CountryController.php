@@ -9,6 +9,7 @@ class CountryController
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
+
 			if ($value['country']==NULL) {
 				$noaff[0]['noaff']++;
 			}
@@ -18,6 +19,14 @@ class CountryController
 
 		}
 		
+		
+	  
+		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+
+					
+	  			
+	  		
+	  	
 
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
 			$index=$value2[0]; // on definie l'index qui va permettre de determiner le nombre de publications par pays

@@ -11,7 +11,6 @@ class LaboratoryController
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
-			$tab[]=$value['author'];
 			if (($value['laboratory']==NULL && $value['university']==NULL) OR ($value['laboratory']==NULL) OR ($value['university']==NULL) ) {
 					$received_array[0]['noaff']++;
 			}
@@ -22,6 +21,10 @@ class LaboratoryController
 
 		}
 		
+ 
+	$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		
+	
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
 			$index=$value2[0];// on definie l'index qui va permettre de determiner le nombre de publications par labo
 			if (array_key_exists($index, $tableau_laboratory)) {// array key exist permet de verifier si une clé existe dans un tableau
@@ -101,7 +104,6 @@ class LaboratoryController
 				//if ($leven<=20) {
 				
 						$array= array();
-						$array[]=$value3[2];
 						$array[]=$value3[1];
 						$arraydocument[]=$array;
 						$laboratorywithid[$key2]=$arraydocument;
