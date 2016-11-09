@@ -85,8 +85,18 @@ class RequestController
 
 			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
-					@$affiliations=$value['author'][0]['affiliations']; // recuperation de l'affiliation
-					if ($affiliations!==NULL) {	
+					
+					if (!array_key_exists('author', $value)) {
+						$noaffiliations[]=1	;				
+					}
+					else{
+					foreach ($value['author'] as $key => $value2) {
+						//var_dump($value2);
+						
+						@$author=$value2['name']; // recuperation du nom de l'auteur
+							
+						@$affiliations=$value2['affiliations']; // recuperation de l'affiliation
+					if (@$affiliations!==NULL) {	
 						if (count($affiliations)==2) {
 							if (preg_match("/\@/", $affiliations[0])) {
 								$parse = explode(",", $affiliations[1]);
@@ -108,7 +118,6 @@ class RequestController
 						$university= self::Match_result_for_university($parse);
 						
 						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
-						@$author=$value['author'][0]['name']; // recuperation du nom de l'auteur
 						
 						$array['id']=$id; // on stocke les differents champs dans un tableau
 						$array['country']=$country;
@@ -127,6 +136,10 @@ class RequestController
 					else{
 						$noaffiliations[]=1;
 					}
+						
+						
+					}
+				}
 
 
 
@@ -138,7 +151,7 @@ class RequestController
 			$response[]=$array;
 			$response[]=$response_array;
 
-	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
+	        //$cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
 			return $response;
 
 		}

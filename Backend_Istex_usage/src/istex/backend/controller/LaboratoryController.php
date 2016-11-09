@@ -36,11 +36,31 @@ class LaboratoryController
 				/*foreach ($master_tab as $key => $value) {
 					//echo "Référence:".$value2[0];
 					//echo "<br>Valeur:".$value[0];
-					 $leven=levenshtein($value2[0], $value[0]);
+					 //$leven=levenshtein($value2[0], $value[0]);
 					// echo $leven;
 					//echo "<br><br>";
-			if ($leven<=30) {// array key exist permet de verifier si une clé existe dans un tableau
-			$value3=$value2[0];
+					$expr = '/[A-Z]/';
+			if(preg_match_all($expr, $value2[0], $matches)){
+			$result1 = implode('', $matches[0]);
+			$result1 = strtoupper($result1);
+			}
+			if(preg_match_all($expr, $value[0], $matches)){
+			$result2 = implode('', $matches[0]);
+			$result2 = strtoupper($result2);
+			}
+
+
+
+			if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
+				
+			}
+			else{
+				$percent=levenshtein(metaphone($result1), metaphone($result2));
+				similar_text(metaphone($result1), metaphone($result2),$percent2);
+
+				
+				if ($percent <=10 AND $percent2>=80) {
+					
 			if (array_key_exists($index, $tableau_laboratory)) {
 				$tableau_laboratory[$value3]++;// si elle existe on ajoute 1 a chaque valeur
 
@@ -50,12 +70,16 @@ class LaboratoryController
 				
 
 				}
-					
 				}
-			}*/
-			//var_dump($tableau_laboratory);
-
 			}
+			// array key exist permet de verifier si une clé existe dans un tableau
+			$value3=$value2[0];
+					
+				}*/
+			}
+
+			
+			//var_dump($tableau_laboratory);
 
 			$laboratory=array();
 			foreach ($tableau_laboratory as $key => $value) {// on parcourt ensuite le tableau 
