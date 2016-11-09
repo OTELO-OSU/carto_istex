@@ -7,6 +7,7 @@ class LaboratoryController
 
 	function Sort_by_laboratory($received_array){
 		$tableau_laboratory=[]; // Initialisation tableau
+		$tableau_laboratorys=[];
 		foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
@@ -36,53 +37,75 @@ class LaboratoryController
 				
 
 				}
+			$valuetocompare=explode(",", $value2[0]);
 				/*foreach ($master_tab as $key => $value) {
-					//echo "Référence:".$value2[0];
 					//echo "<br>Valeur:".$value[0];
 					 //$leven=levenshtein($value2[0], $value[0]);
 					// echo $leven;
 					//echo "<br><br>";
-					$expr = '/[A-Z]/';
-			if(preg_match_all($expr, $value2[0], $matches)){
-			$result1 = implode('', $matches[0]);
-			$result1 = strtoupper($result1);
-			}
-			if(preg_match_all($expr, $value[0], $matches)){
-			$result2 = implode('', $matches[0]);
-			$result2 = strtoupper($result2);
-			}
+							$expr = '/[A-Z]/';
+					$mastervalue=explode(",", $value[0]);
+					if(preg_match_all($expr, $mastervalue[0], $matches)){
+					$result1 = implode('', $matches[0]);
+					$result1 = strtoupper($result1);
+					}
+					if(preg_match_all($expr, $valuetocompare[0], $matches)){
+					$result2 = implode('', $matches[0]);
+					$result2 = strtoupper($result2);
+					}
+
+					if(preg_match_all($expr, $mastervalue[1], $matches)){
+					$result3 = implode('', $matches[0]);
+					$result3 = strtoupper($result1);
+					}
+					if(preg_match_all($expr, $valuetocompare[1], $matches)){
+					$result4 = implode('', $matches[0]);
+					$result4 = strtoupper($result2);
+					}
 
 
-
-			if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
-				
-			}
-			else{
+				if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
+					
+			$index=$value[0];
+			$arr=array();
+		
+			$arr[]=$value[0];
+			$arr[]=$value2[0];
+			$array[]=$arr;
+				}
+				else{
+			
 				$percent=levenshtein(metaphone($result1), metaphone($result2));
+				$percent3=levenshtein(metaphone($result3), metaphone($result4));
+				similar_text(metaphone($result3), metaphone($result4),$percent4);
 				similar_text(metaphone($result1), metaphone($result2),$percent2);
 
-				
-				if ($percent <=10 AND $percent2>=80) {
+				if ($percent3<=5 AND $percent4>=90 ) {
+
+			
+			/*if (array_key_exists($index, $tableau_laboratorys)) {
 					
-			if (array_key_exists($index, $tableau_laboratory)) {
-				$tableau_laboratory[$value3]++;// si elle existe on ajoute 1 a chaque valeur
+				$tableau_laboratorys[$index]++;// si elle existe on ajoute 1 a chaque valeur
 
 			}
 			else{
-				$tableau_laboratory[$value3] = 1;// sinon on laisse a 1
+				$tableau_laboratorys[$index] = 1;// sinon on laisse a 1
 				
 
 				}
 				}
-			}
+				}
+				}
+*/			
 			// array key exist permet de verifier si une clé existe dans un tableau
-			$value3=$value2[0];
 					
-				}*/
 			}
 
+				//var_dump($array);
+		
+
 			
-			//var_dump($tableau_laboratory);
+			
 
 			$laboratory=array();
 			foreach ($tableau_laboratory as $key => $value) {// on parcourt ensuite le tableau 

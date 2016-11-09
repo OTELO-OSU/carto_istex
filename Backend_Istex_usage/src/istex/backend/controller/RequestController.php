@@ -150,7 +150,7 @@ class RequestController
 			$array["noaff"]=count($noaffiliations);
 			$response[]=$array;
 			$response[]=$response_array;
-	        //$cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
+	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
 			return $response;
 
 		}

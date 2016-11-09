@@ -18,11 +18,11 @@ $app->post('/getcountrys', function (Request $req,Response $responseSlim) {
     	$request = new RequestApi();
 	$query  = $req->getparam('query');
 	$response = $request->Request_alldoc_querypagebypage($query);
-	$country = new Country();
-	$sortcountry = $country->get_name($response);   
-	$sortcountry=$country->Sort_by_country($sortcountry,$response);
-	$responseSlim->withHeader('Content-Type', 'application/json');
-   	return json_encode($sortcountry);
+	//$country = new Country();
+	//$sortcountry = $country->get_name($response);   
+	//$sortcountry=$country->Sort_by_country($sortcountry,$response);
+	//$responseSlim->withHeader('Content-Type', 'application/json');
+   	//return json_encode($sortcountry);
 });
 
 $app->post('/getlaboratorys', function (Request $req,Response $responseSlim) {
