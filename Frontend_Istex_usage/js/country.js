@@ -20,6 +20,8 @@ $(document).ready(function(){
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff']['noaff'];
+			console.log(parsed['0']['noaff']);
+			documentswithaffiliations=parsed['0']['noaff']['total'];
 			var total=Object.keys(parsed['documents']).length;
 			var documentswithaffiliations=0;
 			var markers = [] // tableau qui contiendra les differents markers
@@ -30,7 +32,6 @@ $(document).ready(function(){
          	}
 	         	else{
 			        	var occurence=(Object.keys(parsed['documents'][k]).length)-1;
-			        	documentswithaffiliations=documentswithaffiliations+occurence;
 			        if (parsed['documents'].hasOwnProperty(k)) 
 						radius=occurence*30000;
 					if (occurence==1) {
@@ -67,7 +68,8 @@ $(document).ready(function(){
 		          responsive: true
 		        } );
 
-     			var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
+     			var total = (undefinedaff/documentswithaffiliations)*100;
+			    console.log(documentswithaffiliations);
 			    total = total*100;          
 			    total= Math.round(total); 
 			    total= total/100;  

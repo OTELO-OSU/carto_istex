@@ -4,18 +4,20 @@ use \istex\backend\controller\RequestController as RequestApi;
 class CountryController 
 {
 	function Sort_by_country($received_array,$noaff){
+		
 		$tableau_country=[]; // Initialisation tableau
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
-
-			if ($value['country']==NULL) {
-				$noaff[0]['noaff']++;
-			}
-			else{
-				$master_tab[]=$tab;// on stocke le tableau dans un autre
+					
+				if ($value['country']==NULL&&!isset($master_tab[$value['id']])) {
+					$noaff[0]['noaff']++;
 				}
+				else{
+					$master_tab[]=$tab;// on stocke le tableau dans un autre
+					}
+			
 
 		}
 		
@@ -69,6 +71,7 @@ class CountryController
 			$response=array();
 			$array=array();
 			$array["noaff"]=$noaff[0];
+			$array["total"]=count($master_tab);
 			$response[]=$array;
 			$response["documents"]=$countrywithid;
 			return $response;
@@ -81,8 +84,10 @@ class CountryController
 		foreach ($received_array[1] as $key => $value) {
 			$Request = new RequestApi;
 			$array=$Request->Request_name_of_country($value['country'],$value['id']);
+			
 			$response_array[]=$array;	// mise en tableau de la reponse de nominatim
 		}
+		$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
 		return $response_array;
 
 	}

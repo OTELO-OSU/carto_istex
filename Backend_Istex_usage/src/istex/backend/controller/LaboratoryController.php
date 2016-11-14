@@ -21,9 +21,11 @@ class LaboratoryController
 
 
 		}
+	//$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+	
 		
  
-	$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		
 		
 	
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
@@ -37,14 +39,17 @@ class LaboratoryController
 				
 
 				}
-			$valuetocompare=explode(",", $value2[0]);
-				/*foreach ($master_tab as $key => $value) {
+			}
+			var_dump($tableau_laboratory);
+	foreach ($tableau_laboratory as $value2 => $value3) {
+			$valuetocompare=explode(",", $value2);
+				foreach ($tableau_laboratory as $value => $value4) {
 					//echo "<br>Valeur:".$value[0];
 					 //$leven=levenshtein($value2[0], $value[0]);
 					// echo $leven;
 					//echo "<br><br>";
-							$expr = '/[A-Z]/';
-					$mastervalue=explode(",", $value[0]);
+					$expr = '/[A-Z]/';
+					$mastervalue=explode(",", $value);
 					if(preg_match_all($expr, $mastervalue[0], $matches)){
 					$result1 = implode('', $matches[0]);
 					$result1 = strtoupper($result1);
@@ -56,31 +61,37 @@ class LaboratoryController
 
 					if(preg_match_all($expr, $mastervalue[1], $matches)){
 					$result3 = implode('', $matches[0]);
-					$result3 = strtoupper($result1);
+					$result3 = strtoupper($result3);
 					}
 					if(preg_match_all($expr, $valuetocompare[1], $matches)){
 					$result4 = implode('', $matches[0]);
-					$result4 = strtoupper($result2);
+					$result4 = strtoupper($result4);
 					}
-
+				
 
 				if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
-					
-			$index=$value[0];
-			$arr=array();
-		
-			$arr[]=$value[0];
-			$arr[]=$value2[0];
-			$array[]=$arr;
-				}
-				else{
-			
 				$percent=levenshtein(metaphone($result1), metaphone($result2));
 				$percent3=levenshtein(metaphone($result3), metaphone($result4));
+				$percent5=levenshtein(metaphone($mastervalue[1]), metaphone($valuetocompare[1]));
 				similar_text(metaphone($result3), metaphone($result4),$percent4);
 				similar_text(metaphone($result1), metaphone($result2),$percent2);
+				
+						if (($percent<=5 AND $percent2>=90 ) AND ($percent3<=5 AND $percent4>=90 )AND($percent5!==0 AND $percent5<=2)) {
+			
+			$arr=array();
+			$arr[]=$value3+$value4;
+			$arr[]=$value;
+			$array[]=$arr;
+					}
+				}
+				else if($percent5==0){
+			
 
-				if ($percent3<=5 AND $percent4>=90 ) {
+			$arr=array();
+			$arr[]=$value4;
+			$arr[]=$value;
+			$array[]=$arr;
+			
 
 			
 			/*if (array_key_exists($index, $tableau_laboratorys)) {
@@ -90,18 +101,19 @@ class LaboratoryController
 			}
 			else{
 				$tableau_laboratorys[$index] = 1;// sinon on laisse a 1
-				
+				*/
 
+				
 				}
 				}
-				}
-				}
-*/			
+				
+			}
 			// array key exist permet de verifier si une clé existe dans un tableau
 					
-			}
+			
+	//$array = array_map("unserialize", array_unique(array_map("serialize", $array)));
 
-				//var_dump($array);
+				var_dump($array);
 		
 
 			
