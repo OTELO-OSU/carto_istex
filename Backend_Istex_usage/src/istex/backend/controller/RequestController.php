@@ -212,8 +212,8 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
 				$name=preg_replace('/[0-9-z_@~]/', '', $name);
 				$hash= md5($name);
-				//$m = new \Memcached(); // initialisation memcached
-				//$m->addServer('localhost', 11211); // ajout server memecached
+				$m = new \Memcached(); // initialisation memcached
+				$m->addServer('localhost', 11211); // ajout server memecached
 				$curl = curl_init();
 				$name=rawurlencode($name);
 				curl_setopt_array($curl, array(
@@ -225,9 +225,17 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET"
 			));
+				$cache=$m->get($hash);//on lit la memoire
+				if ($cache) {
+					$responsedecoded=$cache;
+				}
+				else{
+
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
-				//$cache=$m->set($hash, $responsedecoded, 120);// on set le tableau obtenu dans le cache
+				$cache=$m->set($hash, $responsedecoded, 10);// on set le tableau obtenu dans le cache
+				}
+
 				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
 
 				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
@@ -256,12 +264,11 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 	function Request_lat_lon_of_country($name){
 				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
 				$name=preg_replace('/[0-9-z_@~]/', '', $name);
-				//$hash= md5($name);
+				$hash= md5($name);
 				$curl = curl_init();
 				$name=rawurlencode($name);
-				//$m = new \Memcached(); // initialisation memcached
-				//$m->addServer('localhost', 11211); // ajout server memecached
-				//$responsedecoded=$m->get($hash);
+				$m = new \Memcached(); // initialisation memcached
+				$m->addServer('localhost', 11211); // ajout server memecached
 				curl_setopt_array($curl, array(
 				  CURLOPT_URL => 'https://nominatim.otelo.univ-lorraine.fr/search.php/'.$name.'?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en',
 				  CURLOPT_RETURNTRANSFER => true,
@@ -271,8 +278,16 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET"
 			));
+				$cache=$m->get($hash);//on lit la memoire
+				if ($cache) {
+					$responsedecoded=$cache;
+				}
+				else{
+
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
+				$cache=$m->set($hash, $responsedecoded, 10);// on set le tableau obtenu dans le cache
+				}
 				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
 				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
 

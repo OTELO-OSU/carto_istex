@@ -1,23 +1,13 @@
-$(document).ready(function(){
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap); // declaration des tiles a utiliser sur leaflet (osm)
 
-    $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
-    	
-    	$('.avert').remove();
-        $('.laboratory h5').remove();
-        $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
-        $('.authors h5').remove();
-        $('.country h5').remove();
-        $('#authors tbody').remove();// remise a zero en cas de recherche simultané
-    	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
+
+   
+    	function searchcountry(){
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query
         }, // requete ajax sur le backend
         function(data){
-        	searchlaboratory();
-        	searchauthors();
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff'];
@@ -94,5 +84,5 @@ $(document).ready(function(){
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
    			
         })
-   	});
-});
+   	
+}

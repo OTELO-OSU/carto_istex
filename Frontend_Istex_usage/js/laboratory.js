@@ -123,14 +123,23 @@ function reload_bubble_labo(parsed){
 
       }
 
-
-    function searchlaboratory(){ 
+$(document).ready(function(){
+     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
+      $('.avert').remove();
+        $('.laboratory h5').remove();
+        $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
+        $('.authors h5').remove();
+        $('.country h5').remove();
+        $('#authors tbody').remove();// remise a zero en cas de recherche simultané
+      $('#country tbody').remove(); // remise a zero en cas de recherche simultané
           query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
           $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend
           function(data){
+            searchcountry();
+            searchauthors();
             var parsed = JSON.parse(data); // transformation en JSON
             parselabo=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
@@ -141,5 +150,5 @@ function reload_bubble_labo(parsed){
           $(".reloadlaboratory").click(function(){
             reload_bubble_labo(parselabo);// on recreer le bubble chart
           });
-    };
-
+    });
+});
