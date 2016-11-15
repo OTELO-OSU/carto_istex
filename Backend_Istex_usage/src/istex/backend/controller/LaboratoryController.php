@@ -52,7 +52,7 @@ function search_array($needle, $haystack) {
  
 		
 		
-	
+
 		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
 			$index=$value2[0];// on definie l'index qui va permettre de determiner le nombre de publications par labo
 			if (array_key_exists($index, $tableau_laboratory)) {// array key exist permet de verifier si une clé existe dans un tableau
@@ -65,8 +65,7 @@ function search_array($needle, $haystack) {
 
 				}
 			}
-			//var_dump($tableau_laboratory);
-	foreach ($tableau_laboratory as $value2 => $value3) {
+	/*foreach ($tableau_laboratory as $value2 => $value3) {
 			$valuetocompare=explode(",", $value2);
 				foreach ($tableau_laboratory as $value => $value4) {
 					//echo "<br>Valeur:".$value[0];
@@ -104,19 +103,19 @@ function search_array($needle, $haystack) {
 						if (($percent<=5 AND $percent2>=90 ) AND ($percent3<=5 AND $percent4>=90 )AND($percent5!==0 AND $percent5<=2)) {
 			
 			$arr=array();
-			$arr[]=$value3+$value4;
-			$arr[]=$value;
+			$arr[$value]=$value3+$value4;
+			
 			$array[]=$arr;
+			
 					}
 				}
 				else if($percent5==0){
 			
 
 			$arr=array();
-			$arr[]=$value4;
-			$arr[]=$value;
-			$array[]=$arr;
+			$arr[$value]=$value4;
 			
+			$array[]=$arr;
 
 			
 			/*if (array_key_exists($index, $tableau_laboratorys)) {
@@ -126,19 +125,18 @@ function search_array($needle, $haystack) {
 			}
 			else{
 				$tableau_laboratorys[$index] = 1;// sinon on laisse a 1
-				*/
+				
 
 				
 				}
 				}
 				
-			}
+			}*/
 			// array key exist permet de verifier si une clé existe dans un tableau
 					
 			
 	//$array = array_map("unserialize", array_unique(array_map("serialize", $array)));
-
-			//	var_dump($array);
+				//var_dump($array);
 		
 
 			
@@ -150,32 +148,85 @@ function search_array($needle, $haystack) {
 				$array[$key] = $value;// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 				$laboratory[] = $array;
 			}
-
 			$laboratorywithid=array();
-			foreach ($laboratory as $key => $value) {// on parcourt le tableau precedent
-				foreach ($value as $key2 => $value2) {
+			foreach ($laboratory as $key => $value1) {// on parcourt le tableau precedent
+				foreach ($value1 as $value2 => $value2) {
 					$arraydocument=array();
+					foreach ($master_tab as $key3 => $value3) {
+						if ($value2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
+						// echo $leven;
+						//echo "<br><br>";
+					//if ($leven<=20) {
 					
-					foreach ($master_tab as $key3 => $value3) {// on parcourt le tableau principale
+							$array= array();
+							$array[]=$value3[1];
+							$arraydocument[]=$array;
+							$laboratorywithid[$value2]=$arraydocument;
+						}
+					}
+					/*foreach ($master_tab as $key3 => $value) {// on parcourt le tableau principale
 				//	$leven=levenshtein($key2, $value3[0]);
-						if ($key2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
+						//if ($key2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
 					// echo $leven;
+					$valuetocompare=explode(",", $value2);
+
+						$expr = '/[A-Z]/';
+					$mastervalue=explode(",", $value[0]);
+					if(preg_match_all($expr, $mastervalue[0], $matches)){
+					$result1 = implode('', $matches[0]);
+					$result1 = strtoupper($result1);
+					}
+					if(preg_match_all($expr, $valuetocompare[0], $matches)){
+					$result2 = implode('', $matches[0]);
+					$result2 = strtoupper($result2);
+					}
+
+					if(preg_match_all($expr, $mastervalue[1], $matches)){
+					$result3 = implode('', $matches[0]);
+					$result3 = strtoupper($result3);
+					}
+					if(preg_match_all($expr, $valuetocompare[1], $matches)){
+					$result4 = implode('', $matches[0]);
+					$result4 = strtoupper($result4);
+					}
+				
+
+				if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
+				$percent=levenshtein(metaphone($result1), metaphone($result2));
+				$percent3=levenshtein(metaphone($result3), metaphone($result4));
+				$percent5=levenshtein(metaphone($mastervalue[1]), metaphone($valuetocompare[1]));
+				similar_text(metaphone($result3), metaphone($result4),$percent4);
+				similar_text(metaphone($result1), metaphone($result2),$percent2);
+				
+						if (($percent<=5 AND $percent2>=90 ) AND ($percent3<=5 AND $percent4>=90 )AND($percent5!==0 AND $percent5<=2)) {
 					//echo "<br><br>";
 				//if ($leven<=20) {
-				
+					
 						$array= array();
-						$array[]=$value3[1];
+						$array[]=$value[1];
 						$arraydocument[]=$array;
-						$laboratorywithid[$key2]=$arraydocument;
+						foreach ($array as $key => $value){
+						    $out[] = array_merge((array)[$key], (array)$value);
+						
+						
+				}
+					}
+					elseif($percent5==0){
+						$array= array();
+						$array[]=$value[1];
+						$arraydocument[]=$array;
+						$laboratorywithid[$value[0]]=$arraydocument;
 					}
 					
 				}	
+
 					
-				}
+				}*/
 			}
+		}
 
 				
-					
+	//	var_dump($out);
 		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
 		$response=array();
 		$array=array();
