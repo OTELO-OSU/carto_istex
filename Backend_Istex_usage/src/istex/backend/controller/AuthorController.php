@@ -3,21 +3,48 @@ namespace istex\backend\controller;
 class AuthorController 
 {
 
+	function search_array($needle, $haystack) {
+     if(in_array($needle, $haystack)) {
+          return true;
+     }
+     foreach($haystack as $element) {
+          if(is_array($element) && self::search_array($needle, $element))
+               return true;
+     }
+   return false;
+}
+
+
 	function Sort_by_author($received_array){
+
 		$tableau_author=[]; // Initialisation tableau
 		$authorbylabo=[];
+		$master_tab=[];
 		foreach ($received_array[1] as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['author']." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
-			$tab[]=$value['id'];
 			$tab[]=$value['laboratory'];
-			if ($value['laboratory']==NULL)  {
-				$received_array[0]['noaff']++;
-			}
-			else{
-				$master_tab[]=$tab;// on stocke le tableau dans un autre
-			}
+			$tab[]=$value['id'];
+		
+		if (((self::search_array($value['id'], $master_tab)==true)&&$value['laboratory']==NULL)OR$value['laboratory']==NULL) {
+					$test[]=$value['id'];
+				}
+				else{
+					$master_tab[]=$tab;// on stocke le tableau dans un autre
+					$verif[]=$value['id'];
+					}
+
 		}
+
+		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
+		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
+		$result = array_diff($test, $verif);
+		
+
+		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
+				
+			
 		
 		foreach ($master_tab as $key2 => $value2) {// on parcourt le tableau precedemment créé
 			$index=$value2[0];;// on definie l'index qui va permettre de determiner le nombre de publications par auteur unique

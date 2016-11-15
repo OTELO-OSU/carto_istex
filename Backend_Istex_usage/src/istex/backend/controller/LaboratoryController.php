@@ -3,24 +3,49 @@ namespace istex\backend\controller;
 class LaboratoryController 
 {
 
-
+function search_array($needle, $haystack) {
+     if(in_array($needle, $haystack)) {
+          return true;
+     }
+     foreach($haystack as $element) {
+          if(is_array($element) && self::search_array($needle, $element))
+               return true;
+     }
+   return false;
+}
 
 	function Sort_by_laboratory($received_array){
+	
 		$tableau_laboratory=[]; // Initialisation tableau
 		$tableau_laboratorys=[];
+		$master_tab=[];
 		foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
-			if (($value['laboratory']==NULL && $value['university']==NULL) OR ($value['laboratory']==NULL) OR ($value['university']==NULL) ) {
-					$received_array[0]['noaff']++;
-			}
-			else{
-				$master_tab[]=$tab;// on stocke le tableau dans un autre
-				}
+			
 
+		
+		if (((self::search_array($value['id'], $master_tab)==true)&&$value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)OR($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
+					
+					$test[]=$value['id'];
+				}
+				else{
+					$master_tab[]=$tab;// on stocke le tableau dans un autre
+					$verif[]=$value['id'];
+					}
 
 		}
+
+		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
+		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
+		
+		$result = array_diff($test, $verif);
+		
+		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
+
+//var_dump($master_tab);
 	//$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
 	
 		
@@ -40,7 +65,7 @@ class LaboratoryController
 
 				}
 			}
-			var_dump($tableau_laboratory);
+			//var_dump($tableau_laboratory);
 	foreach ($tableau_laboratory as $value2 => $value3) {
 			$valuetocompare=explode(",", $value2);
 				foreach ($tableau_laboratory as $value => $value4) {
@@ -113,7 +138,7 @@ class LaboratoryController
 			
 	//$array = array_map("unserialize", array_unique(array_map("serialize", $array)));
 
-				var_dump($array);
+			//	var_dump($array);
 		
 
 			

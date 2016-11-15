@@ -7,6 +7,7 @@ $(document).ready(function(){
         $('.laboratory h5').remove();
         $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
         $('.authors h5').remove();
+        $('.country h5').remove();
         $('#authors tbody').remove();// remise a zero en cas de recherche simultané
     	$('#country tbody').remove(); // remise a zero en cas de recherche simultané
     	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
@@ -20,10 +21,8 @@ $(document).ready(function(){
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff']['noaff'];
-			console.log(parsed['0']['noaff']);
-			documentswithaffiliations=parsed['0']['noaff']['total'];
+			documentswithaffiliations=parsed['0']['total'];
 			var total=Object.keys(parsed['documents']).length;
-			var documentswithaffiliations=0;
 			var markers = [] // tableau qui contiendra les differents markers
 	    	for (var k in parsed['documents']) { // on parcourt le JSON
 	    		if (x<20) {
@@ -59,7 +58,11 @@ $(document).ready(function(){
 	      		}
 
    		  	}
-   			 if (x==total) {
+   			 
+    	}
+   			 	
+   			 
+
           		var table = $('#country').DataTable( {
 		          lengthChange: false,
 		           destroy:true,
@@ -69,18 +72,12 @@ $(document).ready(function(){
 		        } );
 
      			var total = (undefinedaff/documentswithaffiliations)*100;
-			    console.log(documentswithaffiliations);
 			    total = total*100;          
 			    total= Math.round(total); 
 			    total= total/100;  
-			    $('.country h5').remove();
 		        $('.country').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
 		        if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
     		mymap.removeLayer(group);
-    	}
-   			 	
-   			 }
-
    			 }
       		group = L.featureGroup(markers); // on met le groupe de markers dans une layer
       		group.addTo(mymap); // on l'ajoute a la map

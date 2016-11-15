@@ -85,7 +85,7 @@ class RequestController
 
 			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
-					
+					//Revoir demain mardi, probeme de calcul author affiliations voir reque envrionmental
 					if (!array_key_exists('author', $value)) {
 						$noaffiliations[]=1	;				
 					}
@@ -239,7 +239,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				}
 				else{
 					$array=array();
-					$array['country']=NULL;
+					$array['country']="NULL";
 					$array['id']=$id;
 					return $array;
 

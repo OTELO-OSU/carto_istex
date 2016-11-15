@@ -3,27 +3,46 @@ namespace istex\backend\controller;
 use \istex\backend\controller\RequestController as RequestApi;
 class CountryController 
 {
+	
+
+function search_array($needle, $haystack) {
+     if(in_array($needle, $haystack)) {
+          return true;
+     }
+     foreach($haystack as $element) {
+          if(is_array($element) && self::search_array($needle, $element))
+               return true;
+     }
+   return false;
+}
+
+
 	function Sort_by_country($received_array,$noaff){
-		
 		$tableau_country=[]; // Initialisation tableau
+		$master_tab=[];
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 					
-				if ($value['country']==NULL&&!isset($master_tab[$value['id']])) {
-					$noaff[0]['noaff']++;
+				if (((self::search_array($value['id'], $master_tab)==true)&&$value['country']=="NULL")OR$value['country']=="NULL") {
+					$test[]=$value['id'];
 				}
 				else{
 					$master_tab[]=$tab;// on stocke le tableau dans un autre
+					$verif[]=$value['id'];
 					}
-			
 
 		}
-		
-		
-	  
+
+		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
+		//var_dump($test);
+		$result = array_diff($test, $verif);
+
+		$noaff[0]['noaff']=$noaff[0]['noaff']+count($result);
+
 
 					
 	  			
@@ -87,7 +106,7 @@ class CountryController
 			
 			$response_array[]=$array;	// mise en tableau de la reponse de nominatim
 		}
-		$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
+		//$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
 		return $response_array;
 
 	}
