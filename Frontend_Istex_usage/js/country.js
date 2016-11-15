@@ -20,7 +20,7 @@ $(document).ready(function(){
         	searchauthors();
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
-			undefinedaff=parsed['0']['noaff']['noaff'];
+			undefinedaff=parsed['0']['noaff'];
 			documentswithaffiliations=parsed['0']['total'];
 			var total=Object.keys(parsed['documents']).length;
 			var markers = [] // tableau qui contiendra les differents markers

@@ -89,8 +89,8 @@ function search_array($needle, $haystack) {
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
 			$response=array();
 			$array=array();
-			$array["noaff"]=$noaff[0];
-			$array["total"]=count($master_tab);
+			$array["noaff"]=$noaff[0]['noaff'];
+			$array["total"]=$noaff[0]['total'];
 			$response[]=$array;
 			$response["documents"]=$countrywithid;
 			return $response;

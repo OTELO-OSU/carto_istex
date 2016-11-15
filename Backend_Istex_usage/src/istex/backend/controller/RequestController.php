@@ -70,7 +70,6 @@ class RequestController
 				 	
 
 				$result = array_merge($response1, $response2,$response3); // on merge les differents tableau de reponse en un seul
-				
 			 	}	
 
 			 else{
@@ -148,6 +147,7 @@ class RequestController
 			$response=array();
 			$array=array();
 			$array["noaff"]=count($noaffiliations);
+			$array["total"]=count($result);
 			$response[]=$array;
 			$response[]=$response_array;
 	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache

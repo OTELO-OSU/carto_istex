@@ -49,7 +49,6 @@
         data3.push(['ID','Y','X','Laboratory','Number of publications']);
         var r = []
         var x = 0;
-        var documentswithaffiliations=0;
         for (var k in parsed) { // on parcourt le JSON
           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
             if (k==" , ") {}
@@ -75,10 +74,9 @@
               var res = k.split(",");
             $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
           }
-          documentswithaffiliations=documentswithaffiliations+occurence;
        }
       $('.laboratory h5').remove();
-      var total = (undefinedaff/(undefinedaff+documentswithaffiliations))*100;
+      var total = (undefinedaff/(documentswithaffiliations))*100;
       total = total*100;          
       total= Math.round(total); 
       total= total/100;  
@@ -136,6 +134,8 @@ function reload_bubble_labo(parsed){
             var parsed = JSON.parse(data); // transformation en JSON
             parselabo=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
+            documentswithaffiliations=parsed['0']['noaff']['total'];
+            console.log(documentswithaffiliations);
             parse_laboratorys(parselabo);
           });
           $(".reloadlaboratory").click(function(){
