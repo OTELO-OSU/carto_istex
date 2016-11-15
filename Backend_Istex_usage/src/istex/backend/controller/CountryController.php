@@ -6,7 +6,7 @@ class CountryController
 	
 
 function search_array($needle, $haystack) {
-     if(in_array($needle, $haystack)) {
+     if(isset($needle, $haystack)) {
           return true;
      }
      foreach($haystack as $element) {
@@ -49,21 +49,21 @@ function search_array($needle, $haystack) {
 	  		
 	  	
 
-		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
+		/*foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
 			$index=$value2[0]; // on definie l'index qui va permettre de determiner le nombre de publications par pays
-			if (array_key_exists($index, $tableau_country)) { // array key exist permet de verifier si une clé existe dans un tableau
+			if (isset($tableau_country[$index])) { // array key exist permet de verifier si une clé existe dans un tableau
 				$tableau_country[$index]++; // si elle existe on ajoute 1 a chaque valeur
 
 			}
 			else{
 				$tableau_country[$index] = 1; // sinon on laisse a 1
 				}
-			}
+			}*/
 
 		$country=array();
-		foreach ($tableau_country as $key => $value) { // on parcourt ensuite le tableau 
+		foreach ($master_tab as $key => $value) { // on parcourt ensuite le tableau 
 			$array=array();
-			$array[$key] = $value; // on range la valeur dans un autre tableau pour obtenir un tableau de tableau
+			$array[$value[0]] = $value[1]; // on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 			$country[] = $array;
 		}
 		

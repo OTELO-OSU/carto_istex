@@ -286,7 +286,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
-				$cache=$m->set($hash, $responsedecoded, 10);// on set le tableau obtenu dans le cache
+				$cache=$m->set($hash, $responsedecoded, 30);// on set le tableau obtenu dans le cache
 				}
 				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
 				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude

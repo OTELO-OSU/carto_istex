@@ -4,7 +4,7 @@ class LaboratoryController
 {
 
 function search_array($needle, $haystack) {
-     if(in_array($needle, $haystack)) {
+     if(isset($needle, $haystack)) {
           return true;
      }
      foreach($haystack as $element) {
@@ -53,9 +53,9 @@ function search_array($needle, $haystack) {
 		
 		
 
-		foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
+		/*foreach ($master_tab as $key2 => $value2) { // on parcourt le tableau precedemment créé
 			$index=$value2[0];// on definie l'index qui va permettre de determiner le nombre de publications par labo
-			if (array_key_exists($index, $tableau_laboratory)) {// array key exist permet de verifier si une clé existe dans un tableau
+			if (isset($tableau_laboratory[$index])) {// array key exist permet de verifier si une clé existe dans un tableau
 				$tableau_laboratory[$index]++;// si elle existe on ajoute 1 a chaque valeur
 
 			}
@@ -64,7 +64,7 @@ function search_array($needle, $haystack) {
 				
 
 				}
-			}
+			}*/
 	/*foreach ($tableau_laboratory as $value2 => $value3) {
 			$valuetocompare=explode(",", $value2);
 				foreach ($tableau_laboratory as $value => $value4) {
@@ -142,10 +142,11 @@ function search_array($needle, $haystack) {
 			
 			
 
+		
 			$laboratory=array();
-			foreach ($tableau_laboratory as $key => $value) {// on parcourt ensuite le tableau 
+			foreach ($master_tab as $key => $value) {// on parcourt ensuite le tableau 
 				$array=array();
-				$array[$key] = $value;// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
+				$array[$value[0]] = $value[1];// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 				$laboratory[] = $array;
 			}
 			$laboratorywithid=array();
