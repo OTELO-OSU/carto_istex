@@ -17,12 +17,11 @@ class AuthorController
 
 	function Sort_by_author($received_array){
 
-		$tableau_author=[]; // Initialisation tableau
-		$authorbylabo=[];
+		 // Initialisation tableau
 		$master_tab=[];
 		foreach ($received_array[1] as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
-			$tab[]=$value['author']." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
+			$tab[]=str_replace(".","",$value['author'])." , ".$value['laboratory'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['laboratory'];
 			$tab[]=$value['id'];
 		
@@ -56,7 +55,7 @@ class AuthorController
 				}
 			}*/
 
-			$author=array();
+			
 			
 			/*foreach ($tableau_author as $key => $value) {// on parcourt ensuite le tableau 
 				$array=array();
@@ -67,13 +66,12 @@ class AuthorController
 			$authorwithid=array();
 			foreach ($master_tab as $key => $value) {// on parcourt le tableau precedent
 				//foreach ($value as $key2 => $value2) {
-					$arraydocument=array();
+						$arraydocument=array();
 					
 				foreach ($master_tab as $key3 => $value3) {// on parcourt le tableau principale
 					if ($value[0]==$value3[0]) {// si le nom d'auteur, labo est le meme alors on les regroupes
 						$array= array();
-						$array[]=$value3[1];
-						
+						$array[]=$value3[2];
 						$arraydocument[]=$array;
 						$authorwithid[$value[0]]=$arraydocument;
 
