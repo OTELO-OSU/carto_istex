@@ -35,13 +35,15 @@ function search_array($needle, $haystack) {
 
 		}
 
-		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		if (isset($test)) {
+		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
-		//var_dump($test);
 		$result = array_diff($test, $verif);
-
 		$noaff[0]['noaff']=$noaff[0]['noaff']+count($result);
+		}
+		//var_dump($test);
+
 
 
 					
@@ -60,27 +62,28 @@ function search_array($needle, $haystack) {
 				}
 			}*/
 
-		$country=array();
-		foreach ($master_tab as $key => $value) { // on parcourt ensuite le tableau 
+		//$country=array();
+		/*foreach ($master_tab as $key => $value) { // on parcourt ensuite le tableau 
 			$array=array();
 			$array[$value[0]] = $value[1]; // on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 			$country[] = $array;
-		}
+		}*/
 		
 		$countrywithid=array();
-		foreach ($country as $key => $value) { // on parcourt le tableau precedent
-			foreach ($value as $key2 => $value2) {
+		foreach ($master_tab as $key => $value) { // on parcourt le tableau precedent
+			//foreach ($value as $key2 => $value2) {
 				$array= array();
 						$Request = new RequestApi;
-						$array['gps']=$Request->Request_lat_lon_of_country($key2);
+						$array['gps']=$Request->Request_lat_lon_of_country($value[0]);
 				foreach ($master_tab as $key3 => $value3) { // on parcourt le tableau principale
-					if ($key2==$value3[0]) { // si le nom de pays est le meme alors on les regroupes
+					if ($value[0]==$value3[0]) { // si le nom de pays est le meme alors on les regroupes
 						$array[]=$value3[1];
-						$countrywithid[$key2]=$array;
+						$countrywithid[$value[0]]=$array;
+
 						
 					}
 					
-				}
+				//}
 										
 				}
 			}

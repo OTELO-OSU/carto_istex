@@ -81,7 +81,6 @@ class RequestController
 			$noaffiliations= array();// initialisation d'un tableau
 			
 			
-
 			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
 					//Revoir demain mardi, probeme de calcul author affiliations voir reque envrionmental
@@ -212,6 +211,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
 				$name=preg_replace('/[0-9-z_@~]/', '', $name);
 				$hash= md5($name);
+				//var_dump($name);
 				$m = new \Memcached(); // initialisation memcached
 				$m->addServer('localhost', 11211); // ajout server memecached
 				$curl = curl_init();

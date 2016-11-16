@@ -144,17 +144,17 @@ function search_array($needle, $haystack) {
 
 		
 			$laboratory=array();
-			foreach ($master_tab as $key => $value) {// on parcourt ensuite le tableau 
+			/*foreach ($master_tab as $key => $value) {// on parcourt ensuite le tableau 
 				$array=array();
 				$array[$value[0]] = $value[1];// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 				$laboratory[] = $array;
-			}
+			}*/
 			$laboratorywithid=array();
-			foreach ($laboratory as $key => $value1) {// on parcourt le tableau precedent
-				foreach ($value1 as $value2 => $value2) {
+			foreach ($master_tab as $key => $value1) {// on parcourt le tableau precedent
+				//foreach ($value1 as $value2 => $value2) {
 					$arraydocument=array();
 					foreach ($master_tab as $key3 => $value3) {
-						if ($value2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
+						if ($value1[0]==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
 						// echo $leven;
 						//echo "<br><br>";
 					//if ($leven<=20) {
@@ -162,7 +162,7 @@ function search_array($needle, $haystack) {
 							$array= array();
 							$array[]=$value3[1];
 							$arraydocument[]=$array;
-							$laboratorywithid[$value2]=$arraydocument;
+							$laboratorywithid[$value1[0]]=$arraydocument;
 						}
 					}
 					/*foreach ($master_tab as $key3 => $value) {// on parcourt le tableau principale
@@ -223,7 +223,7 @@ function search_array($needle, $haystack) {
 
 					
 				}*/
-			}
+			//}
 		}
 
 				
