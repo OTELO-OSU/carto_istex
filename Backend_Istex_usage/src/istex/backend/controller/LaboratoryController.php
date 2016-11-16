@@ -150,7 +150,7 @@ function search_array($needle, $haystack) {
 				$laboratory[] = $array;
 			}*/
 			$laboratorywithid=array();
-			foreach ($master_tab as $key => $value1) {// on parcourt le tableau precedent
+			/*foreach ($master_tab as $key => $value1) {// on parcourt le tableau precedent
 				//foreach ($value1 as $value2 => $value2) {
 					$arraydocument=array();
 					foreach ($master_tab as $key3 => $value3) {
@@ -224,10 +224,22 @@ function search_array($needle, $haystack) {
 					
 				}*/
 			//}
-		}
+		//}
+
+$laboratorywithid = array();
+
+foreach($master_tab as $arg)
+{
+    $laboratorywithid[$arg[0]][] = $arg[1];
+}
+
+
+
+
+
 
 				
-	//	var_dump($out);
+	
 		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
 		$response=array();
 		$array=array();

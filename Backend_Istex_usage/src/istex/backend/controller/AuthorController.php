@@ -63,8 +63,8 @@ class AuthorController
 				$author[] = $array;
 			}*/
 			
-			$authorwithid=array();
-			foreach ($master_tab as $key => $value) {// on parcourt le tableau precedent
+			//$authorwithid=array();
+			/*foreach ($master_tab as $key => $value) {// on parcourt le tableau precedent
 				//foreach ($value as $key2 => $value2) {
 						$arraydocument=array();
 					
@@ -80,7 +80,14 @@ class AuthorController
 					
 				}
 			//}
-		}
+		}*/
+		$authorwithid = array();
+
+foreach($master_tab as $arg)
+{
+    $authorwithid[$arg[0]][] = $arg[1];
+}
+
 	
 					
 					

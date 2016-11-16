@@ -69,8 +69,7 @@ function search_array($needle, $haystack) {
 			$country[] = $array;
 		}*/
 		
-		$countrywithid=array();
-		foreach ($master_tab as $key => $value) { // on parcourt le tableau precedent
+		/*foreach ($master_tab as $key => $value) { // on parcourt le tableau precedent
 			//foreach ($value as $key2 => $value2) {
 				$array= array();
 						$Request = new RequestApi;
@@ -86,9 +85,19 @@ function search_array($needle, $haystack) {
 				//}
 										
 				}
-			}
+			}*/
 
-				
+$countrywithid = array();
+
+foreach($master_tab as $arg)
+{
+	$array= array();
+	$Request = new RequestApi;
+	$countrywithid[$arg[0]]["gps"]=$Request->Request_lat_lon_of_country($arg[0]);
+	$array[]=$arg[1];
+    $countrywithid[$arg[0]][] = $array;
+}
+				//var_dump($countrywithid);
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
 			$response=array();
 			$array=array();
