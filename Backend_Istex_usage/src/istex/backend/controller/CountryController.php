@@ -115,8 +115,10 @@ foreach($master_tab as $arg)
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
 	function get_name($received_array){
 		$response_array= array();
+		
 		foreach ($received_array[1] as $key => $value) {
-			$Request = new RequestApi;
+			$Request= new RequestApi;
+				
 			$array=$Request->Request_name_of_country($value['country'],$value['id']);
 			
 			$response_array[]=$array;	// mise en tableau de la reponse de nominatim

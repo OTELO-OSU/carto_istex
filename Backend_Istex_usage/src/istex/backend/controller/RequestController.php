@@ -218,7 +218,6 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 					$responsedecoded=$cache;
 				}
 				elseif($cache=="NULL"){
-					var_dump($name);
 				}
 				else{
 					
