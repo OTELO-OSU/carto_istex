@@ -24,6 +24,8 @@ function search_array($needle, $haystack) {
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
+			$tab[]=$value['lat'];
+			$tab[]=$value['lon'];
 					
 				if (((self::search_array($value['id'], $master_tab)==true)&&$value['country']=="NULL")OR$value['country']=="NULL") {
 					$test[]=$value['id'];
@@ -93,11 +95,12 @@ foreach($master_tab as $arg)
 {
 	$array= array();
 	$Request = new RequestApi;
-	$countrywithid[$arg[0]]["gps"]=$Request->Request_lat_lon_of_country($arg[0]);
+	$countrywithid[$arg[0]]["gps"]["lat"]=$arg[2];
+	$countrywithid[$arg[0]]["gps"]["lon"]=$arg[3];
 	$array[]=$arg[1];
     $countrywithid[$arg[0]][] = $array;
 }
-				//var_dump($countrywithid);
+				
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
 			$response=array();
 			$array=array();

@@ -211,9 +211,17 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
 				$name=preg_replace('/[0-9-z_@~]/', '', $name);
 				$hash= md5($name);
-				//var_dump($name);
 				$m = new \Memcached(); // initialisation memcached
 				$m->addServer('localhost', 11211); // ajout server memecached
+				$cache=$m->get($hash);//on lit la memoire
+				if ($cache) {
+					$responsedecoded=$cache;
+				}
+				elseif($cache=="NULL"){
+					var_dump($name);
+				}
+				else{
+					
 				$curl = curl_init();
 				$name=rawurlencode($name);
 				curl_setopt_array($curl, array(
@@ -223,25 +231,33 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				  CURLOPT_MAXREDIRS => 10,
 				  CURLOPT_TIMEOUT => 40,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => "GET"
+				  CURLOPT_CUSTOMREQUEST => "GET",
 			));
-				$cache=$m->get($hash);//on lit la memoire
-				if ($cache) {
-					$responsedecoded=$cache;
-				}
-				else{
 
 				$response = curl_exec($curl); 
 				$responsedecoded = json_decode($response);
-				$cache=$m->set($hash, $responsedecoded, 10);// on set le tableau obtenu dans le cache
+				if ($responsedecoded) {
+					
+				$cache=$m->set($hash, $responsedecoded, 100);// on set le tableau obtenu dans le cache
+				}
+				else{
+					$cache=$m->set($hash, "NULL", 100);// on set le tableau obtenu dans le cache
+				}
+				$err = curl_error($curl);
+				curl_close($curl);
 				}
 
 				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
+				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
+				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
+				
 
 				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
 				$array=array();
 				$array['country']=$country;
 				$array['id']=$id;
+				$array['lat']=$latitude;
+				$array['lon']=$longitude;
 				return $array;
 					
 				}
@@ -249,62 +265,18 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 					$array=array();
 					$array['country']="NULL";
 					$array['id']=$id;
+					$array['lat']="NULL";
+					$array['lon']="NULL";
 					return $array;
 
 				}
 				
 
 
-				$err = curl_error($curl);
-				curl_close($curl);
 
 	}
 
-	//Fonction de demande de latitude,longitude de pays a nominatim
-	function Request_lat_lon_of_country($name){
-				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
-				$name=preg_replace('/[0-9-z_@~]/', '', $name);
-				$hash= md5($name);
-				$curl = curl_init();
-				$name=rawurlencode($name);
-				$m = new \Memcached(); // initialisation memcached
-				$m->addServer('localhost', 11211); // ajout server memecached
-				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'https://nominatim.otelo.univ-lorraine.fr/search.php/'.$name.'?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en',
-				  CURLOPT_RETURNTRANSFER => true,
-				  CURLOPT_ENCODING => "",
-				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 40,
-				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => "GET"
-			));
-				$cache=$m->get($hash);//on lit la memoire
-				if ($cache) {
-					$responsedecoded=$cache;
-				}
-				else{
 
-				$response = curl_exec($curl); 
-				$responsedecoded = json_decode($response);
-				$cache=$m->set($hash, $responsedecoded, 30);// on set le tableau obtenu dans le cache
-				}
-				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
-				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
-
-				//if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
-				$array=array(); // mise en tableau
-				$array['lat']=$latitude;
-				$array['lon']=$longitude;
-				return $array;
-					
-				//}
-				
-
-
-				$err = curl_error($curl);
-				curl_close($curl);
-
-	}
 
 
 
