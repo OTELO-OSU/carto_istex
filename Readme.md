@@ -28,6 +28,7 @@ l’impacts des terres rares sur l'écosphère terrestre et aquatique.
 Language et outils utilisé:
 PHP
 Memcached afin de gere la mise en cache.
+Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hote.
 
 
 

@@ -3,16 +3,7 @@ namespace istex\backend\controller;
 class LaboratoryController 
 {
 
-function search_array($needle, $haystack) {
-     if(isset($needle, $haystack)) {
-          return true;
-     }
-     foreach($haystack as $element) {
-          if(is_array($element) && self::search_array($needle, $element))
-               return true;
-     }
-   return false;
-}
+
 
 	function Sort_by_laboratory($received_array){
 	
@@ -26,7 +17,7 @@ function search_array($needle, $haystack) {
 			
 
 		
-		if (((self::search_array($value['id'], $master_tab)==true)&&$value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)OR($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
+		if (($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
 					
 					$test[]=$value['id'];
 				}

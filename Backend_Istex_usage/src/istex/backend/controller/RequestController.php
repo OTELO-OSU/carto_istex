@@ -216,11 +216,13 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				$cache=$m->get($hash);//on lit la memoire
 				if ($cache) {
 					$responsedecoded=$cache;
-				}
-				elseif($cache=="NULL"){
+					if ($responsedecoded=="NULL") {
+						$responsedecoded=array();
+						
+					}
+					
 				}
 				else{
-					
 				$curl = curl_init();
 				$name=rawurlencode($name);
 				curl_setopt_array($curl, array(
@@ -234,41 +236,50 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 			));
 
 				$response = curl_exec($curl); 
+
 				$responsedecoded = json_decode($response);
-				if ($responsedecoded) {
-					
-				$cache=$m->set($hash, $responsedecoded, 100);// on set le tableau obtenu dans le cache
+
+				if (empty($responsedecoded)==false) {
+					$cache=$m->set($hash, $responsedecoded, 100);// on set le tableau obtenu dans le cache
 				}
 				else{
 					$cache=$m->set($hash, "NULL", 100);// on set le tableau obtenu dans le cache
+
 				}
+				
+
 				$err = curl_error($curl);
 				curl_close($curl);
 				}
+				if (empty($responsedecoded)==false) {
+					
 
 				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
 				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
 				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
-				
-
-				if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
 				$array=array();
 				$array['country']=$country;
 				$array['id']=$id;
 				$array['lat']=$latitude;
 				$array['lon']=$longitude;
 				return $array;
-					
-				}
+			}
 				else{
-					$array=array();
-					$array['country']="NULL";
-					$array['id']=$id;
-					$array['lat']="NULL";
-					$array['lon']="NULL";
-					return $array;
-
+					
+				$array=array();
+				$array['country']="NULL";
+				$array['id']=$id;
+				$array['lat']="NULL";
+				$array['lon']="NULL";
+				return $array;
 				}
+				
+				//var_dump($responsedecoded);
+				//if (!$responsedecoded==NULL) { // si la reponse n'est pas vide (correspondance nominatim)
+					
+				
+					
+				//}
 				
 
 

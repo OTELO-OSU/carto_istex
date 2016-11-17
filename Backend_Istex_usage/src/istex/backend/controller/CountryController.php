@@ -20,6 +20,7 @@ function search_array($needle, $haystack) {
 	function Sort_by_country($received_array,$noaff){
 		$tableau_country=[]; // Initialisation tableau
 		$master_tab=[];
+		//var_dump($received_array);
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
@@ -27,7 +28,7 @@ function search_array($needle, $haystack) {
 			$tab[]=$value['lat'];
 			$tab[]=$value['lon'];
 					
-				if (((self::search_array($value['id'], $master_tab)==true)&&$value['country']=="NULL")OR$value['country']=="NULL") {
+				if ($value['country']=="NULL") {
 					$test[]=$value['id'];
 				}
 				else{
@@ -41,10 +42,12 @@ function search_array($needle, $haystack) {
 		if (isset($test)) {
 		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
+		//($test);
+		//var_dump($verif);
 		$result = array_diff($test, $verif);
+		//var_dump($result);
 		$noaff[0]['noaff']=$noaff[0]['noaff']+count($result);
 		}
-		//var_dump($test);
 
 
 
@@ -124,6 +127,7 @@ foreach($master_tab as $arg)
 			$response_array[]=$array;	// mise en tableau de la reponse de nominatim
 		}
 		//$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
+		
 		return $response_array;
 
 	}

@@ -3,16 +3,7 @@ namespace istex\backend\controller;
 class AuthorController 
 {
 
-	function search_array($needle, $haystack) {
-     if(isset($needle, $haystack)) {
-          return true;
-     }
-     foreach($haystack as $element) {
-          if(is_array($element) && self::search_array($needle, $element))
-               return true;
-     }
-   return false;
-}
+	
 
 
 	function Sort_by_author($received_array){
@@ -25,7 +16,7 @@ class AuthorController
 			$tab[]=$value['laboratory'];
 			$tab[]=$value['id'];
 		
-		if (((self::search_array($value['id'], $master_tab)==true)&&$value['laboratory']==NULL)OR$value['laboratory']==NULL) {
+		if ($value['laboratory']==NULL) {
 					$test[]=$value['id'];
 				}
 				else{
