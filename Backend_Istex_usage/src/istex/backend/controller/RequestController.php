@@ -207,7 +207,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 
 
 	//Fonction de demande de nom de pays a nominatim
-	function Request_name_of_country($name,$id){
+	/*function Request_name_of_country($name,$id){
 				$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
 				$name=preg_replace('/[0-9-z_@~]/', '', $name);
 				$hash= md5($name);
@@ -230,7 +230,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 40,
+				  CURLOPT_TIMEOUT => 1,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET",
 			));
@@ -284,7 +284,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 
 
 
-	}
+	}*/
 
 
 

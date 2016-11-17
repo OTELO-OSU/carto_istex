@@ -5,6 +5,7 @@ class LaboratoryController
 
 
 
+
 	function Sort_by_laboratory($received_array){
 	
 		$tableau_laboratory=[]; // Initialisation tableau
@@ -35,6 +36,14 @@ class LaboratoryController
 		$result = array_diff($test, $verif);
 		
 		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
+
+		$laboratorywithid = array();
+
+		foreach($master_tab as $arg)
+		{
+		    $laboratorywithid[$arg[0]][] = $arg[1];
+		}
+
 
 //var_dump($master_tab);
 	//$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
@@ -134,13 +143,13 @@ class LaboratoryController
 			
 
 		
-			$laboratory=array();
+			//$laboratory=array();
 			/*foreach ($master_tab as $key => $value) {// on parcourt ensuite le tableau 
 				$array=array();
 				$array[$value[0]] = $value[1];// on range la valeur dans un autre tableau pour obtenir un tableau de tableau
 				$laboratory[] = $array;
 			}*/
-			$laboratorywithid=array();
+			//$laboratorywithid=array();
 			/*foreach ($master_tab as $key => $value1) {// on parcourt le tableau precedent
 				//foreach ($value1 as $value2 => $value2) {
 					$arraydocument=array();
@@ -155,8 +164,8 @@ class LaboratoryController
 							$arraydocument[]=$array;
 							$laboratorywithid[$value1[0]]=$arraydocument;
 						}
-					}
-					/*foreach ($master_tab as $key3 => $value) {// on parcourt le tableau principale
+					}*/
+					/*foreach ($laboratorywithid as $key3 => $value) {// on parcourt le tableau principale
 				//	$leven=levenshtein($key2, $value3[0]);
 						//if ($key2==$value3[0]) {// si le nom de labo est le meme alors on les regroupes
 					// echo $leven;
@@ -217,12 +226,93 @@ class LaboratoryController
 			//}
 		//}
 
-$laboratorywithid = array();
+				foreach ($laboratorywithid as $key => $value) {
+							$mastervalue=explode(",", $key);
+					foreach ($laboratorywithid as $key2 => $value2) {
+						
+							$valuetocompare=explode(",", $key2);
+							$expr = '/[A-Z]/';
+							
 
-foreach($master_tab as $arg)
-{
-    $laboratorywithid[$arg[0]][] = $arg[1];
-}
+						
+						similar_text(@$mastervalue[1],@$valuetocompare[1],$percent);
+					
+					
+
+						if ($percent >=90) {
+							if(preg_match_all($expr, $mastervalue[0], $matches)){
+							$result1 = implode('', $matches[0]);
+							$result1 = strtoupper($result1);
+							}
+							if(preg_match_all($expr, $valuetocompare[0], $matches)){
+							$result2 = implode('', $matches[0]);
+							$result2 = strtoupper($result2);
+							}
+
+							if(preg_match_all($expr, $mastervalue[1], $matches)){
+							$result3 = implode('', $matches[0]);
+							$result3 = strtoupper($result3);
+							}
+							if(preg_match_all($expr, $valuetocompare[1], $matches)){
+							$result4 = implode('', $matches[0]);
+							$result4 = strtoupper($result4);
+							}
+
+							if (preg_match("/".metaphone($result1)."/",  metaphone($result2))){
+							$percent=levenshtein(metaphone($result1), metaphone($result2));
+							similar_text($result3, $result4,$percent3);
+							$percent5=levenshtein(metaphone($mastervalue[1]), metaphone($valuetocompare[1]));
+							similar_text(metaphone($result3), metaphone($result4),$percent4);
+							similar_text(metaphone($result1), metaphone($result2),$percent2);
+							}
+							
+					else{
+
+						}
+
+						
+						if (($percent<=3 AND $percent2>=90 ) AND ($percent3<=100 AND $percent4>=90 )AND($percent5!==0 AND $percent5<=2)) {
+							
+							
+							/*var_dump("probably same");
+							var_dump($percent3);
+							var_dump($mastervalue[1]);
+							var_dump($valuetocompare[1]);
+							var_dump($mastervalue[0]);
+							var_dump($valuetocompare[0]);*/
+							
+								$array= array();
+								$array[$key]=$value;
+								unset($laboratorywithid[$key2]);
+								$arraydocument[]=$array;
+								foreach ($array as $key2 => $value){
+									foreach ($value as $key => $value) {
+										
+								    $out[] = array_merge((array)[$key], (array)$value);
+									}
+								    
+								$laboratorywithid[$key2]=$out;
+								}
+								
+							//echo "<br><br>";
+						//if ($leven<=20) {
+							
+								
+								
+						}
+							}
+							elseif($percent==100){
+								$array= array();
+								$array[]=$value;
+								$arraydocument[]=$array;
+								$laboratorywithid[$key]=$arraydocument;
+							}
+							
+						}	
+							//}
+
+
+					}
 
 
 

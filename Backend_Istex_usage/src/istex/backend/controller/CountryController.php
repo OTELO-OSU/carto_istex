@@ -5,16 +5,6 @@ class CountryController
 {
 	
 
-function search_array($needle, $haystack) {
-     if(isset($needle, $haystack)) {
-          return true;
-     }
-     foreach($haystack as $element) {
-          if(is_array($element) && self::search_array($needle, $element))
-               return true;
-     }
-   return false;
-}
 
 
 	function Sort_by_country($received_array,$noaff){
@@ -115,22 +105,124 @@ foreach($master_tab as $arg)
 	
 	}
 
+	function on_request_done($content, $url, $ch, $search,$id) {
+    $response_array=array();
+   
+
+    $responsedecoded = json_decode($content);
+    $hash= md5($search);
+    //var_dump($responsedecoded);
+
+				$m = new \Memcached(); // initialisation memcached
+				$m->addServer('localhost', 11211); // ajout server memecached
+				if (empty($responsedecoded)==false) {
+					$cache=$m->set($hash, $responsedecoded, 100);// on set le tableau obtenu dans le cache
+				}
+				else{
+					$cache=$m->set($hash, "NULL", 100);// on set le tableau obtenu dans le cache
+
+				}
+
+				@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
+				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
+				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
+				$array=array();
+				$array['country']=$country;
+				$array['id']=$id;
+				$array['lat']=$latitude;
+				$array['lon']=$longitude;
+				
+				$response_array=self::storeresult($response_array,$array);
+
+    
+
+    
+}
+
+function stripAccents($string){
+	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
+function storeresult($response_array,$array){
+	$response_array[]=$array;
+	return $response_array;
+
+}
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
 	function get_name($received_array){
 		$response_array= array();
 		
+			//$Request= new RequestApi;
+			$curl_options = array(
+			    CURLOPT_RETURNTRANSFER => true,
+				  CURLOPT_ENCODING => "",
+				  CURLOPT_MAXREDIRS => 10,
+				  CURLOPT_TIMEOUT => 1,
+				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				  CURLOPT_CUSTOMREQUEST => "GET",
+			);
+			$parallel_curl = new ParallelCurl(2000, $curl_options);
 		foreach ($received_array[1] as $key => $value) {
-			$Request= new RequestApi;
+			$name=$value['country'];
+			$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
+			$name=preg_replace('/[0-9-z_@~]/', '', $name);
+    		$hash= md5($name);
+
+			 $search = $name;
+				$name=rawurlencode($name);
+    		$search_url = "https://nominatim.otelo.univ-lorraine.fr/search.php/".$name."?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en";
+
+
+				$m = new \Memcached(); // initialisation memcached
+				$m->addServer('localhost', 11211); // ajout server memecached
+				$cache=$m->get($hash);//on lit la memoire
+				if ($cache) {
+					$responsedecoded=$cache;
+					//var_dump($responsedecoded);
+					if ($responsedecoded=="NULL") {
+						$responsedecoded=array();
+						$array=array();
+						$array['country']="NULL";
+						$array['id']=$value['id'];
+						$array['lat']="NULL";
+						$array['lon']="NULL";
+								$response_array=self::storeresult($response_array,$array);
+					}
+					else{
+						@$country = json_decode(json_encode($responsedecoded[0]->address->country),true); 
+				@$latitude = json_decode(json_encode($responsedecoded[0]->lat),true); //acquisition de la latitude
+				@$longitude = json_decode(json_encode($responsedecoded[0]->lon),true); //acquisition de la longitude
+				$array=array();
+				$array['country']=$country;
+				$array['id']=$value['id'];
+				$array['lat']=$latitude;
+				$array['lon']=$longitude;
 				
-			$array=$Request->Request_name_of_country($value['country'],$value['id']);
+								$response_array=self::storeresult($response_array,$array);
+					}
+					
+				}
+			else{
+				
+    			$parallel_curl->startRequest($search_url, 'on_request_done', $search,null,$value['id']);
+    			
+
+				
+				
+
+				}
+
+			//$array=$Request->Request_name_of_country($value['country'],$value['id']);
 			
-			$response_array[]=$array;	// mise en tableau de la reponse de nominatim
+
 		}
+		return $response_array;
+		$parallel_curl->finishAllRequests();
 		//$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
 		
-		return $response_array;
 
 	}
+	
 
 	
 }
