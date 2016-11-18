@@ -32,7 +32,7 @@ class CountryController
 		if (isset($test)) {
 		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
-		//($test);
+		//var_dump($test);
 		//var_dump($verif);
 		$result = array_diff($test, $verif);
 		//var_dump($result);

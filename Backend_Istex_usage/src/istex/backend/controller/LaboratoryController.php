@@ -11,6 +11,7 @@ class LaboratoryController
 		$tableau_laboratory=[]; // Initialisation tableau
 		$tableau_laboratorys=[];
 		$master_tab=[];
+		
 		foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
@@ -38,6 +39,7 @@ class LaboratoryController
 		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
 
 		$laboratorywithid = array();
+
 
 		foreach($master_tab as $arg)
 		{
@@ -226,7 +228,7 @@ class LaboratoryController
 			//}
 		//}
 
-				foreach ($laboratorywithid as $key => $value) {
+			/*	foreach ($laboratorywithid as $key => $value) {
 							$mastervalue=explode(",", $key);
 					foreach ($laboratorywithid as $key2 => $value2) {
 						
@@ -279,19 +281,28 @@ class LaboratoryController
 							var_dump($mastervalue[1]);
 							var_dump($valuetocompare[1]);
 							var_dump($mastervalue[0]);
-							var_dump($valuetocompare[0]);*/
+							var_dump($valuetocompare[0]);
 							
 								$array= array();
 								$array[$key]=$value;
-								unset($laboratorywithid[$key2]);
 								$arraydocument[]=$array;
+								unset($laboratorywithid[$key2]);
+
+									//var_dump($key2);
+							//var_dump($arraydocument);
 								foreach ($array as $key2 => $value){
-									foreach ($value as $key => $value) {
+									foreach ($value as $key3 => $value2) {
+									
+									//foreach ($value2 as $key => $value3) {
 										
-								    $out[] = array_merge((array)[$key], (array)$value);
+										
+								    $out[] = array_merge((array)[$key3], (array)$value2);
+								//$out = array_map("unserialize", array_unique(array_map("serialize", $out)));
+									//}
 									}
 								    
-								$laboratorywithid[$key2]=$out;
+								//$laboratorywithid[$key2]=$out;
+								
 								}
 								
 							//echo "<br><br>";
@@ -313,7 +324,7 @@ class LaboratoryController
 
 
 					}
-
+*/
 
 
 
