@@ -188,7 +188,7 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV",);// tableau pour effectuer la comparaison
 		foreach ($tableau_reference_university as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
-				if (preg_match("/".$valueref."/i",  mb_strtoupper($value2,'UTF-8'))){
+				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
 					$array[]= $value2;
 					return $array;
 
