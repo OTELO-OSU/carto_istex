@@ -37,16 +37,16 @@ Détails des différentes classes et fonctions:
 -RequestController: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
 
--CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
+	-CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
--Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
+	-Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
 
--Match_result_for_laboratory():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	-Match_result_for_laboratory():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
 
 
--Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	-Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
 
-Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
+	Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
 
 
 -LaboratoryController:Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
