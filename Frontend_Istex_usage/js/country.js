@@ -26,6 +26,9 @@
 					if (occurence==1) {
 						radius=75000;
 					}
+					else if(occurence<100){
+						radius=100*30000;
+					}
 					color = '#'+Math.floor(Math.random()*16777215).toString(16);
 					var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
 						color: color,
@@ -44,10 +47,10 @@
 					circle.bindTooltip("<b>"+occurence+"</b>",{ noHide: true ,permanent:true,direction:'center'}).openTooltip();
 					markers.push(circle);// push du marker dans le tableau
 
-		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
 	      		}
 
    		  	}
+		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
    			 
     	}
    			 	

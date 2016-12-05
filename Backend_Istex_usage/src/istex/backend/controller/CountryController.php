@@ -1,6 +1,7 @@
 <?php
 namespace istex\backend\controller;
 use \istex\backend\controller\RequestController as RequestApi;
+
 class CountryController 
 {
 	
@@ -27,8 +28,8 @@ class CountryController
 					}
 
 		}
-
 		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
+		//var_dump($master_tab);
 		if (isset($test)) {
 		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
@@ -105,13 +106,13 @@ foreach($master_tab as $arg)
 	
 	}
 
-	function on_request_done($content, $url, $ch, $search,$id) {
-    $response_array=array();
-   
+function callback_functn($response, $url, $request_info, $user_data, $time) {
 
-    $responsedecoded = json_decode($content);
+    $response_array=array();
+    $responsedecoded = json_decode($response);
+    $search=$user_data[1];
+    $id=$user_data[0];
     $hash= md5($search);
-    //var_dump($responsedecoded);
 
 				$m = new \Memcached(); // initialisation memcached
 				$m->addServer('localhost', 11211); // ajout server memecached
@@ -150,26 +151,33 @@ function storeresult($response_array,$array){
 }
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
 	function get_name($received_array){
-		$response_array= array();
+		$token = uniqid();
+		$json=json_encode($received_array);
+		$file = $token.".txt";
+		file_put_contents("data/".$file, $json);
+		$results = shell_exec('python Multiquery.py '.escapeshellarg($token));
+		$results= json_decode($results);
+		
+		foreach ($results as $key => $value) {
+			$value=json_decode($value,true);
+			$response_array[]=$value;
+		}
+
 		
 			//$Request= new RequestApi;
-			$curl_options = array(
+				/*$curl_options = array(
 			    CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => "",
 				  CURLOPT_MAXREDIRS => 10,
 				  CURLOPT_TIMEOUT => 1,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => "GET",
-			);
-			$parallel_curl = new ParallelCurl(2000, $curl_options);
-		foreach ($received_array[1] as $key => $value) {
-			$name=$value['country'];
-			$name= mb_strtoupper(self::stripAccents($name),'UTF-8');
-			$name=preg_replace('/[0-9-z_@~]/', '', $name);
-    		$hash= md5($name);
-
-			 $search = $name;
-				$name=rawurlencode($name);
+			);*/
+			//$parallel_curl = new RollingCurlX(2000);
+   
+    		/*$hash= md5($name);
+			$search = $name;
+			$name=rawurlencode($name);
     		$search_url = "https://nominatim.otelo.univ-lorraine.fr/search.php/".$name."?format=json&addressdetails=1&limit=1&polygon_svg=0&accept-language=en";
 
 
@@ -178,7 +186,6 @@ function storeresult($response_array,$array){
 				$cache=$m->get($hash);//on lit la memoire
 				if ($cache) {
 					$responsedecoded=$cache;
-					//var_dump($responsedecoded);
 					if ($responsedecoded=="NULL") {
 						$responsedecoded=array();
 						$array=array();
@@ -198,26 +205,35 @@ function storeresult($response_array,$array){
 				$array['lat']=$latitude;
 				$array['lon']=$longitude;
 				
-								$response_array=self::storeresult($response_array,$array);
+						$response_array=self::storeresult($response_array,$array);
 					}
 					
 				}
 			else{
+    			//$parallel_curl->startRequest($search_url, 'on_request_done', $search,null,$value['id']);
+    			$post_data=NULL;
+    			$user_data=[$value['id'],$search];
+    			$options = [CURLOPT_FOLLOWLOCATION => false];
+    			$parallel_curl->addRequest($search_url, $post_data, 'callback_functn', $user_data, $curl_options);
+				//$array=array();
+				//$array['country']=$name;
+				//$array['id']=$value['id'];
+				//$array['lat']=$latitude;
+				//$array['lon']=$longitude;
 				
-    			$parallel_curl->startRequest($search_url, 'on_request_done', $search,null,$value['id']);
-    			
+				//$response_array=self::storeresult($response_array,$array);
+				
 
-				
-				
-
-				}
+				}*/
 
 			//$array=$Request->Request_name_of_country($value['country'],$value['id']);
 			
 
-		}
+		//}
+		//var_dump(count($response_array));
+
+		//var_dump($response_array);
 		return $response_array;
-		$parallel_curl->finishAllRequests();
 		//$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));
 		
 

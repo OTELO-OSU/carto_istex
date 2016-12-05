@@ -1,5 +1,8 @@
 <?php
 namespace istex\backend\controller;
+ini_set('memory_limit', '-1');
+
+
 class RequestController 
 {
 	//fonction requetes curl 
@@ -13,7 +16,10 @@ class RequestController
 	}
 
 
-	
+	function stripAccents($string){
+	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
 
 	function Request_alldoc_querypagebypage($query){
 		//$curl = curl_init(); // initialisation de curl
@@ -84,7 +90,6 @@ class RequestController
 			
 			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
-					//Revoir demain mardi, probeme de calcul author affiliations voir reque envrionmental
 					if (!array_key_exists('author', $value)) {
 						$noaffiliations[]=1	;				
 					}
@@ -119,6 +124,11 @@ class RequestController
 						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						
 						$array['id']=$id; // on stocke les differents champs dans un tableau
+						$country=preg_replace("/[\[{\(].*[\]}\)]|[0-9÷\-z_@~;:?'*-]/", '', $country);
+						$country= mb_strtoupper(self::stripAccents($country),'UTF-8');
+						$country=urlencode($country);
+
+
 						$array['country']=$country;
 						$array['laboratory']=$laboratory[0];
 						$array['university']=$university[0];
@@ -159,10 +169,7 @@ class RequestController
 
 
 
-function stripAccents($string){
-	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
-'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
-}
+
 
 
 function Match_result_for_laboratory($received_array){ // Fonction permettant de rechercher si les affiliations on un bon laboratoires
