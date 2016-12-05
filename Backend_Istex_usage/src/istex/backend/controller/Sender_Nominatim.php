@@ -59,7 +59,7 @@ function stripAccents($string){
 						$arraytocache['lat']=$aSearchResults[0]['lat'];
 						$arraytocache['lon']=$aSearchResults[0]['lon'];
 
-						// Lundi voir le post it rose(affiliations graph excell et verif que sa marhce nominatim)
+						
 
 					    }
 					    else{
