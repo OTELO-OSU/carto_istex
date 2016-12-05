@@ -2,7 +2,6 @@ import sys
 import subprocess
 from threading import Thread
 import time
-import pprint
 import json
 import os
 
@@ -17,7 +16,7 @@ def split(arr, size):
 
 result=[]
 
-class Afficheur(Thread):
+class Send(Thread):
 
 
 	def __init__(self, country,Id):
@@ -39,7 +38,7 @@ os.remove('data/'+sys.argv[1]+'.txt')
 
 for liste in listes:
 	for item in liste[1]:
-		thread = Afficheur(item["country"],item["id"])
+		thread = Send(item["country"],item["id"])
 		thread.start()
 
 
