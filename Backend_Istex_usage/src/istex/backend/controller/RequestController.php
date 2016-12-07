@@ -109,7 +109,6 @@ class RequestController
 					}
 					else{
 					foreach ($value['author'] as $key => $value2) {
-						//var_dump($value2);
 						
 						@$author=$value2['name']; // recuperation du nom de l'auteur
 							
