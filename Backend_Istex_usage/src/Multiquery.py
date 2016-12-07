@@ -1,9 +1,13 @@
+#!/usr/bin/python
 import sys
 import subprocess
 from threading import Thread
 import time
 import json
 import os
+import pylibmc
+import hashlib
+
 
 def split(arr, size):
      arrs = []
@@ -25,16 +29,37 @@ class Send(Thread):
 		self.Id = Id
 
 	def run(self):
-		script_response = subprocess.check_output(["php","istex/backend/controller/Sender_Nominatim.php",self.country,self.Id])
-		result.append(script_response)
+		mc = pylibmc.Client(["127.0.0.1"])
+		hashed=hashlib.md5()
+		hashed.update(self.country)
+		hashed=hashed.hexdigest()
+	
+		country = mc.get(hashed)
+		if country is None:
+			script_response = subprocess.check_output(["php","istex/backend/controller/Sender_Nominatim.php",self.country])
+			mc.set(hashed, script_response)
+			addid=json.loads(script_response)
+			addid['id']=self.Id
+			addid =json.dumps(addid)
+			result.append(addid)
+			pass
+		else:
+			
+			addid=json.loads(country)
+			addid['id']=self.Id
+			addid =json.dumps(addid)
+			result.append(addid)
+			pass
 
+		
+	
+		
 
+mc = pylibmc.Client(["127.0.0.1"])
+jsondata = mc.get(sys.argv[1])
+listes= json.loads(jsondata)
+listes=split(listes,200)
 
-with open('data/'+sys.argv[1]+'.txt') as json_data:
-	listes = json.load(json_data)
-
-listes=split(listes,20)
-os.remove('data/'+sys.argv[1]+'.txt')
 
 for liste in listes:
 	for item in liste[1]:
@@ -46,17 +71,14 @@ for liste in listes:
 	for item in liste[1]:
 		thread.join()
 
-time.sleep(0.2)
-result= json.dumps(result)
-result= json.loads(result)
-result= json.dumps(result)
+
+time.sleep(0.1)
+results= json.dumps(result)
+results= json.loads(results)
+results= json.dumps(results)
 
 
-
-print result
-
-
-
+print results
 
 
 

@@ -3,6 +3,7 @@ namespace istex\backend\controller;
 ini_set('memory_limit', '-1');
 
 
+
 class RequestController 
 {
 	//fonction requetes curl 
@@ -16,16 +17,29 @@ class RequestController
 	}
 
 
-	function stripAccents($string){
-	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
-'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+
+	function stripAccents($string)
+{
+    $replacement = array("é" => "e",
+                         "à" => "a",
+                         "ù" => "u",
+                         "è" => "e",
+                         "ê" => "a",
+                         "ô" => "o",
+                         "û" => "u",
+                         "â" => "a",
+                         "ŷ" => "y");
+ 
+    return strtr($string, $replacement);
 }
+
 
 	function Request_alldoc_querypagebypage($query){
 		//$curl = curl_init(); // initialisation de curl
 		$hash= md5($query); // on hash la query
 		$m = new \Memcached(); // initialisation memcached
 		$m->addServer('localhost', 11211); // ajout server memecached
+		$m->setOption(\Memcached::OPT_COMPRESSION, false);
 		$cache=$m->get($hash);//on lit la memoire
 		if ($cache) { // si présent dans la memoire on retourne le cache
 			return $cache;
@@ -124,7 +138,7 @@ class RequestController
 						$country = preg_replace('/\s+/', '', $country, 1); // remplacement du premier espace devant le nom de pays
 						
 						$array['id']=$id; // on stocke les differents champs dans un tableau
-						$country=preg_replace("/[\[{\(].*[\]}\)]|[0-9÷\-z_@~;:?'*-]/", '', $country);
+						$country=preg_replace("/[\[{\(].*[\]}\)]|[0-9÷\-z_@~;:?'+*-]/", '', $country);
 						$country= mb_strtoupper(self::stripAccents($country),'UTF-8');
 						$country=urlencode($country);
 
@@ -160,8 +174,12 @@ class RequestController
 			$array["total"]=count($result);
 			$response[]=$array;
 			$response[]=$response_array;
-	        $cache=$m->set($hash, $response, 120);// on set le tableau obtenu dans le cache
-			return $response;
+			
+
+			$json=json_encode($response);
+			//$json= serialize($response);
+	        $cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
+			return $json;
 
 		}
 	}
@@ -177,8 +195,9 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 		$tableau_reference_laboratory=array("DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT"," CNRS "," C.N.R.S ","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"); // tableau pour effectuer la comparaison
 		foreach ($tableau_reference_laboratory as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
-				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
-					$array[]= $value2;
+			$laboratory=mb_strtoupper(self::stripAccents($value2),'UTF-8');
+				if (preg_match("/".$valueref."/i",$laboratory)){
+					$array[]= $laboratory;
 					return $array;
 					
 				}
@@ -195,8 +214,9 @@ function Match_result_for_laboratory($received_array){ // Fonction permettant de
 		$tableau_reference_university = array(" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV",);// tableau pour effectuer la comparaison
 		foreach ($tableau_reference_university as $key => $valueref) {
 			foreach ($received_array as $key => $value2) {
-				if (preg_match("/".$valueref."/i",  mb_strtoupper(self::stripAccents($value2),'UTF-8'))){
-					$array[]= $value2;
+				$university=mb_strtoupper(self::stripAccents($value2),'UTF-8');
+				if (preg_match("/".$valueref."/i",$university)){
+					$array[]= $university;
 					return $array;
 
 				}

@@ -9,9 +9,9 @@ class CountryController
 
 
 	function Sort_by_country($received_array,$noaff){
+		$noaff=json_decode($noaff,true);
 		$tableau_country=[]; // Initialisation tableau
 		$master_tab=[];
-		//var_dump($received_array);
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
@@ -84,7 +84,6 @@ class CountryController
 			}*/
 
 $countrywithid = array();
-
 foreach($master_tab as $arg)
 {
 	$array= array();
@@ -96,6 +95,12 @@ foreach($master_tab as $arg)
 }
 				
 			arsort($countrywithid);	//tri du pays qui a le plus de documents au plus petit nombre
+			foreach ($countrywithid as $key => $value) {
+			$array= array();
+			$array["gps"]=$value["gps"];
+			$array["total"]=count($value)-1;
+			$countrywithid[$key]=$array;
+			}
 			$response=array();
 			$array=array();
 			$array["noaff"]=$noaff[0]['noaff'];
@@ -106,7 +111,7 @@ foreach($master_tab as $arg)
 	
 	}
 
-function callback_functn($response, $url, $request_info, $user_data, $time) {
+/*function callback_functn($response, $url, $request_info, $user_data, $time) {
 
     $response_array=array();
     $responsedecoded = json_decode($response);
@@ -138,26 +143,20 @@ function callback_functn($response, $url, $request_info, $user_data, $time) {
     
 
     
-}
+}*/
 
-function stripAccents($string){
-	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
-'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
-}
-function storeresult($response_array,$array){
+
+/*function storeresult($response_array,$array){
 	$response_array[]=$array;
 	return $response_array;
 
-}
+}*/
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
-	function get_name($received_array){
-		$token = uniqid();
+	function get_name($received_array,$query){
+		$hash = md5($query);
 		$json=json_encode($received_array);
-		$file = $token.".txt";
-		file_put_contents("data/".$file, $json);
-		$results = shell_exec('python Multiquery.py '.escapeshellarg($token));
+		$results= shell_exec('python Multiquery.py '.escapeshellarg($hash));
 		$results= json_decode($results);
-		
 		foreach ($results as $key => $value) {
 			$value=json_decode($value,true);
 			$response_array[]=$value;
@@ -231,7 +230,6 @@ function storeresult($response_array,$array){
 
 		//}
 		//var_dump(count($response_array));
-
 		//var_dump($response_array);
 		return $response_array;
 		//$response_array = array_map("unserialize", array_unique(array_map("serialize", $response_array)));

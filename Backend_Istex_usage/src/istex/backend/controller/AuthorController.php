@@ -7,7 +7,7 @@ class AuthorController
 
 
 	function Sort_by_author($received_array){
-
+		$received_array= json_decode($received_array,true);
 		 // Initialisation tableau
 		$master_tab=[];
 		foreach ($received_array[1] as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
@@ -83,6 +83,11 @@ foreach($master_tab as $arg)
 					
 					
 			arsort($authorwithid);////tri de l'auteur qui a le plus de documents au plus petit nombre
+			foreach ($authorwithid as $key => $value) {
+			$array= array();
+			$array["total"]=count($value);
+			$authorwithid[$key]=$array;
+			}
 			$response=array();
 			$array=array();
 			$array["noaff"]=$received_array[0];

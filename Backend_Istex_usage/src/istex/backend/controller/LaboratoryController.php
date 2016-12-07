@@ -7,7 +7,7 @@ class LaboratoryController
 
 
 	function Sort_by_laboratory($received_array){
-	
+		$received_array= json_decode($received_array,true);
 		$tableau_laboratory=[]; // Initialisation tableau
 		$tableau_laboratorys=[];
 		$master_tab=[];
@@ -333,11 +333,17 @@ class LaboratoryController
 				
 	
 		arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
+		foreach ($laboratorywithid as $key => $value) {
+			$array= array();
+			$array["total"]=count($value);
+			$laboratorywithid[$key]=$array;
+			}
 		$response=array();
 		$array=array();
 		$array["noaff"]=$received_array[0];
 		$response[]=$array;
 		$response["documents"]=$laboratorywithid;
+
 
 		return $response;
 

@@ -55,7 +55,7 @@
              if (k==" , ") {}
                 else{
                   x++;
-                  var occurence=(parsed[k].length);
+                  var occurence = parsed[k]['total'];
               if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
                 data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); // on push les données dans un array
@@ -63,14 +63,14 @@
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
              x++;
-            var occurence=(parsed[k].length);
+            var occurence = parsed[k]['total'];
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
             data4.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); 
           }
           if (k==" , ") {}
           else{
-            var occurence=(parsed[k].length);
+            var occurence = parsed[k]['total'];
             if (parsed.hasOwnProperty(k)) 
                var res = k.split(",");
                $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
@@ -108,7 +108,8 @@
              if (k==" , ") {}
                 else{
                   x++;
-                  var occurence=(parsed[k].length);
+                  console.log(parsed[k]['total'])
+                  var occurence = parsed['documents'][k]['total'];
               if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
                 data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array

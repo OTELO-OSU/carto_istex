@@ -13,21 +13,24 @@
 			undefinedaff=parsed['0']['noaff'];
 			documentswithaffiliations=parsed['0']['total'];
 			var total=Object.keys(parsed['documents']).length;
+
 			var markers = [] // tableau qui contiendra les differents markers
 	    	for (var k in parsed['documents']) { // on parcourt le JSON
+			var occurence = parsed['documents'][k]['total'];
 	    		if (x<20) {
          			x++;
          	if (k=="") {
          	}
 	         	else{
-			        	var occurence=(Object.keys(parsed['documents'][k]).length)-1;
 			        if (parsed['documents'].hasOwnProperty(k)) 
-						radius=occurence*30000;
 					if (occurence==1) {
-						radius=75000;
+						radius=2000;
 					}
-					else if(occurence<100){
-						radius=100*30000;
+					else{
+						radius=occurence*2000;
+					}
+					if (radius>1000000) {
+						radius=1000000;
 					}
 					color = '#'+Math.floor(Math.random()*16777215).toString(16);
 					var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
