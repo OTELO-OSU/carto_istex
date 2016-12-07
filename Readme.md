@@ -30,6 +30,15 @@ PHP
 Memcached afin de gere la mise en cache.
 Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hote.
 
+Configuration de Memcached:
+Passer la taille d'un item a maximum 6MO. Et augmenter le nombre de thread, selon la machine.
+
+Dépendances: 
+	-Python
+	-PIP
+	-Installation de pylibmc (librairie python memcached)
+
+
 
 
 Détails des différentes classes et fonctions:
