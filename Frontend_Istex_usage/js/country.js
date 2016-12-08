@@ -24,16 +24,18 @@
 	         	else{
 			        if (parsed['documents'].hasOwnProperty(k)) 
 					if (occurence==1) {
-						radius=2000;
+						var radius=1;
 					}
 					else{
-						radius=occurence*2000;
+						var radius=occurence*0.3;
 					}
-					if (radius>1000000) {
-						radius=1000000;
+					if (radius>60) {
+						var radius=60;
 					}
+					console.log(radius);
+					console.log(k);
 					color = '#'+Math.floor(Math.random()*16777215).toString(16);
-					var circle = L.circle([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
+					var circle = L.circleMarker([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {
 						color: color,
 						fillColor: color ,
 						fillOpacity: 0.5,
@@ -51,6 +53,7 @@
 					markers.push(circle);// push du marker dans le tableau
 
 	      		}
+	      		console.log(markers);
 
    		  	}
 		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
