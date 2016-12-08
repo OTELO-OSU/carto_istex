@@ -107,12 +107,12 @@ function reload_bubble_labo(parsed){
                 var occurence = parsed[k]['total'];
                 if (parsed.hasOwnProperty(k)) 
                 var res = k.split(",");
-                data3.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
+                data3.push([res[0]+" ("+occurence+")"+res[1],Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
               }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
              x++;
-            var occurence=(parsed[k].length);
+            var occurence = parsed[k]['total'];
           if (parsed.hasOwnProperty(k)) 
             var res = k.split(",");
             data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 

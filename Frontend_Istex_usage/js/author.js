@@ -108,24 +108,23 @@
              if (k==" , ") {}
                 else{
                   x++;
-                  console.log(parsed[k]['total'])
-                  var occurence = parsed['documents'][k]['total'];
-              if (parsed.hasOwnProperty(k)) 
-                var res = k.split(",");
-                data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
+                  var occurence = parsed[k]['total'];
+                  if (parsed.hasOwnProperty(k)) 
+                    var res = k.split(",");
+                    data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
               }
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
-             x++;
-            var occurence=(parsed[k].length);
-          if (parsed.hasOwnProperty(k)) 
-            var res = k.split(",");
-            data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
+              x++;
+              var occurence = parsed[k]['total'];
+              if (parsed.hasOwnProperty(k)) 
+                var res = k.split(",");
+                data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
-      google.charts.setOnLoadCallback(drawSeriesChartauthor
-        );
+        google.charts.setOnLoadCallback(drawSeriesChartauthor);
+                   
 
       }
 
