@@ -32,6 +32,10 @@
               textPosition: 'none'
            },
             bubble: {textStyle: {fontSize: 11}},
+             explorer: {
+        maxZoomOut:3,
+        keepInBounds: true
+    }
             
           };
 

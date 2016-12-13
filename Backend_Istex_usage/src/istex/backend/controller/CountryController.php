@@ -105,6 +105,7 @@ foreach($master_tab as $arg)
 			$array=array();
 			$array["noaff"]=$noaff[0]['noaff'];
 			$array["total"]=$noaff[0]['total'];
+			$array["crc32"]=crc32(json_encode($received_array));
 			$response[]=$array;
 			$response["documents"]=$countrywithid;
 			return $response;

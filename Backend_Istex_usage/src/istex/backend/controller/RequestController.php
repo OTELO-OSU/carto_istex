@@ -100,9 +100,12 @@ class RequestController
 			
 			$response_array= array();// initialisation d'un tableau
 			$noaffiliations= array();// initialisation d'un tableau
-			
-			
-			foreach ($result as $key => $value) {  //On parcourt le tableau resultat
+			$json=json_encode($result);
+			$cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
+
+			$results= shell_exec('python Requestprocessing.py '.escapeshellarg($hash));
+			$response_array=json_decode($results,TRUE);
+			/*foreach ($result as $key => $value) {  //On parcourt le tableau resultat
 					$array=array();
 					if (!array_key_exists('author', $value)) {
 						$noaffiliations[]=1	;				
@@ -161,22 +164,24 @@ class RequestController
 						
 						
 					}
-				}
+				}*/
 
 
 
 				
-			}
-			$response=array();
+			//}
+			/*$response=array();
 			$array=array();
 			$array["noaff"]=count($noaffiliations);
 			$array["total"]=count($result);
 			$response[]=$array;
-			$response[]=$response_array;
+			$response[]=$response_array;*/
 			
 
-			$json=json_encode($response);
+			$json=json_encode($response_array);
 			//$json= serialize($response);
+			//$hash= md5($query); 
+			
 	        $cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
 			return $json;
 
