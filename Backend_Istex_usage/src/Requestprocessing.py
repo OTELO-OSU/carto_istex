@@ -32,17 +32,19 @@ def split(arr, size):
 
 
 def Match_result_for_laboratory(received_array):
+    
     array=[]
     tableau_reference_laboratory=["DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
             if type(value) is unicode:
                 regex = r"[\[{\(].*[\]}\)]|[÷\-_@~;:.?+*-]"
-                laboratory=value
+                laboratory=unidecode.unidecode(value)
                 laboratory=re.sub(regex, " ", laboratory)
             if re.search(r""+reference+"",laboratory.upper()):
                 array=laboratory.upper()
                 return array
+            
 
 def Match_result_for_university(received_array):
     array=[]
@@ -51,11 +53,12 @@ def Match_result_for_university(received_array):
         for value in received_array:
             if type(value) is unicode:
                 regex = r"[\[{\(].*[\]}\)]|[÷\-_@~;:.?+*-]"
-                university=value
+                university=unidecode.unidecode(value)
                 university=re.sub(regex, " ", university)
             if re.search(r""+reference+"",university.upper()):
                 array=university.upper()
                 return array
+            
 
 
 
@@ -112,10 +115,12 @@ def processing(liste,send_end):
                         array={}
                         array["id"]=Id
                         array["country"]=country
+                        
                         array["laboratory"]=laboratory
+                           
+                        
                         array["university"]=university
                         array["author"]=author
-
 
                         response_array.append(array)
     arrayaff=[]
