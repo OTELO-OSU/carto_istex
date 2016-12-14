@@ -15,6 +15,9 @@ import urllib
 import string
 import multiprocessing 
 import unidecode
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+
 
   
 
@@ -34,15 +37,15 @@ def split(arr, size):
 def Match_result_for_laboratory(received_array):
     
     array=[]
-    tableau_reference_laboratory=["DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"]
+    tableau_reference_laboratory=["DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE","BRGM"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
             if type(value) is unicode:
-                regex = r"[\[{\(].*[\]}\)]|[÷\-_@~;:.?+*-]"
+                regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+)*-]"
                 laboratory=unidecode.unidecode(value)
                 laboratory=re.sub(regex, " ", laboratory)
             if re.search(r""+reference+"",laboratory.upper()):
-                array=laboratory.upper()
+                array=laboratory.upper().lstrip()
                 return array
             
 
@@ -52,11 +55,11 @@ def Match_result_for_university(received_array):
     for reference in tableau_reference_university:
         for value in received_array:
             if type(value) is unicode:
-                regex = r"[\[{\(].*[\]}\)]|[÷\-_@~;:.?+*-]"
+                regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+)*-]"
                 university=unidecode.unidecode(value)
                 university=re.sub(regex, " ", university)
             if re.search(r""+reference+"",university.upper()):
-                array=university.upper()
+                array=university.upper().lstrip()
                 return array
             
 
@@ -79,7 +82,7 @@ def processing(liste,send_end):
         else:
             for value2 in value["author"]:
                 if not 'affiliations' in value2:
-                    lenk=5
+                    noaf=None
                 else:
                     author=value2['name']
                     affiliations=value2['affiliations']
@@ -153,10 +156,34 @@ def main():
 
     result_list = [x.recv() for x in pipe_list]
     noaff=0
+    array=[]
     for liste in result_list:
         noaff+=liste[0][0]["noaff"]
+        result_liste=liste[1]
+        for i in range(0,len(result_liste)):
+            for n in range(1,len(result_liste)):
+                comparelabo=result_liste[i]["laboratory"]
+                compareuniv=result_liste[i]["university"]
+                comparelabo2=result_liste[n]["laboratory"]
+                compareuniv2=result_liste[n]["university"]
+
+                if (result_liste[i]["laboratory"]!=result_liste[n]["laboratory"]) or (result_liste[i]["university"]!=result_liste[n]["university"]) :
+                    
+                    
+
+                    labopercent=fuzz.partial_ratio(comparelabo,comparelabo2)
+                    univlabo= fuzz.partial_ratio(compareuniv,compareuniv2)
+                    if labopercent>=90 and univlabo>=90:
+                        result_liste[i]["university"]=compareuniv
+                        result_liste[n]["university"]=compareuniv
+                        result_liste[i]["laboratory"]=comparelabo
+                        result_liste[n]["laboratory"]=comparelabo
+    
+    for liste in result_list:
         for item in liste[1]:
-            result.append(item)
+            result.append(item) 
+
+
     arraytmp["noaff"]=noaff
     arraytmp["total"]=len(listes_re)
 
