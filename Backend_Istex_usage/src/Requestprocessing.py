@@ -37,30 +37,35 @@ def split(arr, size):
 def Match_result_for_laboratory(received_array):
     
     array=[]
-    tableau_reference_laboratory=["DEPARTMENT", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE","BRGM"]
+    tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","BRGM","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
-            if type(value) is unicode:
-                regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+)*-]"
-                laboratory=unidecode.unidecode(value)
-                laboratory=re.sub(regex, " ", laboratory)
-            if re.search(r""+reference+"",laboratory.upper()):
-                array=laboratory.upper().lstrip()
-                return array
+            if len(array)!=2:
+                if type(value) is unicode:
+                    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+                    laboratory=unidecode.unidecode(value)
+                    laboratory=re.sub(regex, " ", laboratory)
+                if re.search(r""+reference+"",laboratory.upper()):
+                    array.append(laboratory.upper().lstrip())
+    return list(set(array))
             
 
 def Match_result_for_university(received_array):
     array=[]
-    tableau_reference_university=[" UNIV ", " INST ", "UNIVERSITY", "INSTITUTE", "INSTITUTION", "CENTER", "HOSPITAL", "COLLEGE", "FACULTY", "COUNCIL", "CEA", "MAX PLANK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV"]
+    tableau_reference_university=[" IPGP ","IPG PARIS","CEA","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","MAX-PLANCK", "MAX PLANCK","IFREMER","UNIVERSITE","ECOLE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", " INST ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" ,"INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO", "CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
     for reference in tableau_reference_university:
         for value in received_array:
-            if type(value) is unicode:
-                regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+)*-]"
-                university=unidecode.unidecode(value)
-                university=re.sub(regex, " ", university)
-            if re.search(r""+reference+"",university.upper()):
-                array=university.upper().lstrip()
-                return array
+            if len(array)!=2:
+                if type(value) is unicode:
+                    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+                    university=unidecode.unidecode(value)
+                    university=re.sub(regex, " ", university)
+                if re.search(r""+reference+"",university.upper()):
+                    array.append(university.upper().lstrip())
+                
+
+    return list(set(array))
+
             
 
 
@@ -78,32 +83,92 @@ def processing(liste,send_end):
     for value in data:
         if not 'author' in value:
             noaffiliation["noaff"]+=1
-
         else:
             for value2 in value["author"]:
                 if not 'affiliations' in value2:
-                    noaf=None
+                    noaffiliation["noaff"]+=1
+                    break;
                 else:
                     author=value2['name']
                     affiliations=value2['affiliations']
                     if not affiliations is None:
-                        if len(affiliations)==2:
+                        if len(affiliations)>=2:
                             if not affiliations[0] is None:
-                                if re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", affiliations[0]):
-                                    parse = affiliations[1].split(',')
+                                parser=affiliations[0].split(',')
+                                if re.search(r"(@)", affiliations[0]) or len(parser)==1:
+                                    affiliations=affiliations[1].replace("-", ",", 1)
+                                    parse = affiliations.split(',')
                                     country = parse[len(parse)-1]
                                 else:
-                                    parse = affiliations[0].split(',')
+                                    affiliations=affiliations[0].replace("-", ",", 1)
+                                    parse = affiliations.split(',')
                                     country = parse[len(parse)-1]
                         else:
                             if not affiliations[0] is None: 
-                                parse = affiliations[0].split(',')
+                                affiliations=affiliations[0].replace("-", ",", 1)
+                                parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
                         Id=value["id"]   
                         if parse is not None:   
-                            laboratory=Match_result_for_laboratory(parse)
-                            university=Match_result_for_university(parse)
-                           
+                            setlaboratory=Match_result_for_laboratory(parse)
+                            setuniversity=Match_result_for_university(parse)
+
+
+
+
+                            if len(setlaboratory)!=0:
+                                if len(setuniversity)==0:
+                                        response_compare=["SCHOOL","ACADEMY","CRPG","LIEC","LSE","GEORESSOURCES"]
+                                        if len(setlaboratory)>=2:
+                                            for reponse in response_compare:
+                                                    if re.search(r""+reponse+"",setlaboratory[0].upper()):
+                                                        laboratory=setlaboratory[0]
+                                                        university=setlaboratory[1]
+                                                    elif re.search(r""+reponse+"",setlaboratory[1].upper()):
+                                                        laboratory=setlaboratory[0]
+                                                        university=setlaboratory[1]
+                                                    
+                                        else:
+                                            for reponse in response_compare:
+                                                if re.search(r""+reponse+"",setlaboratory[0].upper()):
+                                                    laboratory=setlaboratory[0]
+                                                    university=setlaboratory[0]
+                                                     
+                                else:
+                                    laboratory=setlaboratory[0]          
+                                                 
+                            else:
+                                laboratory=None
+                                
+                                
+
+                            if len(setuniversity)!=0:
+                                if len(setlaboratory)==0:
+                                    response_compare=[" CEA ","COMMISSARIAT A L'ENERGIE ATOMIQUE","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","MAX-PLANCK", "MAX PLANCK","IFREMER","BRGM","CRPG"," UNIV ","UNIVERSITY","UNIVERSITE","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO"," IPGP ","IPG PARIS","CRPG","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
+                                    if len(setuniversity)>=2:
+                                        for reponse in response_compare:
+                                                if re.search(r""+reponse+"",setuniversity[0]):
+                                                    laboratory=setuniversity[0]
+                                                    university=setuniversity[1]
+                                                elif re.search(r""+reponse+"",setuniversity[1]):
+                                                    laboratory=setuniversity[0]
+                                                    university=setuniversity[1]
+                                                   
+                                                
+
+                                    else:
+                                        for reponse in response_compare:
+                                            if re.search(r""+reponse+"",setuniversity[0]):
+                                                laboratory=setuniversity[0]
+                                                university=setuniversity[0]
+
+                                else:
+                                    university=setuniversity[0]
+
+                                
+                            else:
+                                university=None
+
 
                         if country is not None:
                             country.replace(".", "", 1)
@@ -160,24 +225,7 @@ def main():
     for liste in result_list:
         noaff+=liste[0][0]["noaff"]
         result_liste=liste[1]
-        for i in range(0,len(result_liste)):
-            for n in range(1,len(result_liste)):
-                comparelabo=result_liste[i]["laboratory"]
-                compareuniv=result_liste[i]["university"]
-                comparelabo2=result_liste[n]["laboratory"]
-                compareuniv2=result_liste[n]["university"]
-
-                if (result_liste[i]["laboratory"]!=result_liste[n]["laboratory"]) or (result_liste[i]["university"]!=result_liste[n]["university"]) :
-                    
-                    
-
-                    labopercent=fuzz.partial_ratio(comparelabo,comparelabo2)
-                    univlabo= fuzz.partial_ratio(compareuniv,compareuniv2)
-                    if labopercent>=90 and univlabo>=90:
-                        result_liste[i]["university"]=compareuniv
-                        result_liste[n]["university"]=compareuniv
-                        result_liste[i]["laboratory"]=comparelabo
-                        result_liste[n]["laboratory"]=comparelabo
+       
     
     for liste in result_list:
         for item in liste[1]:
@@ -195,7 +243,6 @@ if __name__ == '__main__':
 response_array=[]
 response_array.append(arraytmp)
 response_array.append(result)
-
 
 
 print json.dumps(response_array)

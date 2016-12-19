@@ -182,7 +182,7 @@ class RequestController
 			//$json= serialize($response);
 			//$hash= md5($query); 
 			
-	        $cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
+	       // $cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
 			return $json;
 
 		}

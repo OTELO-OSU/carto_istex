@@ -17,8 +17,16 @@ class LaboratoryController
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			
-
-		
+	if ($value['laboratory']==NULL && $value['university']!=NULL) {
+			$laboratorynull[]=$value['id'];
+		}
+		else if ($value['university']==NULL && $value['laboratory']!=NULL) {
+			$universitynull[]=$value['id'];
+		}
+		else if($value['university']==NULL && $value['laboratory']==NULL)
+		{
+			$null[]=$value['id'];
+		}
 		if (($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
 					
 					$test[]=$value['id'];
@@ -30,12 +38,21 @@ class LaboratoryController
 
 		}
 
+		//var_dump($laboratorynull);
+		//var_dump($universitynull);
+		//var_dump($null);
+		//var_dump($received_array[0]['noaff']);
+		$laboratorynull = array_map("unserialize", array_unique(array_map("serialize", $laboratorynull)));
+		$universitynull = array_map("unserialize", array_unique(array_map("serialize", $universitynull)));
+		$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
+		//var_dump($laboratorynull);
+		//var_dump($universitynull);
+		//var_dump($null);
 		$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 		$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
-		
 		$result = array_diff($test, $verif);
-
+		//var_dump($result);
 		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
 
 		$laboratorywithid = array();
