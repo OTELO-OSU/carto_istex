@@ -44,9 +44,11 @@ def Match_result_for_laboratory(received_array):
             if len(array)<=2:
                 if type(value) is unicode:
                     laboratory=unidecode.unidecode(value)
-                    laboratory=re.sub(regex, " ", laboratory)
-                    laboratory=laboratory.upper()
+                    laboratorydown=re.sub(regex, " ", laboratory)
+                    laboratory=laboratorydown.upper()
                 if reference in laboratory:
+                    if "CNRS" in  filter(str.isupper, laboratorydown): 
+                        laboratory="CNRS"
                     array.append(laboratory.lstrip())
                     break;
     return list(set(array))
@@ -62,9 +64,11 @@ def Match_result_for_university(received_array):
             if len(array)<=2:
                 if type(value) is unicode:
                     university=unidecode.unidecode(value)
-                    university=re.sub(regex, " ", university)
-                    university=university.upper()
+                    universitydown=re.sub(regex, " ", university)
+                    university=universitydown.upper()
                 if reference in university:
+                    if "CNRS" in  filter(str.isupper, universitydown): 
+                        university="CNRS"
                     array.append(university.lstrip())
                     break;
     return list(set(array))
@@ -189,10 +193,7 @@ def processing(liste,send_end):
                         array={}
                         array["id"]=Id
                         array["country"]=country
-                        
                         array["laboratory"]=laboratory
-                           
-                        
                         array["university"]=university
                         array["author"]=author
 
