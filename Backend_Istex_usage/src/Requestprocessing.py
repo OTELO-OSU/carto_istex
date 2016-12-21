@@ -38,30 +38,37 @@ def Match_result_for_laboratory(received_array):
     
     array=[]
     regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
-    tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","BRGM","ECOLE","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
+    tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","ECOLE","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
-            if len(array)<=2:
                 if type(value) is unicode:
                     laboratory=unidecode.unidecode(value)
                     laboratorydown=re.sub(regex, " ", laboratory)
                     laboratory=laboratorydown.upper()
                 if reference in laboratory:
-                    if "CNRS" in  filter(str.isupper, laboratorydown): 
-                        laboratory="CNRS"
-                    array.append(laboratory.lstrip())
-                    break;
-    return list(set(array))
+                    return laboratory.lstrip()
                 
+def Search_for_labo(received_array,received_laboratory):
+    array=[]
+    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+    tableau_reference_laboratory=["SCHOOL", "ACADEMY"]
+    for reference in tableau_reference_laboratory:
+        for value in received_array:
+                if type(value) is unicode:
+                    laboratory=unidecode.unidecode(value)
+                    laboratorydown=re.sub(regex, " ", laboratory)
+                    laboratory=laboratorydown.upper()
+                if reference in laboratory:
+                    if received_laboratory!=laboratory.lstrip():
+                        return laboratory.lstrip()
             
 
 def Match_result_for_university(received_array):
     array=[]
     regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
-    tableau_reference_university=["CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", " INST ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" ,"INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO", "CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY"," IPGP ","IPG PARIS","CEA","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO","MAX-PLANCK", "MAX PLANCK","IFREMER","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
+    tableau_reference_university=["CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" , " INST ","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO", "CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO","MAX-PLANCK", "MAX PLANCK","IFREMER","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
     for value in received_array:
         for reference in tableau_reference_university:
-            if len(array)<=2:
                 if type(value) is unicode:
                     university=unidecode.unidecode(value)
                     universitydown=re.sub(regex, " ", university)
@@ -69,12 +76,58 @@ def Match_result_for_university(received_array):
                 if reference in university:
                     if "CNRS" in  filter(str.isupper, universitydown): 
                         university="CNRS"
-                    array.append(university.lstrip())
-                    break;
-    return list(set(array))
+                    return university.lstrip()
                 
 
             
+
+def Search_for_university(received_array):
+    array=[]
+    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+    tableau_reference_university=[ "COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", " INST ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" ,"INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","UNIVERSITA","MAX-PLANCK", "MAX PLANCK","IFREMER","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
+    for value in received_array:
+        for reference in tableau_reference_university:
+                if type(value) is unicode:
+                    university=unidecode.unidecode(value)
+                    universitydown=re.sub(regex, " ", university)
+                    university=universitydown.upper()
+                if reference in university:
+                    if "CNRS" in  filter(str.isupper, universitydown): 
+                        university="CNRS"
+                    return university.lstrip()                      
+
+
+def Search_for_university_labo_and_inst(received_array):
+    array=[]
+    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+    tableau_reference_university=["COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA "]
+    for value in received_array:
+        for reference in tableau_reference_university:
+                if type(value) is unicode:
+                    university=unidecode.unidecode(value)
+                    universitydown=re.sub(regex, " ", university)
+                    university=universitydown.upper()
+                if reference in university:
+                    return university.lstrip()
+                
+               
+
+def Search_for_university_labo(received_array,received_university):
+    array=[]
+    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
+    tableau_reference_university=["CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
+    for value in received_array:
+        for reference in tableau_reference_university:
+                if type(value) is unicode:
+                    university=unidecode.unidecode(value)
+                    universitydown=re.sub(regex, " ", university)
+                    university=universitydown.upper()
+                if reference in university:
+                    if received_university!=university:
+                        return university.lstrip()
+                
+                
+
 
 
 
@@ -104,80 +157,45 @@ def processing(liste,send_end):
                             if not affiliations[0] is None:
                                 parser=affiliations[0].split(',')
                                 if re.search(r"(@)", affiliations[0]) or len(parser)==1:
-                                    affiliations=affiliations[1].replace("-", ",", 1)
-                                    parse = affiliations.split(',')
-                                    country = parse[len(parse)-1]
+                                        affiliations=affiliations[1].replace("-", ",", 1)
+                                        affiliations=affiliations.replace(";", ",", 1)
+                                        parse = affiliations.split(',')
+                                        country = parse[len(parse)-1]
                                 else:
                                     affiliations=affiliations[0].replace("-", ",", 1)
+                                    affiliations=affiliations.replace(";", ",", 1)
                                     parse = affiliations.split(',')
                                     country = parse[len(parse)-1]
                         else:
                             if not affiliations[0] is None: 
                                 affiliations=affiliations[0].replace("-", ",", 1)
+                                affiliations=affiliations.replace(";", ",", 1)
                                 parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
                         Id=value["id"]   
-                        if parse is not None:   
-                            setlaboratory=Match_result_for_laboratory(parse)
-                            setuniversity=Match_result_for_university(parse)
-
-
-
-
-                            if len(setlaboratory)!=0:
-                                if len(setuniversity)==0:
-                                        response_compare=["SCHOOL","ACADEMY","CRPG","LIEC","LSE","GEORESSOURCES"]
-                                        if len(setlaboratory)>=2:
-                                            for reponse in response_compare:
-                                                    if re.match(r""+reponse+"",setlaboratory[0].upper()):
-                                                        laboratory=setlaboratory[0]
-                                                        university=setlaboratory[1]
-                                                        break;
-                                                    elif re.match(r""+reponse+"",setlaboratory[1].upper()):
-                                                        laboratory=setlaboratory[0]
-                                                        university=setlaboratory[1]
-                                                        break;
-                                        else:
-                                            for reponse in response_compare:
-                                                if re.match(r""+reponse+"",setlaboratory[0].upper()):
-                                                    laboratory=setlaboratory[0]
-                                                    university=setlaboratory[0]
-                                                    break;
+                        if parse is not None:  
+                            laboratory=Match_result_for_laboratory(parse)
+                            university=Match_result_for_university(parse)
+                            if laboratory is None:
+                                laboratory=Search_for_university(parse)
+                                if laboratory is None:
+                                    laboratory=None
                                 else:
-                                    laboratory=setlaboratory[0]          
-                                                 
-                            else:
-                                laboratory=None
+                                    laboratory=Search_for_university_labo(parse,university)
+                                    if laboratory==None:
+                                        laboratory=Search_for_university_labo_and_inst(parse)
+                                        
                                 
+                            if university is None:
+                                university=Search_for_labo(parse,laboratory)
+
+                               
                                 
 
-                            if len(setuniversity)!=0:
-                                if len(setlaboratory)==0:
-                                    response_compare=[" UNIV ","UNIVERSITY","UNIVERSITE","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","BRGM","CRPG","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO"," CEA ","COMMISSARIAT A L'ENERGIE ATOMIQUE","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","MAX-PLANCK", "MAX PLANCK","IFREMER"," IPGP ","IPG PARIS","CRPG","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
-                                    if len(setuniversity)>=2:
-                                        for reponse in response_compare:
-                                                if re.match(r""+reponse+"",setuniversity[0]):
-                                                    laboratory=setuniversity[0]
-                                                    university=setuniversity[1]
-                                                    break;
-                                                elif re.match(r""+reponse+"",setuniversity[1]):
-                                                    laboratory=setuniversity[0]
-                                                    university=setuniversity[1]
-                                                    break;
-                                                
 
-                                    else:
-                                        for reponse in response_compare:
-                                            if re.match(r""+reponse+"",setuniversity[0]):
-                                                laboratory=setuniversity[0]
-                                                university=setuniversity[0]
-                                                break;
-                                else:
-                                    university=setuniversity[0]
 
-                                
-                            else:
-                                university=None
+
+                           
 
 
                         if country is not None:
@@ -204,7 +222,6 @@ def processing(liste,send_end):
     array.append(arrayaff)
     array.append(response_array)
     send_end.send( array)
-
 
 response_array=[]
 result=[]

@@ -36,6 +36,7 @@ def processing(liste,send_end):
 		hashed=hashed.hexdigest()
 		
 		countrycached = mc.get(hashed)
+		print country
 		if countrycached == None:
 			script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 			(stdout, stderr) = script_response.communicate()
@@ -77,6 +78,7 @@ def main():
 	result_list = [x.recv() for x in pipe_list]
 	for liste in result_list:
 		for item in liste:
+			print item
 			result.append(item)
 
 
