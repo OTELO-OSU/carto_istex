@@ -1414,10 +1414,8 @@ class Geocode
                             }
 
                             if (CONST_Debug) var_dump($sSQL);
-                            $aViewBoxPlaceIDs = chksql(
-                                $this->oDB->getAll($sSQL),
-                                "Could not get places for search terms."
-                            );
+                            $aViewBoxPlaceIDs = [];
+
                             //var_dump($aViewBoxPlaceIDs);
                             // Did we have an viewbox matches?
                             $aPlaceIDs = array();
