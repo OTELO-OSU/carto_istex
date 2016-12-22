@@ -1,13 +1,14 @@
 
 
    
-    	function searchcountry(){
-    	var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+    	function searchcountry(query){
+    	//var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query
         }, // requete ajax sur le backend
         function(data){
+
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff'];
@@ -67,6 +68,7 @@
 		          responsive: true
 		        } );
 
+          		$('.country h5').remove();
      			var total = (undefinedaff/documentswithaffiliations)*100;
 			    total = total*100;          
 			    total= Math.round(total); 

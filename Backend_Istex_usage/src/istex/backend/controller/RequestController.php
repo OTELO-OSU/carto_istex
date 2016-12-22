@@ -29,7 +29,7 @@ class RequestController
 		}
 		else{ // sinon on effectue la query
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
-		$url='https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name';
+		$url='https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name,publicationDate&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
 		$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
@@ -46,7 +46,7 @@ class RequestController
 			 	$response1 = json_decode(json_encode($responseencoded->hits),true); // Passage du format JSON en tableau php
 
 				
-				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name';
+				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name,publicationDate&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,
@@ -58,7 +58,7 @@ class RequestController
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
 				
-				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name';
+				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name,publicationDate&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,

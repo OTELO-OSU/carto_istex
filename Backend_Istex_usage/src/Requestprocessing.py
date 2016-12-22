@@ -172,7 +172,7 @@ def processing(liste,send_end):
                                 affiliations=affiliations.replace(";", ",", 1)
                                 parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
-                        Id=value["id"]   
+                        Id=value["id"] 
                         if parse is not None:  
                             laboratory=Match_result_for_laboratory(parse)
                             university=Match_result_for_university(parse)

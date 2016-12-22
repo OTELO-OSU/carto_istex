@@ -1,7 +1,5 @@
 <istex-search></istex-search>
 
-
-
 <script>
     var istexConfig = {
         titleLength: 80,
@@ -30,7 +28,7 @@
                 'copyrightdate' : 'Début du copyright'
             }
         },
-        //facetsToLoad: [ 'corpus', 'pubdate' ],
+    facetsToLoad: [ 'genre', 'corpusName','publicationDate','copyrightDate','language','wos','score'],
         advancedToLoad: {
             'author.name':"",
             'host.editor.name':"",
@@ -40,7 +38,7 @@
             'host.subject.value':"",
             'language':""
         },
-        slider:false
+        slider:true
     };
 </script>
 

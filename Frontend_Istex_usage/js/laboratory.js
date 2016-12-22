@@ -127,23 +127,22 @@ function reload_bubble_labo(parsed){
 
       }
 
-$(document).ready(function(){
-     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
-      $('.avert').remove();
+
+function init_request(query){
+        $('.avert').remove();
         $('.laboratory h5').remove();
         $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
         $('.authors h5').remove();
         $('.country h5').remove();
         $('#authors tbody').remove();// remise a zero en cas de recherche simultané
-      $('#country tbody').remove(); // remise a zero en cas de recherche simultané
-          query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+        $('#country tbody').remove(); // remise a zero en cas de recherche simultané
           $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend
-          function(data){
-            searchcountry();
-            searchauthors();
+          function(data){ 
+            searchcountry(query);
+            searchauthors(query);
             var parsed = JSON.parse(data); // transformation en JSON
             parselabo=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
@@ -154,5 +153,210 @@ $(document).ready(function(){
           $(".reloadlaboratory").click(function(){
             reload_bubble_labo(parselabo);// on recreer le bubble chart
           });
+          
+}
+
+
+
+function build_request_facets(){
+  setTimeout(1000);
+       $('.rzslider .rz-pointer').off("mouseup")
+
+   $('.rzslider .rz-pointer').on("mouseup",function(){
+               build_request_facets()    
+               
+            });
+   query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+                  labelscorpus=$(".corpus input:checked")
+                 // console.log(labels)
+                 // console.log(labels.closest("li"))
+                 var corpus
+                 var genre
+                 var language
+                 var wos
+
+                  $.each(labelscorpus,function(index,value){
+                    val=value.labels[0].textContent;
+                    var value = val.replace(/[0-9]/g, '');
+                    if (corpus===undefined) {
+                    corpus=value
+
+                    }
+                    else{
+                      corpus=corpus+" OR "+value
+                    }
+                  })
+                  if (corpus===undefined) {
+                      corpus=""
+                  }
+                  else{
+                    corpus=" AND corpusName:("+corpus+")"
+                  }
+                    
+                   
+              labelsgenre=$(".genre input:checked")
+               $.each(labelsgenre,function(index,value){
+                  value=value.closest("li").title;
+                  if (genre===undefined) {
+                    genre=value
+                    }
+                    else{
+                      genre=genre+" OR "+value
+                    }
+                  
+                })
+                  if (genre===undefined) {
+                      genre=""
+                  }
+                  else{
+                    genre=" AND genre:("+genre+")"
+                  }
+ 
+              labelslanguage=$(".language input:checked")
+                $.each(labelslanguage,function(index,value){
+                    val=value.labels[0].textContent;
+                    var value = val.replace(/[0-9]/g, '');
+                     switch(value){
+                          case 'Français':
+                            value = 'fre';
+                            break;
+                          case 'Anglais' : 
+                            value = 'eng';
+                            break
+                          case 'Latin' : 
+                            value = 'lat';
+                            break;
+                          case 'Allemand' : 
+                            value = 'deu' ;
+                            break;
+                          case 'Allemand' : 
+                            value = 'ger' ;
+                            break;
+                          case  'Espagnol':
+                             value = 'spa';
+                             break;
+                          case 'Néerlandais' : 
+                            value = 'dut' ;
+                            break;  
+                          case 'Italien' : 
+                            value = 'ita' ;
+                            break;  
+                          case 'Portugais' : 
+                            value = 'por' ;
+                            break;  
+                          case 'Russe' : 
+                            value = 'rus' ;
+                            break;  
+                          case  'Gallois' : 
+                            value = 'wel' ;
+                            break;  
+                          case 'Galicien' : 
+                            value = 'glg' ;
+                            break;  
+                          case 'Grec' : 
+                            value = 'grc' ;
+                            break;  
+                          case 'Grec' : 
+                            value = 'gre';
+                            break;  
+                          case 'Arabe' : 
+                            value = 'ara';
+                            break;  
+                          case 'Hébreu' : 
+                            value = 'heb' ;
+                            break;  
+                          case 'Polonais' : 
+                            value = 'pol' ;
+                            break;  
+                          case 'Danois' : 
+                            value = 'dan' ;
+                            break;  
+                          case 'Suédois' : 
+                            value = 'swe' ;
+                            break;  
+                          case  'Mohawk': 
+                            value = 'moh';
+                            break;  
+                          case 'Syriaque' : 
+                            value = 'syr' ;
+                            break;  
+                          case  'Persan': 
+                            value =  'per';
+                            break;  
+                          case  'Français moyen': 
+                            value = 'frm' ;
+                            break;  
+                          case 'Multilingue' : 
+                            value = 'mul' ;
+                            break;  
+                          case  'Non spécifié' : 
+                            value = 'unknown' ;
+                          break;
+                          default : 
+                             value =  language;
+                          break;
+                        }
+                  if (language===undefined) {
+                    language=value
+                    }
+                    else{
+                      language=language+" OR "+value
+                    }
+                  })
+                  
+                  if (language===undefined) {
+                      language=""
+                  }
+                  else{
+                    language=" AND language:("+language+")"
+                  }
+
+              labelswos=$(".wos input:checked")
+               $.each(labelswos,function(index,value){
+                    value=value.closest("li").title;
+                     if (wos===undefined) {
+                    wos=value
+
+                    }
+                    else{
+                      wos=wos+" OR "+value
+                    }
+                 
+                })
+                  if (wos===undefined) {
+                      wos=""
+                  }
+                  else{
+                    wos=" AND wos:("+wos+")"
+                  }
+
+              publicationdate=" AND publicationDate:["+$(".istex-facet-pubdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-pubdate  rzslider .rz-bubble")[3].innerText+"]"
+              copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]"
+              query=query+corpus+publicationdate+copyrightdate+language+wos+genre
+              
+              init_request(query);
+}
+
+
+$(document).ready(function(){
+     $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
+        query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+        init_request(query);  
+
+      })
+
+      $('.rzslider .rz-pointer').on("click",function(){
+               build_request_facets()    
+
+            }); 
+     $('.istex-facets').off("change")
+     $('.istex-facets').on("change",function(){
+      build_request_facets()
+     
     });
+
+
+
+
 });
+

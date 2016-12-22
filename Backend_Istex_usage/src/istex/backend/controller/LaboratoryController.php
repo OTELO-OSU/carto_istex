@@ -11,13 +11,14 @@ class LaboratoryController
 		$tableau_laboratory=[]; // Initialisation tableau
 		$tableau_laboratorys=[];
 		$master_tab=[];
+
 		
 		foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 			$tab[]=$value['id'];
 			
-	if ($value['laboratory']==NULL && $value['university']!=NULL) {
+	/*if ($value['laboratory']==NULL && $value['university']!=NULL) {
 			$laboratorynull[]=$value['id'];
 		}
 		else if ($value['university']==NULL && $value['laboratory']!=NULL) {
@@ -26,7 +27,7 @@ class LaboratoryController
 		else if($value['university']==NULL && $value['laboratory']==NULL)
 		{
 			$null[]=$value['id'];
-		}
+		}*/
 		if (($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
 					
 					$test[]=$value['id'];
@@ -39,9 +40,9 @@ class LaboratoryController
 		}
 
 
-		$laboratorynull = array_map("unserialize", array_unique(array_map("serialize", $laboratorynull)));
-		$universitynull = array_map("unserialize", array_unique(array_map("serialize", $universitynull)));
-		$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
+		//$laboratorynull = array_map("unserialize", array_unique(array_map("serialize", $laboratorynull)));
+		//$universitynull = array_map("unserialize", array_unique(array_map("serialize", $universitynull)));
+		//$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
 		//var_dump($laboratorynull);
 		//var_dump($universitynull);
 		//var_dump($null);

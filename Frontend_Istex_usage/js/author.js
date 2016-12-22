@@ -132,9 +132,9 @@
 
       }
 
-  function searchauthors(){
+  function searchauthors(query){
        
-        query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+       // query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
         {
           query: query
