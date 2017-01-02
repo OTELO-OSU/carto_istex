@@ -2,7 +2,6 @@
 # coding=utf8
 import sys
 import subprocess
-from threading import Thread
 import time
 import json
 import os
@@ -10,7 +9,6 @@ import hashlib
 import pylibmc
 import re
 import json
-from pprint import pprint
 import urllib
 import string
 import multiprocessing 
@@ -38,9 +36,7 @@ def Match_result_for_laboratory(received_array):
     tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","ECOLE","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
-                
                 laboratory=value
-                
                 if reference in laboratory:
                     return laboratory.lstrip()
                 
@@ -178,14 +174,6 @@ def processing(liste,send_end):
                                 
                             if university is None:
                                 university=Search_for_labo(parse,laboratory)
-
-                               
-                                
-
-
-
-
-                           
 
 
                         if country is not None:

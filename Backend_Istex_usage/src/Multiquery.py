@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # coding=utf8
+#import des différentes dependances python
 import sys
 import subprocess
 import multiprocessing
@@ -24,9 +25,8 @@ def split(arr, size):
 
 
 def processing(liste,send_end):
-	array=[]
-
-	mc = pylibmc.Client(["127.0.0.1"])
+	array=[] #Definition tableau vide
+	mc = pylibmc.Client(["127.0.0.1"]) #Connexion à memcached
 	for item in liste:
 		if item["country"] is None:
 			country=="NULL"
@@ -58,7 +58,7 @@ def processing(liste,send_end):
 				addid =json.dumps(addid)
 				array.append(addid)
 	send_end.send(array)
-	
+
 		
 
 result=[]
