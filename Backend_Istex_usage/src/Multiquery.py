@@ -68,7 +68,7 @@ def main():
 	mc = pylibmc.Client(["127.0.0.1"])
 	jsondata = mc.get(sys.argv[1])
 	listes= json.loads(jsondata)
-	listes=split(listes[1],200)
+	listes=split(listes[1],500)
 
 
 	for liste in listes:

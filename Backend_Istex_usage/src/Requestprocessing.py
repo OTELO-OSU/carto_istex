@@ -14,9 +14,8 @@ from pprint import pprint
 import urllib
 import string
 import multiprocessing 
-import unidecode
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
+import unicodedata
+
 
 
   
@@ -160,14 +159,15 @@ def processing(liste,send_end):
                                             affiliations=affiliations[1].replace("-", ",", 1)
                                             affiliations=affiliations.replace(";", ",", 1)
                                             affiliations=re.sub(regex, " ", affiliations)
-                                            affiliations=unidecode.unidecode(affiliations)
+                                            affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
+
                                             parse = affiliations.split(',')
                                             country = parse[len(parse)-1]
                                 else:
                                     affiliations=affiliations[0].replace("-", ",", 1)
                                     affiliations=affiliations.replace(";", ",", 1)
                                     affiliations=re.sub(regex, " ", affiliations)
-                                    affiliations=unidecode.unidecode(affiliations)
+                                    affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
                                     parse = affiliations.split(',')
                                     country = parse[len(parse)-1]
                         else:
@@ -175,7 +175,7 @@ def processing(liste,send_end):
                                 affiliations=affiliations[0].replace("-", ",", 1)
                                 affiliations=affiliations.replace(";", ",", 1)
                                 affiliations=re.sub(regex, " ", affiliations)
-                                affiliations=unidecode.unidecode(affiliations)
+                                affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
                                 parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
                         Id=value["id"] 

@@ -141,8 +141,8 @@ function init_request(query){
             query: query
           },// requete ajax sur le backend
           function(data){ 
-            searchcountry(query);
             searchauthors(query);
+            searchcountry(query);
             var parsed = JSON.parse(data); // transformation en JSON
             parselabo=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
