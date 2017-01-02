@@ -54,12 +54,12 @@ def Search_for_labo(received_array,received_laboratory):
     for reference in tableau_reference_laboratory:
         for value in received_array:
                 if type(value) is unicode:
-                    laboratory=value
+                    laboratory=unidecode.unidecode(value)
                     laboratorydown=re.sub(regex, " ", laboratory)
                     laboratory=laboratorydown.upper()
-                    if reference in laboratory:
-                        if received_laboratory!=laboratory.lstrip():
-                            return laboratory.lstrip()
+                if reference in laboratory:
+                    if received_laboratory!=laboratory.lstrip():
+                        return laboratory.lstrip()
             
 
 def Match_result_for_university(received_array):
@@ -69,7 +69,7 @@ def Match_result_for_university(received_array):
     for value in received_array:
         value=re.sub(regex, " ", value.lstrip())
         for reference in tableau_reference_university:
-                universitydown=value
+                universitydown=unidecode.unidecode(value)
                 university=universitydown.upper()
                 if reference in university:
                     if "CNRS" in  filter(str.isupper, universitydown): 
@@ -86,13 +86,13 @@ def Search_for_university(received_array):
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
-                    
-                    universitydown=re.sub(regex, " ", value)
+                    university=unidecode.unidecode(value)
+                    universitydown=re.sub(regex, " ", university)
                     university=universitydown.upper()
-                    if reference in university:
-                        if "CNRS" in  filter(str.isupper, universitydown): 
-                            university="CNRS"
-                        return university.lstrip()                      
+                if reference in university:
+                    if "CNRS" in  filter(str.isupper, universitydown): 
+                        university="CNRS"
+                    return university.lstrip()                      
 
 
 def Search_for_university_labo_and_inst(received_array):
@@ -102,7 +102,7 @@ def Search_for_university_labo_and_inst(received_array):
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
-                    university=value
+                    university=unidecode.unidecode(value)
                     universitydown=re.sub(regex, " ", university)
                     university=universitydown.upper()
                 if reference in university:
@@ -117,7 +117,7 @@ def Search_for_university_labo(received_array,received_university):
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
-                    university=value
+                    university=unidecode.unidecode(value)
                     universitydown=re.sub(regex, " ", university)
                     university=universitydown.upper()
                 if reference in university:
@@ -150,7 +150,6 @@ def processing(liste,send_end):
                 else:
                     author=value2['name']
                     affiliations=value2['affiliations']
-                    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
                     if not affiliations is None:
                         if len(affiliations)>=2:
                             if not affiliations[0] is None:
@@ -159,23 +158,17 @@ def processing(liste,send_end):
                                         if affiliations[1] is not None:
                                             affiliations=affiliations[1].replace("-", ",", 1)
                                             affiliations=affiliations.replace(";", ",", 1)
-                                            affiliations=re.sub(regex, " ", affiliations)
-                                            affiliations=unidecode.unidecode(affiliations)
                                             parse = affiliations.split(',')
                                             country = parse[len(parse)-1]
                                 else:
                                     affiliations=affiliations[0].replace("-", ",", 1)
                                     affiliations=affiliations.replace(";", ",", 1)
-                                    affiliations=re.sub(regex, " ", affiliations)
-                                    affiliations=unidecode.unidecode(affiliations)
                                     parse = affiliations.split(',')
                                     country = parse[len(parse)-1]
                         else:
                             if not affiliations[0] is None: 
                                 affiliations=affiliations[0].replace("-", ",", 1)
                                 affiliations=affiliations.replace(";", ",", 1)
-                                affiliations=re.sub(regex, " ", affiliations)
-                                affiliations=unidecode.unidecode(affiliations)
                                 parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
                         Id=value["id"] 
@@ -222,14 +215,14 @@ def processing(liste,send_end):
                         array["university"]=university
                         array["author"]=author
 
-
                         response_array.append(array)
     arrayaff=[]
     arrayaff.append(noaffiliation)
     array=[]
     array.append(arrayaff)
     array.append(response_array)
-    send_end.send( array)
+    #send_end.send( array)
+
 response_array=[]
 result=[]
 
@@ -240,40 +233,16 @@ def main():
     mc = pylibmc.Client(["127.0.0.1"])
     jsondata = mc.get(sys.argv[1])
     listes_re= json.loads(jsondata)
-    listes=split(listes_re,200)
 
-    for liste in listes:
-        recv_end, send_end = multiprocessing.Pipe(False)
-        p = multiprocessing.Process(target=processing, args=(liste,send_end))
-        pipe_list.append(recv_end)
-        p.start()
-    for liste in listes:
-        p.join(0.1)
-
-    result_list = [x.recv() for x in pipe_list]
-    noaff=0
-    array=[]
-    for liste in result_list:
-        noaff+=liste[0][0]["noaff"]
-        result_liste=liste[1]
-       
+    processing(listes_re,arraytmp)
     
-    for liste in result_list:
-        for item in liste[1]:
-            result.append(item) 
-
-
-    arraytmp["noaff"]=noaff
-    arraytmp["total"]=len(listes_re)
-
-if __name__ == '__main__':
-    main()
 
 
 
-response_array=[]
-response_array.append(arraytmp)
-response_array.append(result)
+
+main()
+
+
 
 
 print json.dumps(response_array)

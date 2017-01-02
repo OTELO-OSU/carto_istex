@@ -28,29 +28,35 @@ def processing(liste,send_end):
 
 	mc = pylibmc.Client(["127.0.0.1"])
 	for item in liste:
-		country = item["country"]
-		Id = item["id"]
-	
-		hashed=hashlib.md5()
-		hashed.update(country)
-		hashed=hashed.hexdigest()
-		
-		countrycached = mc.get(hashed)
-		if countrycached == None:
-			script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-			(stdout, stderr) = script_response.communicate()
-			script_response.wait()
-			script_response =stdout
-			mc.set(hashed, script_response,time=864000)
-			addid=json.loads(script_response)
-			addid['id']=Id
-			addid =json.dumps(addid)
-			array.append(addid)
+		if item["country"] is None:
+			country=="NULL"
 		else:
-			addid=json.loads(countrycached)
-			addid['id']=Id
-			addid =json.dumps(addid)
-			array.append(addid)
+			country = item["country"]
+		if len(country)< 30:
+			country=country.replace(" ", "", 1)
+			Id = item["id"]
+			hashed=hashlib.md5()
+			hashed.update(country)
+			hashed=hashed.hexdigest()
+			
+			countrycached = mc.get(hashed)
+			if countrycached == None:
+				script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+				(stdout, stderr) = script_response.communicate()
+				script_response.wait()
+				script_response =stdout
+				if script_response is None:
+					script_response='{"country":"NULL","lat":"NULL","lon":"NULL"}'
+				mc.set(hashed, script_response,time=864000)
+				addid=json.loads(script_response)
+				addid['id']=Id
+				addid =json.dumps(addid)
+				array.append(addid)
+			else:
+				addid=json.loads(countrycached)
+				addid['id']=Id
+				addid =json.dumps(addid)
+				array.append(addid)
 	send_end.send(array)
 	
 		
@@ -72,7 +78,7 @@ def main():
 		p.start()
 
 	for liste in listes:
-		p.join()
+		p.join(0.1)
 
 	result_list = [x.recv() for x in pipe_list]
 	for liste in result_list:
