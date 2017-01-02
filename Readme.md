@@ -35,6 +35,7 @@ Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, sel
 
 
 Dépendances: 
+
 	-Apache2
 
 	-PHP 5.6:
