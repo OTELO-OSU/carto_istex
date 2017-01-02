@@ -35,27 +35,22 @@ def split(arr, size):
 
 def Match_result_for_laboratory(received_array):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","ECOLE","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
-                value=re.sub(regex, " ", value.lstrip())
                 
-                laboratorydown=value
-                laboratory=laboratorydown.upper()
+                laboratory=value
+                
                 if reference in laboratory:
                     return laboratory.lstrip()
                 
 def Search_for_labo(received_array,received_laboratory):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_laboratory=["SCHOOL", "ACADEMY"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
                 if type(value) is unicode:
                     laboratory=value
-                    laboratorydown=re.sub(regex, " ", laboratory)
-                    laboratory=laboratorydown.upper()
                     if reference in laboratory:
                         if received_laboratory!=laboratory.lstrip():
                             return laboratory.lstrip()
@@ -63,15 +58,12 @@ def Search_for_labo(received_array,received_laboratory):
 
 def Match_result_for_university(received_array):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_university=["CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" , " INST ","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO", "CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","BRGM","NATIONAL LABORATORY"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO","MAX-PLANCK", "MAX PLANCK","IFREMER","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
     for value in received_array:
-        value=re.sub(regex, " ", value.lstrip())
         for reference in tableau_reference_university:
-                universitydown=value
-                university=universitydown.upper()
+                university=value
                 if reference in university:
-                    if "CNRS" in  filter(str.isupper, universitydown): 
+                    if "CNRS" in  filter(str.isupper, university): 
                         university="CNRS"
                     return university.lstrip()
                 
@@ -80,30 +72,23 @@ def Match_result_for_university(received_array):
 
 def Search_for_university(received_array):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_university=[ "COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", " INST ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" ,"INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","UNIVERSITA","MAX-PLANCK", "MAX PLANCK","IFREMER","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
-                    
-                    universitydown=re.sub(regex, " ", value)
-                    university=universitydown.upper()
                     if reference in university:
-                        if "CNRS" in  filter(str.isupper, universitydown): 
+                        if "CNRS" in  filter(str.isupper, university): 
                             university="CNRS"
                         return university.lstrip()                      
 
 
 def Search_for_university_labo_and_inst(received_array):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_university=["COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA "]
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
                     university=value
-                    universitydown=re.sub(regex, " ", university)
-                    university=universitydown.upper()
                 if reference in university:
                     return university.lstrip()
                 
@@ -111,14 +96,11 @@ def Search_for_university_labo_and_inst(received_array):
 
 def Search_for_university_labo(received_array,received_university):
     array=[]
-    regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
     tableau_reference_university=["CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
     for value in received_array:
         for reference in tableau_reference_university:
                 if type(value) is unicode:
                     university=value
-                    universitydown=re.sub(regex, " ", university)
-                    university=universitydown.upper()
                 if reference in university:
                     if received_university!=university:
                         return university.lstrip()
@@ -158,14 +140,15 @@ def processing(liste,send_end):
                                         if affiliations[1] is not None:
                                             affiliations=affiliations[1].replace("-", ",", 1)
                                             affiliations=affiliations.replace(";", ",", 1)
+                                            affiliations=affiliations.upper()
                                             affiliations=re.sub(regex, " ", affiliations)
                                             affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
-
                                             parse = affiliations.split(',')
                                             country = parse[len(parse)-1]
                                 else:
                                     affiliations=affiliations[0].replace("-", ",", 1)
                                     affiliations=affiliations.replace(";", ",", 1)
+                                    affiliations=affiliations.upper()
                                     affiliations=re.sub(regex, " ", affiliations)
                                     affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
                                     parse = affiliations.split(',')
@@ -174,6 +157,7 @@ def processing(liste,send_end):
                             if not affiliations[0] is None: 
                                 affiliations=affiliations[0].replace("-", ",", 1)
                                 affiliations=affiliations.replace(";", ",", 1)
+                                affiliations=affiliations.upper()
                                 affiliations=re.sub(regex, " ", affiliations)
                                 affiliations=unicodedata.normalize('NFKD', affiliations).encode('ascii','ignore')
                                 parse = affiliations.split(',')
