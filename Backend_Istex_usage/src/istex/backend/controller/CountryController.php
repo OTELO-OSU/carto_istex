@@ -36,6 +36,7 @@ class CountryController
 		
 		$result = array_diff($test, $verif);
 		//var_dump($result);
+		$noaff[0]['empty']=$noaff[0]['noaff'];
 		$noaff[0]['noaff']=$noaff[0]['noaff']+count($result);
 		}
 
@@ -60,8 +61,8 @@ foreach($master_tab as $arg)
 			$response=array();
 			$array=array();
 			$array["noaff"]=$noaff[0]['noaff'];
+			$array["empty"]=$noaff[0]['empty'];
 			$array["total"]=$noaff[0]['total'];
-			$array["crc32"]=crc32(json_encode($received_array));
 			$response[]=$array;
 			$response["documents"]=$countrywithid;
 			return $response;

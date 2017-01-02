@@ -28,7 +28,7 @@ class AuthorController
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
 		$result = array_diff($test, $verif);
 		
-
+		$received_array[0]['empty']=$received_array[0]['noaff'];
 		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
 				
 		$authorwithid = array();

@@ -84,7 +84,12 @@
       total = total*100;          
       total= Math.round(total); 
       total= total/100;  
+      var totalempty = (empty/(documentswithaffiliations))*100;
+      totalempty = totalempty*100;          
+      totalempty= Math.round(totalempty); 
+      totalempty= totalempty/100;  
       $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
+      $('.laboratory').append('<h5>'+empty+' records('+totalempty+'%) empty.</h5>');
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
@@ -146,6 +151,7 @@ function init_request(query){
             var parsed = JSON.parse(data); // transformation en JSON
             parselabo=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
+            empty=parsed['0']['noaff']['empty'];
             documentswithaffiliations=parsed['0']['noaff']['total'];
             console.log(documentswithaffiliations);
             parse_laboratorys(parselabo);

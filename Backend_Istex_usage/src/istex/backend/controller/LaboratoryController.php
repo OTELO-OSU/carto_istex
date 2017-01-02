@@ -51,6 +51,7 @@ class LaboratoryController
 		$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
 		$result = array_diff($test, $verif);
 		//var_dump($result);
+		$received_array[0]['empty']=$received_array[0]['noaff'];
 		$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
 
 		$laboratorywithid = array();
@@ -69,7 +70,7 @@ class LaboratoryController
 			}
 		$response=array();
 		$array=array();
-		$array["noaff"]=$received_array[0];
+		$array['noaff']=$received_array[0];
 		$response[]=$array;
 		$response["documents"]=$laboratorywithid;
 
