@@ -50,7 +50,7 @@ Le Widget de recherche ISTEX à été intégrer à l’application.
 
 
 
-![Alt text](/Img_doc/Accueil.PNG?raw=true)
+![Alt text](/Img_doc/Accueil.png?raw=true)
 
 
 
@@ -217,7 +217,7 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 **Diagramme:**
-![Alt text](/Img_doc/Diagramme_Affiliation.PNG?raw=true)
+![Alt text](/Img_doc/Diagramme_Affiliation.png?raw=true)
 
 
 
