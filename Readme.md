@@ -267,6 +267,13 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
+#Diagrammes de séquences:
+
+![Alt text](/Img_doc/Istex_usage.png?raw=true)
+
+![Alt text](/Img_doc/Istex_usage_Backend.png?raw=true)
+
+![Alt text](/Img_doc/Istex_usage_Frontend.png?raw=true)
 
 
 
