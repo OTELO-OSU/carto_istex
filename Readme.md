@@ -24,6 +24,32 @@ La connaissance des processus géologiques intervenant dans l'enrichissement des
 l’impacts des terres rares sur l'écosphère terrestre et aquatique.
 
 
+**Introduction**
+L’application Carto Istex permet la réalisation de cartographie d'informations à partir du réservoir de publication ISTEX suivant leur provenance (Pays, Laboratoire) et leurs auteurs.
+Elle est composé d’un backend codé en PHP avec le micro-framework SLIM ainsi que d’un frontend codé en HTML,CSS ,JavaScript et de la librairie Jquery.
+
+
+**Principe de fonctionnement :**
+	Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration du widget Istex-SNU.
+	Différents appels POST AJAX avec en paramètre la query vont être envoyé vers le backend.
+	Une réponse au format JSON va être retourné contenant les informations à traiter et à afficher.
+	La réponse est traitée par les  scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
+	L’utilisateur peut ensuite consulter les résultats sous forme de tableau dynamique et paginé, ou sous forme de carte exportable en format PDF et/ou PNG.
+
+
+
+**Aspect de générale de l’application :**
+
+	Pour l’aspect CSS le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsive rapidement. 
+	Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
+	Afin de réaliser des Bubblechart (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
+	Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre d’affiliations erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publications peut avoir un auteur mais une mauvaise affiliations.
+	Le Widget de recherche ISTEX à été intégrer à l’application.
+
+
+
+
+
 
 #Language et outils utilisé:
 
@@ -80,7 +106,7 @@ Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, sel
 
 **Détails des différentes classes et fonctions PHP:**
 
--RequestController: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
+-**RequestController**: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
 
 	-CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
@@ -89,9 +115,9 @@ Elle est compsé de plusieurs fonctions:
 
 	
 
--LaboratoryController:Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
+-**LaboratoryController**:Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
 
--AuthorController:Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
+-**AuthorController**:Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 
 
 
@@ -136,7 +162,6 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 **Librairie utilisé:**
 
 	CSS:
-
 	-Semantic-UI
 
 	JS:
