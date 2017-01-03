@@ -217,6 +217,7 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 **Diagramme:**
+
 ![Alt text](/Img_doc/Diagramme_Affiliation.png?raw=true)
 
 
