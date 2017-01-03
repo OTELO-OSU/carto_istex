@@ -25,26 +25,28 @@ l’impacts des terres rares sur l'écosphère terrestre et aquatique.
 
 
 **Introduction**
+
 L’application Carto Istex permet la réalisation de cartographie d'informations à partir du réservoir de publication ISTEX suivant leur provenance (Pays, Laboratoire) et leurs auteurs.
 Elle est composé d’un backend codé en PHP avec le micro-framework SLIM ainsi que d’un frontend codé en HTML,CSS ,JavaScript et de la librairie Jquery.
 
 
 **Principe de fonctionnement :**
-	Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration du widget Istex-SNU.
-	Différents appels POST AJAX avec en paramètre la query vont être envoyé vers le backend.
-	Une réponse au format JSON va être retourné contenant les informations à traiter et à afficher.
-	La réponse est traitée par les  scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
-	L’utilisateur peut ensuite consulter les résultats sous forme de tableau dynamique et paginé, ou sous forme de carte exportable en format PDF et/ou PNG.
+
+Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration du widget Istex-SNU.
+Différents appels POST AJAX avec en paramètre la query vont être envoyé vers le backend.
+Une réponse au format JSON va être retourné contenant les informations à traiter et à afficher.
+La réponse est traitée par les  scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
+L’utilisateur peut ensuite consulter les résultats sous forme de tableau dynamique et paginé, ou sous forme de carte exportable en format PDF et/ou PNG.
 
 
 
 **Aspect de générale de l’application :**
 
-	Pour l’aspect CSS le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsive rapidement. 
-	Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
-	Afin de réaliser des Bubblechart (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
-	Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre d’affiliations erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publications peut avoir un auteur mais une mauvaise affiliations.
-	Le Widget de recherche ISTEX à été intégrer à l’application.
+Pour l’aspect CSS le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsive rapidement. 
+Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
+Afin de réaliser des Bubblechart (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
+Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre d’affiliations erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publications peut avoir un auteur mais une mauvaise affiliations.
+Le Widget de recherche ISTEX à été intégrer à l’application.
 
 
 
@@ -143,6 +145,51 @@ Elle est compsé de plusieurs fonctions:
 	-Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
 
 Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
+
+
+#Details du traitement des affiliations:
+
+**Présentation d’une affiliation :**
+
+"Laboratoire de Géologie des bassins sédimentaires, Université Paris VI, 4 place Jussieu, Paris, France"
+Certaines affiliations contiennent des point-virgules comme séparateur, on transforme donc ceux ci en virgules.Le même traitement est effectué pour les tirets.
+L’affiliation est découpé en lots, chaque lot, ces lots sont « nettoyées » des caractères spéciaux et accents afin d’effectuer une comparaison optimal.
+
+Le couple laboratoire, institution est obtenus avec différents traitement selon la forme d’écriture de l’affiliation.
+Pour cela on utilise deux dictionnaires de données(Institution-All,Labo-All,voir le diagramme), un pour les laboratoires ainsi qu’un pour les institutions.
+Cas général :
+En effet une affiliation peut avoir un couple laboratoire, institution, si les données contenue dans l’affiliation match avec celles contenue dans le dictionnaire de données , on obtient bien un couple laboratoire,institution.
+Cas particuliers : 
+Si une affiliation possèdent seulement un laboratoire une fois celle ci comparé avec le dictionnaire de données, pour les cas contenus dans le dictionnaire Labo-service, on affichera le laboratoire ainsi que dans le champs institution un nom considéré comme une institution.
+
+**Exemple :**
+
+Dans l’affiliation lors du passage avec les dictionnaires général, on obtient:
+-LABORATORY FOR GEOCHEMICAL RESEARCH	
+N’ayant pas d’institution, une recherche d’un autre laboratoire pouvant être considéré comme une institution va être lancé, on obtient :
+-HUNGARIAN ACADEMY OF SCIENCES
+On va considérer que le terme academy est une institution.
+On vérifie que le laboratoire n’est pas égal à l’institution.
+
+Ce qui donnera :
+Laboratoire :LABORATORY FOR GEOCHEMICAL RESEARCH	
+Insitution :HUNGARIAN ACADEMY OF SCIENCES
+
+
+Si une affiliation possèdent seulement une institution,on recherchera avec le dictionnaire (Institution-Major,dictionnaire d’institution confirmée)dans le cas ou un résultat ne match pas,on déclare vide le champs institution,sinon on le recherche dans le dictionnaire (Institution-Labo ,dictionnaires de nom pouvant être des laboratoires), si il y a un match alors on affiche l’institution trouvé avec le dictionnaire générale ainsi que la deuxième institution si elle n’est pas égal à la première.Si le résultat ne match pas, alors on recherche dans le dictionnaire (Institution-institution, dictionnaires d’institution étant des laboratoires) et s’il y a un match on affiche deux fois la même institution.
+
+**Exemple :**
+
+BRGM est une institution mais n’as pas de labo, on affichera :
+Laboratoire : BRGM
+Institution : BRGM
+Pour le CNRS :On ne pourra pas afficher les affiliations du CNRS ne contenant qu’une institution.
+
+Pour un institut n’ayant pas de laboratoire :
+Laboratoire : FACULTY OF SCIENCE	
+Institution : GEOLOGICAL INSTITUTE	
+
+
 
 
 
