@@ -1,6 +1,6 @@
-Projet Cartographie Istex usage OTELo
+#Projet Cartographie Istex usage OTELo
 
-Presentation et objectifs
+**Presentation et objectifs**
 
 Identifier les publications suivant plusieurs thésaurus sur les terres rares.
 
@@ -16,7 +16,7 @@ Cartographie de différentes informations:
 
 	-Institutions ou entreprises s'interressant aux Terres Rares.
 
-But
+**But**
 
 Ce projet permettra de compléter le travail bibliographique des chercheurs, doctorants et post-doctorants impliqués dans le projet sur les terres rares du sol à l'atmosphère, et des éléments de réponses complémentaires sur:
 
@@ -25,16 +25,18 @@ l’impacts des terres rares sur l'écosphère terrestre et aquatique.
 
 
 
-Language et outils utilisé:
+#Language et outils utilisé:
+
 PHP
 Memcached afin de gere la mise en cache.
 Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hote.
 
-Configuration de Memcached:
+**Configuration de Memcached:**
+
 Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, selon la machine.
 
 
-Dépendances: 
+**Dépendances: **
 
 	-Apache2
 
@@ -62,9 +64,9 @@ Dépendances:
 	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour executer les scripts.
 
 
-Back-end:
+#Back-end:
 
-Organisation du code:
+**Organisation du code:**
 
 	Backend_Istex_usage
 		--src
@@ -76,7 +78,7 @@ Organisation du code:
 		--vendor : contient les dependances slim necessaires au routage
 
 
-Détails des différentes classes et fonctions PHP:
+**Détails des différentes classes et fonctions PHP:**
 
 -RequestController: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
@@ -93,7 +95,7 @@ Elle est compsé de plusieurs fonctions:
 
 
 
-Détails du script python Requestprocessing (permettant un tri des affilations en multiprocessing)
+**Détails du script python Requestprocessing (permettant un tri des affilations en multiprocessing)**
 
 
 	-Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
@@ -118,7 +120,7 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 
 
 
-Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):
+**Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):**
 
 -split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
 
@@ -129,9 +131,9 @@ Détails du script Multiquery qui permet d'interroger le serveur Nominatim en lo
 
 
 
-Front-end:
+#Front-end:
 
-Librairie utilisé:
+**Librairie utilisé:**
 
 	CSS:
 
@@ -149,7 +151,7 @@ Librairie utilisé:
 	-TWIG
 
 
-Organisation du code:
+**Organisation du code:**
 
 	Frontend_Istex_usage
 		--css :contient la librairie Semantic UI ainsi que le css produit et les dependances necessaires au widget Istex
@@ -163,12 +165,12 @@ Organisation du code:
 
 
 
-Les différentes templates:
+**Les différentes templates:**
 
 	-Accueil.html.twig:
 		Template d'accueil, Les principaux éléments neccessaires y sont defini, les script js et css, la navbar, ainsi que les grilles.
 
-	
+
 
 
 
