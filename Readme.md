@@ -64,7 +64,7 @@ Pour que la mise en cache fonctionne, il faut que l'extension memcached soit act
 Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, selon la machine.
 
 
-**Dépendances: **
+**Dépendances:**
 
 	-Apache2
 
@@ -108,7 +108,8 @@ Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, sel
 
 **Détails des différentes classes et fonctions PHP:**
 
--**RequestController**: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
+-**RequestController**: 
+Cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
 
 	-CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
@@ -117,9 +118,11 @@ Elle est compsé de plusieurs fonctions:
 
 	
 
--**LaboratoryController**:Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
+-**LaboratoryController**:
+Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
 
--**AuthorController**:Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
+-**AuthorController**:
+Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 
 
 
@@ -146,20 +149,33 @@ Elle est compsé de plusieurs fonctions:
 
 Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
 
+**Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):**
+
+-split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
+
+-Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
+
+-Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
+
 
 #Details du traitement des affiliations:
 
 **Présentation d’une affiliation :**
 
 "Laboratoire de Géologie des bassins sédimentaires, Université Paris VI, 4 place Jussieu, Paris, France"
+
 Certaines affiliations contiennent des point-virgules comme séparateur, on transforme donc ceux ci en virgules.Le même traitement est effectué pour les tirets.
 L’affiliation est découpé en lots, chaque lot, ces lots sont « nettoyées » des caractères spéciaux et accents afin d’effectuer une comparaison optimal.
 
 Le couple laboratoire, institution est obtenus avec différents traitement selon la forme d’écriture de l’affiliation.
 Pour cela on utilise deux dictionnaires de données(Institution-All,Labo-All,voir le diagramme), un pour les laboratoires ainsi qu’un pour les institutions.
+
 Cas général :
+
 En effet une affiliation peut avoir un couple laboratoire, institution, si les données contenue dans l’affiliation match avec celles contenue dans le dictionnaire de données , on obtient bien un couple laboratoire,institution.
+
 Cas particuliers : 
+
 Si une affiliation possèdent seulement un laboratoire une fois celle ci comparé avec le dictionnaire de données, pour les cas contenus dans le dictionnaire Labo-service, on affichera le laboratoire ainsi que dans le champs institution un nom considéré comme une institution.
 
 **Exemple :**
@@ -172,6 +188,7 @@ On va considérer que le terme academy est une institution.
 On vérifie que le laboratoire n’est pas égal à l’institution.
 
 Ce qui donnera :
+
 Laboratoire :LABORATORY FOR GEOCHEMICAL RESEARCH	
 Insitution :HUNGARIAN ACADEMY OF SCIENCES
 
@@ -181,25 +198,18 @@ Si une affiliation possèdent seulement une institution,on recherchera avec le d
 **Exemple :**
 
 BRGM est une institution mais n’as pas de labo, on affichera :
+
 Laboratoire : BRGM
 Institution : BRGM
-Pour le CNRS :On ne pourra pas afficher les affiliations du CNRS ne contenant qu’une institution.
+
+Pour le CNRS :
+On ne pourra pas afficher les affiliations du CNRS ne contenant qu’une institution.
 
 Pour un institut n’ayant pas de laboratoire :
+
 Laboratoire : FACULTY OF SCIENCE	
 Institution : GEOLOGICAL INSTITUTE	
 
-
-
-
-
-**Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):**
-
--split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
-
--Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
-
--Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
 
 
 
