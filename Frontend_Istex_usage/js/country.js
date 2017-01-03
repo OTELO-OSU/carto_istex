@@ -74,12 +74,8 @@
 			    total = total*100;          
 			    total= Math.round(total); 
 			    total= total/100;  
-			    var totalempty = (empty/(documentswithaffiliations))*100;
-			    totalempty = totalempty*100;          
-			    totalempty= Math.round(totalempty); 
-			    totalempty= totalempty/100;  
 		        $('.country').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
-		        $('.country').append('<h5>'+empty+' records('+totalempty+'%) empty.</h5>');
+		        $('.country').append('<h5> including '+empty+' records that do not have affiliations.</h5>');
 		        if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
     		mymap.removeLayer(group);
    			 }

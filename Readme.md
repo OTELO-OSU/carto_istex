@@ -62,6 +62,20 @@ Dépendances:
 	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour executer les scripts.
 
 
+Back-end:
+
+Organisation du code:
+
+	Backend_Istex_usage
+		--src
+			--istex 
+				--backend/controller contient les controllers ainsi que les dépendances nominatim  
+			--index.php : fichier de routes
+			--Multiquery.py
+			--Requestprocessing.py 
+		--vendor : contient les dependances slim necessaires au routage
+
+
 Détails des différentes classes et fonctions PHP:
 
 -RequestController: cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
@@ -111,6 +125,55 @@ Détails du script Multiquery qui permet d'interroger le serveur Nominatim en lo
 -Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
 
 -Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
+
+
+
+
+Front-end:
+
+Librairie utilisé:
+
+	CSS:
+
+	-Semantic-UI
+
+	JS:
+	-Jquery
+	-Print js
+	-Integration du widget ISTEX Angular
+	-DataTables JS
+	-Googlechart JS
+	-Leaflet JS
+
+	Moteur de template:
+	-TWIG
+
+
+Organisation du code:
+
+	Frontend_Istex_usage
+		--css :contient la librairie Semantic UI ainsi que le css produit et les dependances necessaires au widget Istex
+		--img : contient les images
+		--js : contient les librairies utilisés ainsi que le code produit 
+		--leaflet : contient les fichiers relatif à l'utilisation de leaflet(js,img,css)
+		--src :contient les sources du frontend
+			--index.php : contient la routes vers la vue twig
+			--istex/frontend/templates contient les templates twig
+		--vendor: contient les dependances slim necessaires au routage
+
+
+
+Les différentes templates:
+
+	-Accueil.html.twig:
+		Template d'accueil, Les principaux éléments neccessaires y sont defini, les script js et css, la navbar, ainsi que les grilles.
+
+	
+
+
+
+
+
 
 
 

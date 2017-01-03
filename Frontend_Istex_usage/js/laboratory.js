@@ -84,12 +84,9 @@
       total = total*100;          
       total= Math.round(total); 
       total= total/100;  
-      var totalempty = (empty/(documentswithaffiliations))*100;
-      totalempty = totalempty*100;          
-      totalempty= Math.round(totalempty); 
-      totalempty= totalempty/100;  
       $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
-      $('.laboratory').append('<h5>'+empty+' records('+totalempty+'%) empty.</h5>');
+      $('.laboratory').append('<h5> including '+empty+' records that do not have affiliations.</h5>');
+
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
