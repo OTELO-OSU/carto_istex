@@ -50,6 +50,11 @@ Le Widget de recherche ISTEX à été intégrer à l’application.
 
 
 
+![Alt text](/Img_doc/Accueil.PNG?raw=true)
+
+
+
+
 
 
 
@@ -209,6 +214,12 @@ Pour un institut n’ayant pas de laboratoire :
 
 Laboratoire : FACULTY OF SCIENCE	
 Institution : GEOLOGICAL INSTITUTE	
+
+
+**Diagramme:**
+![Alt text](/Img_doc/Diagramme_Affiliation.PNG?raw=true)
+
+
 
 
 
