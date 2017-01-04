@@ -17,6 +17,37 @@
 			var total=Object.keys(parsed['documents']).length;
 
 			var markers = [] // tableau qui contiendra les differents markers
+			var array=[]
+			for (var k in parsed['documents']) { // on parcourt le JSON
+				var occurence = parsed['documents'][k]['total'];
+				if (x<20) {
+	    			array.push(occurence)
+					x++;
+				}
+			}
+
+    		max=Math.max.apply(null,array)
+    		base=7
+    		coef=0.3
+    		if (max>100&&max<400) {
+    			coef=0.8
+    			div=4
+    		}
+    		if (max>400&&max<1000) {
+    			coef=0.6
+    			div=4
+    		}
+    		if (max>1000) {
+    			coef=0.4
+    			div=8
+    		}
+    		if (max<20) {
+    			base=8
+    			coef=10
+    			div=3
+    		}
+    		
+    		x=0
 	    	for (var k in parsed['documents']) { // on parcourt le JSON
 			var occurence = parsed['documents'][k]['total'];
 	    		if (x<20) {
@@ -26,13 +57,18 @@
 	         	else{
 			        if (parsed['documents'].hasOwnProperty(k)) 
 					if (occurence==1) {
-						var radius=1;
+						var radius=base;
 					}
 					else{
-						var radius=occurence*0.3;
+						var radius=occurence*coef;
+						radius=radius/div;
 					}
 					if (radius>60) {
-						var radius=60;
+						var radius=occurence*coef;
+						radius=radius/div;
+					}
+					if (radius<10) {
+						radius=10;
 					}
 					color = '#'+Math.floor(Math.random()*16777215).toString(16);
 					var circle = L.circleMarker([parsed['documents'][k]["gps"]["lat"], parsed['documents'][k]["gps"]["lon"]], {

@@ -76,7 +76,6 @@
           else{
             var occurence = parsed[k]['total'];
             if (parsed.hasOwnProperty(k)) 
-             console.log(k)
                var res = k.split(",");
                $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+res[2]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
             
