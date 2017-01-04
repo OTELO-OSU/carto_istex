@@ -76,8 +76,9 @@
           else{
             var occurence = parsed[k]['total'];
             if (parsed.hasOwnProperty(k)) 
+             console.log(k)
                var res = k.split(",");
-               $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
+               $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+res[2]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
             
           }
        }
@@ -94,7 +95,7 @@
       var table = $('#authors').DataTable( {
           lengthChange: false,
           destroy:true,
-          "pageLength": 5, "order": [[ 2, "desc" ]],
+          "pageLength": 5, "order": [[ 3, "desc" ]],
           "pagingType": "numbers",
           responsive: true
         } );// pagination du tableau precedemment crée

@@ -9,7 +9,7 @@ class AuthorController
 		$master_tab=[];
 		foreach ($received_array[1] as $key => $value) {// on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
-			$tab[]=str_replace(".","",$value['author'])." , ".$value['laboratory'];// on stocke les valeurs dans un tableau et on remplace les . par rien du tout
+			$tab[]=str_replace(".","",$value['author'])." , ".$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau et on remplace les . par rien du tout
 			$tab[]=$value['laboratory'];
 			$tab[]=$value['id'];
 		
