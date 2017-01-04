@@ -141,12 +141,12 @@
           query: query
         }, // requete ajax sur le backend
         function(data){
+            searchcountry(query);
             var parsed = JSON.parse(data); // transformation en JSON
              parseauthor=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
             documentswithaffiliations=parsed['0']['noaff']['total'];
             parse_authors(parseauthor);
-          
         });
 
           

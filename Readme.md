@@ -75,6 +75,10 @@ Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, sel
 
 	-PHP 5.6:
 		Librairie php: libmemcached (ne pas oublier d'activer l'extension dans la configuration php)
+		Php Curl
+		Php pgsql
+		Pear 
+		DB
 
 	-Memcached: Fichier à Modifier /etc/memcached.conf
 	Il suffit de modifier les valeurs:
@@ -274,7 +278,6 @@ Institution : GEOLOGICAL INSTITUTE
 ![Alt text](/Img_doc/Istex_usage_Backend.png?raw=true)
 
 ![Alt text](/Img_doc/Istex_usage_Frontend.png?raw=true)
-
 
 
 
