@@ -55,29 +55,15 @@
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
-            if (k==" , ") {}
-            else{
-                x++;
-                var occurence = parsed[k]['total'];
-                if (parsed.hasOwnProperty(k)) 
-                  var res = k.split(",");
-                  data3.push([res[0]+" ("+occurence+")"+res[1],Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0]+", "+res[1],occurence]); // on push les données dans un array
-                }
+            x++;
+            var occurence = parsed[k][2];
+            data3.push([parsed[k][0]+" ("+occurence+")"+parsed[k][1],Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
             x++;
             var occurence = parsed[k]['total'];
-            if (parsed.hasOwnProperty(k))   
-            var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0]+", "+res[1],occurence]); // on push les données dans un array
-          }
-          if (k==" , ") {}
-            else{
-            var occurence = parsed[k]['total'];
-            if (parsed.hasOwnProperty(k)) 
-              var res = k.split(",");
-            $( "#laboratorys" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+occurence+'</td></tr>');  //Affichage dans le tableau   
-          }
+            data3.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
+          }            
        }
       $('.laboratory h5').remove();
       var total = (undefinedaff/(documentswithaffiliations))*100;
@@ -90,11 +76,13 @@
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
+          "data": parsed,
           lengthChange: false,
           destroy:true,
           "pageLength": 5, "order": [[ 2, "desc" ]],
           "pagingType": "numbers",
-          responsive: true
+          responsive: true,
+          "deferRender": true
         } );// pagination du tableau precedemment crée
 
 

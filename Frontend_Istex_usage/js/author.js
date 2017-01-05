@@ -48,39 +48,26 @@
 
     }
 
-
     function parse_authors(parsed){
+     
         data4 = [];
         data4.push(['ID','Y','X','Author','Number of publications']);
         var r = []
         var x = 0;
+
         for (var k in parsed) { // on parcourt le JSON
+          
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
-             if (k==" , ") {}
-                else{
-                  x++;
-                  var occurence = parsed[k]['total'];
-              if (parsed.hasOwnProperty(k)) 
-                var res = k.split(",");
-                data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); // on push les données dans un array
-              }
+              x++;
+              var occurence = parsed[k][3];
+              data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
              x++;
-            var occurence = parsed[k]['total'];
-          if (parsed.hasOwnProperty(k)) 
-            var res = k.split(",");
-            data4.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),res[0],occurence]); 
+            var occurence = parsed[k][3];
+            data4.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0],occurence]); 
           }
-          if (k==" , ") {}
-          else{
-            var occurence = parsed[k]['total'];
-            if (parsed.hasOwnProperty(k)) 
-               var res = k.split(",");
-               $( "#authors" ).append('<tr><td>'+res[0]+'</td><td>'+res[1]+'</td><td>'+res[2]+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau    
-            
           }
-       }
       $('.authors h5').remove();
       var total = (undefinedaff/(documentswithaffiliations))*100;
       total = total*100;          
@@ -90,13 +77,14 @@
 
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartauthor);
-
       var table = $('#authors').DataTable( {
+          "data": parsed,
           lengthChange: false,
           destroy:true,
           "pageLength": 5, "order": [[ 3, "desc" ]],
           "pagingType": "numbers",
-          responsive: true
+          responsive: true,
+          "deferRender": true
         } );// pagination du tableau precedemment crée
 
    
@@ -110,21 +98,14 @@
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
-             if (k==" , ") {}
-                else{
                   x++;
-                  var occurence = parsed[k]['total'];
-                  if (parsed.hasOwnProperty(k)) 
-                    var res = k.split(",");
-                    data4.push([res[0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
-              }
+                  var occurence = parsed[k][3];
+                  data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
-              x++;
-              var occurence = parsed[k]['total'];
-              if (parsed.hasOwnProperty(k)) 
-                var res = k.split(",");
-                data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
+                x++;
+                var occurence = parsed[k][3];
+                data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
@@ -141,12 +122,12 @@
           query: query
         }, // requete ajax sur le backend
         function(data){
-            searchcountry(query);
-            var parsed = JSON.parse(data); // transformation en JSON
+            var parsed = JSON.parse(data); // transformation en array
              parseauthor=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
             documentswithaffiliations=parsed['0']['noaff']['total'];
             parse_authors(parseauthor);
+            searchcountry(query);
         });
 
           

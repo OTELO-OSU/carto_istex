@@ -37,17 +37,28 @@ foreach($master_tab as $arg)
     $authorwithid[$arg[0]][] = $arg[1];
 }
 	
+
 			arsort($authorwithid);////tri de l'auteur qui a le plus de documents au plus petit nombre
 			foreach ($authorwithid as $key => $value) {
 			$array= array();
 			$array["total"]=count($value);
 			$authorwithid[$key]=$array;
 			}
+			foreach ($authorwithid as $key => $value) {
+				$array=array();
+				$key=split(",", $key);
+				$array[]=$key[0];
+				$array[]=$key[1];
+				$array[]=$key[2];
+				$array[]=$value["total"];
+				$author[]=$array;
+			}
 			$response=array();
 			$array=array();
 			$array["noaff"]=$received_array[0];
 			$response[]=$array;
-			$response["documents"]=$authorwithid;
+
+			$response["documents"]=$author;
 			return $response;
 	
 

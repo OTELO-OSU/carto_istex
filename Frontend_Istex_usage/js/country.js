@@ -102,7 +102,7 @@
 		           destroy:true,
 		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
 		          "pagingType": "numbers",  
-		          responsive: true
+		          responsive: true,
 		        } );
 
           		$('.country h5').remove();

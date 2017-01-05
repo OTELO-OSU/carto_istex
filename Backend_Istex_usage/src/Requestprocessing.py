@@ -212,7 +212,7 @@ def main():
     mc = pylibmc.Client(["127.0.0.1"])
     jsondata = mc.get(sys.argv[1])
     listes_re= json.loads(jsondata)
-    listes=split(listes_re,200)
+    listes=split(listes_re,1000)
 
     for liste in listes:
         recv_end, send_end = multiprocessing.Pipe(False)

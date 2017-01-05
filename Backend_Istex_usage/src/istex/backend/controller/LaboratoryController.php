@@ -68,11 +68,19 @@ class LaboratoryController
 			$array["total"]=count($value);
 			$laboratorywithid[$key]=$array;
 			}
+		foreach ($laboratorywithid as $key => $value) {
+				$array=array();
+				$key=split(",", $key);
+				$array[]=$key[0];
+				$array[]=$key[1];
+				$array[]=$value["total"];
+				$laboratory[]=$array;
+			}
 		$response=array();
 		$array=array();
 		$array['noaff']=$received_array[0];
 		$response[]=$array;
-		$response["documents"]=$laboratorywithid;
+		$response["documents"]=$laboratory;
 
 
 		return $response;
