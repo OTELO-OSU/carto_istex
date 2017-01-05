@@ -61,7 +61,7 @@
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
             x++;
-            var occurence = parsed[k]['total'];
+            var occurence = parsed[k][2];
             data3.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
           }            
        }
@@ -95,21 +95,15 @@ function reload_bubble_labo(parsed){
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
-             if (k==" , ") {}
-                else{
-                  x++;
-                var occurence = parsed[k]['total'];
-                if (parsed.hasOwnProperty(k)) 
-                var res = k.split(",");
-                data3.push([res[0]+" ("+occurence+")"+res[1],Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); // on push les données dans un array
-              }
+              x++;
+              var occurence = parsed[k][2];
+              data3.push([parsed[k][0]+" ("+occurence+")"+parsed[k][1],Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); // on push les données dans un array
+              
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
              x++;
-            var occurence = parsed[k]['total'];
-          if (parsed.hasOwnProperty(k)) 
-            var res = k.split(",");
-            data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),res[0],occurence]); 
+            var occurence = parsed[k][2]; 
+            data3.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
