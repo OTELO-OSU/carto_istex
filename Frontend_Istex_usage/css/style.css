@@ -61,6 +61,11 @@
 	display: none;
 }
 
+#noresult{
+	display: none;
+}
+
+
 
 .ui .pagination .menu{
 	margin-right: 10%;

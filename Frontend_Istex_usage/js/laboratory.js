@@ -139,21 +139,29 @@ function init_request(query){
             query: query
           },// requete ajax sur le backend
           function(data){ 
-            searchauthors(query);
-            var parsed = JSON.parse(data); // transformation en JSON
-            parselabo=parsed['documents'];
-            undefinedaff=parsed['0']['noaff']['noaff'];
-            empty=parsed['0']['noaff']['empty'];
-            documentswithaffiliations=parsed['0']['noaff']['total'];
-            console.log(documentswithaffiliations);
-            if (documentswithaffiliations==15000) {
-              $('#warning').show();     
+            if (data=='["empty"]') {
+                $('#noresult').show(); 
+                $('.loading_country').hide();
+                $('.loading_laboratory').hide();
+                $('.loading_authors').hide();    
             }
-            parse_laboratorys(parselabo);
-          });
-          $(".reloadlaboratory").click(function(){
-            reload_bubble_labo(parselabo);// on recreer le bubble chart
-          });
+            else{
+              searchauthors(query);
+              var parsed = JSON.parse(data); // transformation en JSON
+              parselabo=parsed['documents'];
+              undefinedaff=parsed['0']['noaff']['noaff'];
+              empty=parsed['0']['noaff']['empty'];
+              documentswithaffiliations=parsed['0']['noaff']['total'];
+              console.log(documentswithaffiliations);
+              if (documentswithaffiliations==15000) {
+                $('#warning').show();     
+              }
+              parse_laboratorys(parselabo);
+              }
+            });
+            $(".reloadlaboratory").click(function(){
+              reload_bubble_labo(parselabo);// on recreer le bubble chart
+            });
           
 }
 
@@ -345,12 +353,15 @@ $(document).ready(function(){
      $(".istex_result").hide();
      $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
-
+        $('#noresult').hide(); 
         document.getElementById("istex-widget-search").style.marginTop="2%";
         document.getElementById("istex-widget-search").style.marginBottom="1px";
         $(".istex_result").show();
         $('#warning').hide();     
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+        if (query=="") {
+          query="*";
+        }
         init_request(query);
         setTimeout(function(){
            $('.rzslider .rz-pointer').off("click")
