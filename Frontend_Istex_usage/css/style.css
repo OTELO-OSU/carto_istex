@@ -11,6 +11,10 @@
 	height: 300px;
 	overflow-y: auto;
 }
+#istex-widget-search{
+	margin-top: 20%;
+	margin-bottom: 20%;
+}
 
 
 .ui .pagination .menu{

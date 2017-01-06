@@ -328,7 +328,12 @@ function build_request_facets(){
 
 
 $(document).ready(function(){
+     $(".istex_result").hide();
+     $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
+        document.getElementById("istex-widget-search").style.marginTop="2%";
+        document.getElementById("istex-widget-search").style.marginBottom="1px";
+        $(".istex_result").show();
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         init_request(query);
         setTimeout(function(){
