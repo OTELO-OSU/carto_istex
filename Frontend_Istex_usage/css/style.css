@@ -104,3 +104,15 @@
 #cnrs{
 	width: 70px;
 }
+
+
+.loading_country{
+	display: none
+}
+
+.loading_laboratory{
+	display: none
+}
+.loading_authors{
+	display: none
+}

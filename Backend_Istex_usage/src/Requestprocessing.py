@@ -126,6 +126,7 @@ def processing(liste,send_end):
                     break;
                 else:
                     author=value2['name']
+                    author=author.upper()
                     affiliations=value2['affiliations']
                     regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
                     if not affiliations is None:
@@ -185,6 +186,7 @@ def processing(liste,send_end):
                                 country=country.replace(" ", "", 1)
                                 country=re.sub(regex, "", country)
                                 country=urllib.quote(country.encode('utf-8'))
+
 
 
                         array={}

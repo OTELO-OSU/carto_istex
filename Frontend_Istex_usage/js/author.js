@@ -74,7 +74,7 @@
       total= Math.round(total); 
       total= total/100;  
       $('.authors').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
-
+      $('.loading_authors').hide();
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartauthor);
       var table = $('#authors').DataTable( {

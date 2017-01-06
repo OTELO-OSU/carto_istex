@@ -129,7 +129,8 @@
 
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
-   			
+   			$('.loading_country').hide();
+
         })
    	
 }

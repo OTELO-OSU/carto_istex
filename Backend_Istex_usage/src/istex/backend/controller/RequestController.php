@@ -70,6 +70,8 @@ class RequestController
 				$response3 = json_decode(json_encode($response3->hits),true); 
 
 				
+
+				
 	
 
 

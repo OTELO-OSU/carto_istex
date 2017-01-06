@@ -72,7 +72,7 @@
       total= total/100;  
       $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       $('.laboratory').append('<h5> including '+empty+' records that do not have affiliations.</h5>');
-
+      $('.loading_laboratory').hide();
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
@@ -113,6 +113,9 @@ function reload_bubble_labo(parsed){
 
 
 function init_request(query){
+        $('.loading_country').show();
+        $('.loading_laboratory').show();
+        $('.loading_authors').show();
         $('.avert').remove();
         $('.laboratory h5').remove();
         $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
