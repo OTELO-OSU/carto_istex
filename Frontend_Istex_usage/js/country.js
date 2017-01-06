@@ -29,6 +29,7 @@
     		max=Math.max.apply(null,array)
     		base=7
     		coef=0.3
+    		div=1
     		if (max>100&&max<400) {
     			coef=0.8
     			div=4

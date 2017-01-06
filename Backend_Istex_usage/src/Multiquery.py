@@ -26,10 +26,11 @@ def split(arr, size):
 
 def processing(liste,send_end):
 	array=[] #Definition tableau vide
+	country=None
 	mc = pylibmc.Client(["127.0.0.1"]) #Connexion à memcached
 	for item in liste:
 		if item["country"] is None:
-			country=="NULL"
+			country="NULL"
 		else:
 			country = item["country"]
 		if len(country)< 30:
