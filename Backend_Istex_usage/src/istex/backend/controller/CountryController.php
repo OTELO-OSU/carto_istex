@@ -15,10 +15,10 @@ class CountryController
 		foreach ($received_array as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 			$tab=array();
 			$tab[]=$value['country']; // on stocke les valeurs dans un tableau
+			$tab[]=$value['country_code'];
 			$tab[]=$value['id'];
 			$tab[]=$value['lat'];
 			$tab[]=$value['lon'];
-					
 				if ($value['country']=="NULL") {
 					$test[]=$value['id'];
 				}
@@ -45,9 +45,10 @@ foreach($master_tab as $arg)
 {
 	$array= array();
 	$Request = new RequestApi;
-	$countrywithid[$arg[0]]["gps"]["lat"]=$arg[2];
-	$countrywithid[$arg[0]]["gps"]["lon"]=$arg[3];
-	$array[]=$arg[1];
+	$countrywithid[$arg[0]]["gps"]["lat"]=$arg[3];
+	$countrywithid[$arg[0]]["gps"]["lon"]=$arg[4];
+	$countrywithid[$arg[0]]["gps"]["country_code"]=$arg[1];
+	$array[]=$arg[2];
     $countrywithid[$arg[0]][] = $array;
 }
 				

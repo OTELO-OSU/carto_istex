@@ -44,22 +44,26 @@
 
 
 <div class="ui grid container">
-	<div class="ten wide centered column">
-   		{% include 'widget_istex.html.twig' %}
+    <div class="ten wide centered column">
+        {% include 'widget_istex.html.twig' %}
 
-   	</div>
-</div>
-<div class="ui grid container">
-
-   <div class="ten wide centered column istex_result">
-			<istex-results></istex-results>
+      </div>
   </div>
-   <div class="four wide column istex_result">
-      <istex-facets></istex-facets>
+  <div class="ui grid container">
+     <div class="ten wide centered column istex_result ui piled segment">
+  			<istex-results></istex-results>
+    </div>
+     <div class="four wide column istex_result ui raised segment">
+         <istex-facets></istex-facets>
+       
+    </div>
   </div>
-</div>
-
-
+ 
+<div class="ui grid container" id="warning">
+  <div class=" eight wide centered column">
+   <div class="ui red inverted segment"><h4>Warning: only 15000 results parsed!</h4></div>
+  </div>
+</div>  
 
 <div class="ui stackable three column grid">
    	<div class="column">

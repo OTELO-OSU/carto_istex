@@ -123,6 +123,17 @@ function init_request(query){
         $('.country h5').remove();
         $('#authors tbody').remove();// remise a zero en cas de recherche simultané
         $('#country tbody').remove(); // remise a zero en cas de recherche simultané
+        $('#country .row').remove();
+        $('#authors .row').remove();
+        $('#laboratorys_info').remove();
+        $('#laboratorys_paginate').remove();  
+        $('#laboratorys_filter ').remove(); 
+        $('#country_info').remove();
+        $('#country_paginate').remove();  
+        $('#country_filter ').remove();   
+        $('#authors_info').remove();
+        $('#authors_paginate').remove();  
+        $('#authors_filter ').remove();     
           $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
@@ -135,6 +146,9 @@ function init_request(query){
             empty=parsed['0']['noaff']['empty'];
             documentswithaffiliations=parsed['0']['noaff']['total'];
             console.log(documentswithaffiliations);
+            if (documentswithaffiliations==15000) {
+              $('#warning').show();     
+            }
             parse_laboratorys(parselabo);
           });
           $(".reloadlaboratory").click(function(){
@@ -331,9 +345,11 @@ $(document).ready(function(){
      $(".istex_result").hide();
      $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
+
         document.getElementById("istex-widget-search").style.marginTop="2%";
         document.getElementById("istex-widget-search").style.marginBottom="1px";
         $(".istex_result").show();
+        $('#warning').hide();     
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         init_request(query);
         setTimeout(function(){

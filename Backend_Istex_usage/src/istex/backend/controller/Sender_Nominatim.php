@@ -11,8 +11,10 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 	if (empty($argv[1])) {
 		$array=array();
 		$array['country']="NULL";
+		$array['country_code']="NULL";
 		$array['lat']="NULL";
 		$array['lon']="NULL";
+
 	}
 	else{
 		$name=$argv[1];//recuperation de l'argument(pays)
@@ -28,12 +30,14 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 		if (!count($aSearchResults)==0)//Si il y a un resultat
 		{
 		    $array['country'] = $aSearchResults[0]['address']['country'];
+		    $array['country_code'] = $aSearchResults[0]['address']['country_code'];
 		    $array['lat'] = $aSearchResults[0]['lat'];
 		    $array['lon'] = $aSearchResults[0]['lon'];
 		}
 		else{//Sinon NULL
 			$array=array();
 			$array['country']="NULL";
+			$array['country_code']="NULL"; 
 			$array['lat']="NULL";
 			$array['lon']="NULL";			
 		}

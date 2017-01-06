@@ -90,9 +90,9 @@
 					markers.push(circle);// push du marker dans le tableau
 
 	      		}
-
    		  	}
-		   		  	$( "#country" ).append('<tr><td>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
+   		  			country_code=parsed['documents'][k]["gps"]["country_code"];
+		   		  	$( "#country" ).append('<tr><td><i class="'+country_code+' flag"></i>'+k+'</td><td>'+occurence+'</td></tr>'); //Affichage dans le tableau
    			 
     	}
    			 	

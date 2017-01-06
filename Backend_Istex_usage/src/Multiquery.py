@@ -47,7 +47,7 @@ def processing(liste,send_end):
 				script_response.wait()
 				script_response =stdout
 				if script_response is None:
-					script_response='{"country":"NULL","lat":"NULL","lon":"NULL"}'
+					script_response='{"country":"NULL","country_code":"NULL",lat":"NULL","lon":"NULL"}'
 				mc.set(hashed, script_response,time=864000)
 				addid=json.loads(script_response)
 				addid['id']=Id
