@@ -15,24 +15,24 @@
       tooltip:{isHtml:true},
       title: 'BubbleChart of publications per laboratory for query : '+query,
       width:900,
-      height:600,
+      height:550,
       hAxis: {display:false,
         viewWindowMode:'explicit',
         viewWindow
-       :{max:420},
+       :{max:520},
        baselineColor: '#fff',
         gridlineColor: '#fff',
         textPosition: 'none'},
       vAxis: {display:false ,viewWindowMode:'explicit',
         viewWindow
-       :{max:320},
+       :{max:420},
        baselineColor: '#fff',
    gridlineColor: '#fff',
    textPosition: 'none'},
       bubble: {textStyle: {fontSize: 11}},
        explorer: {
-        maxZoomOut:3,
-        keepInBounds: true
+        maxZoomOut:5,
+        keepInBounds: false
     }
       
     };
@@ -57,12 +57,12 @@
           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
             x++;
             var occurence = parsed[k][2];
-            data3.push([parsed[k][0]+" ("+occurence+")"+parsed[k][1],Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
+            data3.push([parsed[k][0]+" ("+occurence+")"+parsed[k][1],Math.floor((Math.random() * 380) + 30),Math.floor((Math.random() * 290) + 30),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
             x++;
             var occurence = parsed[k][2];
-            data3.push([" ",Math.floor((Math.random() * 380) + 20),Math.floor((Math.random() * 290) + 20),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
+            data3.push([" ",Math.floor((Math.random() * 380) + 30),Math.floor((Math.random() * 290) + 30),parsed[k][0]+", "+parsed[k][1],occurence]); // on push les données dans un array
           }            
        }
       $('.laboratory h5').remove();
