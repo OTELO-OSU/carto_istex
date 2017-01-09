@@ -1,6 +1,6 @@
 <?php
-@define('CONST_BasePath', 'Backend_Istex_usage/src/istex/backend/controller');
-@define('CONST_InstallPath', 'Backend_Istex_usage/src/istex/backend/controller/build');
+@define('CONST_BasePath', 'istex/backend/controller');
+@define('CONST_InstallPath', 'istex/backend/controller/build');
 if (file_exists(getenv('NOMINATIM_SETTINGS'))) require_once(getenv('NOMINATIM_SETTINGS'));
 if (file_exists(CONST_InstallPath.'/settings/local.php')) require_once(CONST_InstallPath.'/settings/local.php');
 if (isset($_GET['debug']) && $_GET['debug']) @define('CONST_Debug', true);
