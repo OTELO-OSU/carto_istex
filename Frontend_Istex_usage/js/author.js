@@ -14,24 +14,27 @@
             legend: 'none',
             tooltip:{isHtml:true},
             title: 'BubbleChart of publications per author for query : '+query,
-            width:700,
+            width:'100%',
             height:550,
             hAxis: {display:false,
               viewWindowMode:'explicit',
               viewWindow
-             :{max:520},
+             :{max:1220},
               baselineColor: '#fff',
               gridlineColor: '#fff',
               textPosition: 'none'
             },
             vAxis: {display:false ,viewWindowMode:'explicit',
               viewWindow
-             :{max:420},
+             :{max:1220},
               baselineColor: '#fff',
               gridlineColor: '#fff',
               textPosition: 'none'
            },
-            bubble: {textStyle: {fontSize: 11}},
+            bubble: {textStyle: {fontSize: 10, 
+            color: 'black',
+            bold: true,
+          }},
              explorer: {
         maxZoomOut:3,
         keepInBounds: false
@@ -60,12 +63,12 @@
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
               x++;
               var occurence = parsed[k][3];
-              data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 30),Math.floor((Math.random() * 290) + 30),parsed[k][0],occurence]); // on push les données dans un array
+              data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 1000) + 50)-Math.floor((Math.random() * 150) + 50),Math.floor((Math.random() * 800) + 50)-Math.floor((Math.random() * 150) +50),parsed[k][0],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
              x++;
             var occurence = parsed[k][3];
-            data4.push([" ",Math.floor((Math.random() * 380) + 30),Math.floor((Math.random() * 290) + 30),parsed[k][0],occurence]); 
+            data4.push([" ",Math.floor((Math.random() * 1000) + 50)-Math.floor((Math.random() * 150) + 50),Math.floor((Math.random() * 800) + 50)-Math.floor((Math.random() * 150) +50),parsed[k][0],occurence]); 
           }
           }
       $('.authors h5').remove();
@@ -100,12 +103,12 @@
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
                   x++;
                   var occurence = parsed[k][3];
-                  data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); // on push les données dans un array
+                  data4.push([parsed[k][0]+" ("+occurence+")",Math.floor((Math.random() * 1000) + 50)-Math.floor((Math.random() * 150) + 50),Math.floor((Math.random() * 800) + 50)-Math.floor((Math.random() * 150) +50),parsed[k][0],occurence]); // on push les données dans un array
             }
           else if (x<20) { // les 20 premiers affichers dans le bubble chart
                 x++;
                 var occurence = parsed[k][3];
-                data4.push([" ",Math.floor((Math.random() * 380) + 10),Math.floor((Math.random() * 290) + 10),parsed[k][0],occurence]); 
+                data4.push([" ",Math.floor((Math.random() * 1000) + 50)-Math.floor((Math.random() * 150) + 50),Math.floor((Math.random() * 800) + 50)-Math.floor((Math.random() * 150) +50),parsed[k][0],occurence]); 
           }
         }
         google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart

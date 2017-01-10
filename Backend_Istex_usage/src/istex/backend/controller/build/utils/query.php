@@ -25,43 +25,28 @@ $aCMDOptions
    array('countrycodes', '', 0, 1, 1, 1, 'string', 'Comma-separated list of countries to restrict search to'),
    array('viewbox', '', 0, 1, 1, 1, 'string', 'Prefer results in given view box')
   );
-//getCmdOpt($_SERVER['argv'], $aCMDOptions, $aCMDResult, true, true);
+getCmdOpt($_SERVER['argv'], $aCMDOptions, $aCMDResult, true, true);
 
 $oDB =& getDB();
-$oParams = new Nominatim\ParameterParser();
-//var_dump($oParams);
+$oParams = new Nominatim\ParameterParser($aCMDResult);
 
-//if ($oParams->getBool('search')) {
-   // if (isset($aCMDResult['nodedupe'])) $aCMDResult['dedupe'] = 'false';
+if ($oParams->getBool('search')) {
+    if (isset($aCMDResult['nodedupe'])) $aCMDResult['dedupe'] = 'false';
 
     $oGeocode = new Nominatim\Geocode($oDB);
 
-    $oGeocode->setLanguagePreference(array("en"));
-    $oGeocode->getIncludeAddressDetails();
+    $oGeocode->setLanguagePreference($oParams->getPreferredLanguages(false));
     $oGeocode->loadParamArray($oParams);
-    
-    $oGeocode->setQuery("Paris");
+    $oGeocode->setQuery($aCMDResult['search']);
 
     $aSearchResults = $oGeocode->lookup();
+    var_dump($aSearchResults);
 
-// Demain inclure cette parti au code du proejt et tester
-
-
-    
-  
-    $aPlace['lat'] = $aSearchResults[0]['lat'];
-    $aPlace['lon'] = $aSearchResults[0]['lon'];
-
-    if (isset($aSearchResults[0]['address']))
-    {
-        $aPlace['address'] = $aSearchResults[0]['address'];
+    if (version_compare(phpversion(), "5.4.0", '<')) {
+        echo json_encode($aSearchResults);
+    } else {
+        echo json_encode($aSearchResults, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n";
     }
-
-   
-
-
-javascript_renderData( $aPlace);
-
-    
-    
-
+} else {
+    showUsage($aCMDOptions, true);
+}
