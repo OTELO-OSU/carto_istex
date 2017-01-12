@@ -79,21 +79,22 @@
 	cursor: pointer;
 }
 
-
+#improve{
+	display: none!important;
+}
 .ui .pagination .menu{
 	margin-right: 10%;
 }
 
 .bubbleauthors{
-	cursor: pointer;
+	display: none!important;
 }
 
 .bubblelaboratorys{
-	cursor: pointer;
+	display: none!important;
 }
-
 .leafletmap{
-	cursor: pointer;
+	display: none!important;
 }
 
 .reloadlaboratory{

@@ -115,6 +115,7 @@
           var buttons = new $.fn.dataTable.Buttons(table_row, {
              buttons: [{extend:'csvHtml5',text:'Export CSV',title: author,className:'ui primary button'}]
         }).container().appendTo($('#buttons_authors'));
+          $('#actions_infoauthors .dt-buttons').append('<div class="ui negative right labeled icon button">Fermer<i class="remove icon"></i> </div>')
           $('.authors_table').modal('show');
            $('#authors_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
@@ -156,6 +157,7 @@
           query: query
         }, // requete ajax sur le backend
         function(data){
+            $('.bubbleauthors').attr('style', 'display: inline-block !important;')
             var parsed = JSON.parse(data); // transformation en array
              parseauthor=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];

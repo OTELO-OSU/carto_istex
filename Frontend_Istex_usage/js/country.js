@@ -10,7 +10,8 @@
           improve:improve
         }, // requete ajax sur le backend
         function(data){
-
+        	$('.leafletmap').attr('style', 'display: inline-block !important;')
+        	$('#improve').attr('style', 'display: inline-block !important;')
             var parsed = JSON.parse(data); // transformation en JSON
 			var x = 0;
 			undefinedaff=parsed['0']['noaff'];

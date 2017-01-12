@@ -112,8 +112,8 @@
           $('.laboratory_table').modal('show');
            var buttons = new $.fn.dataTable.Buttons(table_row, {
              buttons: [{extend:'csvHtml5',text:'Export CSV',title: laboratory,className:'ui primary button'}]
-        }).container().appendTo($('#buttons_laboratory'));
-
+        }).container().appendTo($('#actions_infolabo'));
+           $('#actions_infolabo .dt-buttons').append('<div class="ui negative right labeled icon button">Fermer<i class="remove icon"></i> </div>')
           $('#laboratorys_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
            window.open(URL_ISTEX+row[1]+"/fulltext/pdf");
@@ -167,12 +167,25 @@ function init_request(query){
         $('#country_filter ').remove();   
         $('#authors_info').remove();
         $('#authors_paginate').remove();  
-        $('#authors_filter ').remove();     
+        $('#authors_filter ').remove();  
+        $('#improve').attr('style', 'display: none !important;'); 
+        $('.leafletmap').attr('style', 'display: none !important;'); 
+        $('.bubblelaboratorys').attr('style', 'display: none !important;');  
+        $('.bubbleauthors').attr('style', 'display: none !important;'); 
+        $('.dt-buttons').remove();  
+        $('#improve').html('<i class="icon settings"></i> Improve');
+        $('#improve').removeClass('green');
+
+
+
+
           $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend
           function(data){ 
+
+            $('.bubblelaboratorys').attr('style', 'display: inline-block !important;')
             if (data=='["empty"]') {
                 $('#noresult').show(); 
                 $('.loading_country').hide();
@@ -414,6 +427,7 @@ $(document).ready(function(){
         $('#country .row').remove();
         $('#country_info').remove();
         $('#improve').addClass('green')
+        $('#improve').html('<i class="checkmark box icon"></i>Improved');
             $('#country_paginate').remove();  
             $('#country_filter ').remove();  
         searchcountry(query,'improved');
