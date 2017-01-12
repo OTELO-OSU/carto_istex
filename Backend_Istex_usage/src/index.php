@@ -17,9 +17,10 @@ $app = new \Slim\App($c);
 $app->post('/getcountrys', function (Request $req,Response $responseSlim) {
     $request = new RequestApi();
 	$query  = $req->getparam('query');
+	$improve  = $req->getparam('improve');
 	$response = $request->Request_alldoc_querypagebypage($query);
 	$country = new Country();
-	$sortcountry = $country->get_name($response,$query);   
+	$sortcountry = $country->get_name($response,$query,$improve);   
 	$sortcountry=$country->Sort_by_country($sortcountry,$response);
 	$responseSlim->withHeader('Content-Type', 'application/json');
    	return json_encode($sortcountry);

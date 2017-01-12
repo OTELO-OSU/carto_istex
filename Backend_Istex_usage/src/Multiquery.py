@@ -39,10 +39,11 @@ def processing(liste,send_end):
             hashed=hashlib.md5()
             hashed.update(country)
             hashed=hashed.hexdigest()
+            improved=sys.argv[2]
             
             countrycached = mc.get(hashed)
             if countrycached == None:
-                script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 (stdout, stderr) = script_response.communicate()
                 script_response.wait()
                 script_response =stdout
@@ -57,10 +58,32 @@ def processing(liste,send_end):
                 addid =json.dumps(addid)
                 array.append(addid)
             else:
-                addid=json.loads(countrycached)
-                addid['id']=Id
-                addid =json.dumps(addid)
-                array.append(addid)
+                if improved=="improved":
+                    if countrycached=='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL"}':
+                        script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        (stdout, stderr) = script_response.communicate()
+                        script_response.wait()
+                        script_response =stdout
+                        if "ERREUR" in script_response:
+                            script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL","improved":1}'
+                        if script_response is None:
+                            script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL","improved":1}'
+                    
+                        mc.set(hashed, script_response,time=864000)
+                        addid=json.loads(script_response)
+                        addid['id']=Id
+                        addid =json.dumps(addid)
+                        array.append(addid)
+                    else:
+                        addid=json.loads(countrycached)
+                        addid['id']=Id
+                        addid =json.dumps(addid)
+                        array.append(addid)
+                else:
+                    addid=json.loads(countrycached)
+                    addid['id']=Id
+                    addid =json.dumps(addid)
+                    array.append(addid)
     send_end.send(array)
 
         

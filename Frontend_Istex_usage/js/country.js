@@ -1,11 +1,13 @@
 
 
    
-    	function searchcountry(query){
+    	function searchcountry(query,improve){
+
     	//var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
         {
-          query: query
+          query: query,
+          improve:improve
         }, // requete ajax sur le backend
         function(data){
 
@@ -126,6 +128,7 @@
 			$('.print').on('click', function() {//print de la map
 				$.print("#map",{title:"Map of publications per country for query : "+query});
 			});
+			 $('#improve').show();
 
 	        $('#legend h5').remove();
           	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');

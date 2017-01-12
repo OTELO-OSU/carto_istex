@@ -76,10 +76,10 @@ class CountryController
 
 
 	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
-	function get_name($received_array,$query){
+	function get_name($received_array,$query,$improve){
 		$hash = md5($query);
 		$json=json_encode($received_array);
-		$results= shell_exec('python Multiquery.py '.escapeshellarg($hash));
+		$results= shell_exec('python Multiquery.py '.escapeshellarg($hash).' '.escapeshellarg($improve));
 		$results= json_decode($results);
 		foreach ($results as $key => $value) {
 			$value=json_decode($value,true);

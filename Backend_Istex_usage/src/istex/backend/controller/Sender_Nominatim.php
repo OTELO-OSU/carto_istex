@@ -4,7 +4,14 @@ use \Nominatim\ParameterParser as ParameterParser;
 use \Nominatim\Geocode as Geocode;
 require('build/settings/settings.php');
 require('lib/init-cmd.php');
-require('lib/Geocode.php');
+if ($argv[2]) {
+	require('lib/GeocodeImproved.php');
+
+}
+else{
+	require('lib/Geocode.php');
+}
+
 require('lib/ParameterParser.php');
 ini_set('max_execution_time', 2);//timeout 2 secondes
 
@@ -15,6 +22,9 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 		$array['country_code']="NULL";
 		$array['lat']="NULL";
 		$array['lon']="NULL";
+		if ($argv[2]) {
+			$array['improved']=1;
+		}
 
 	}
 	else{
@@ -33,7 +43,7 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 		if (!count($aSearchResults)==0)//Si il y a un resultat
 		{	
 			if (empty($aSearchResults[0]['address']['country'])) {
-				 $array['country'] = $aSearchResults[1]['address']['country'];
+				$array['country'] = $aSearchResults[1]['address']['country'];
 			    $array['country_code'] = $aSearchResults[1]['address']['country_code'];
 			    $array['lat'] = $aSearchResults[1]['lat'];
 			    $array['lon'] = $aSearchResults[1]['lon'];
@@ -51,7 +61,11 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 			$array['country']="NULL";
 			$array['country_code']="NULL"; 
 			$array['lat']="NULL";
-			$array['lon']="NULL";			
+			$array['lon']="NULL";	
+			if ($argv[2]) {
+			$array['improved']=1;
+}
+		
 		}
 	}
 

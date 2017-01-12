@@ -352,6 +352,7 @@ function build_request_facets(){
 
 
 $(document).ready(function(){
+    $('#improve').hide();
      $(".istex_result").hide();
      $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
@@ -373,8 +374,18 @@ $(document).ready(function(){
             }); 
 
         },1000)
-         
-  
+      $('#improve').off("click")
+      $('#improve').on('click', function() {
+        $('.loading_country').show();
+        $('.country h5').remove();
+        $('#country tbody').remove(); // remise a zero en cas de recherche simultané
+        $('#country .row').remove();
+        $('#country_info').remove();
+            $('#country_paginate').remove();  
+            $('#country_filter ').remove();  
+        searchcountry(query,'improved');
+
+      });
 
       })
 
