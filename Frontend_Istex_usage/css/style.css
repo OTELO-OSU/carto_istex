@@ -65,6 +65,19 @@
 	display: none;
 }
 
+#laboratorys tbody tr {
+	cursor: pointer;
+}
+
+#authors tbody tr {
+	cursor: pointer;
+}
+#authors_row tbody tr {
+	cursor: pointer;
+}
+#laboratorys_row tbody tr {
+	cursor: pointer;
+}
 
 
 .ui .pagination .menu{

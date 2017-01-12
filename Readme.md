@@ -86,8 +86,8 @@ Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, sel
 	Valeur minimum recommandé:
 	Allocation de 2 Go a memcached:
 	-m 2048
-	Allocation de 12MO maximum par item
-	-I 12M
+	Allocation de 24MO maximum par item
+	-I 24M
 	Lancement de memcached sur 20 threads
 	-t 20
 

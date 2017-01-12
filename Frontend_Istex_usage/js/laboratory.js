@@ -89,12 +89,14 @@
           "deferRender": true
         } );// pagination du tableau precedemment crée
        $('#laboratorys tbody').on('click', 'tr', function () {
+        $('.laboratory_table .header').empty();
         $( "#laboratorys_row tbody" ).remove()
           var data = table.row(this).data();
           laboratory=data[0].replace(/ /g,"_");   
           for (row in data[3]) {    
-            $( "#laboratorys_row" ).append('<tr><td>'+data[3][row]['id']+'</td><td>'+ data[3][row]['title']+'</td></tr>'); //Affichage dans le tableau    
+            $( "#laboratorys_row" ).append('<tr><td>'+data[3][row]['title']+'</td><td>'+ data[3][row]['id']+'</td></tr>'); //Affichage dans le tableau    
           }
+          $('.laboratory_table .header').append("Publications of "+data[0])
 
           
           var table_row = $('#laboratorys_row').DataTable( {
@@ -103,14 +105,16 @@
                 "pageLength": 5, "order": [[ 1, "desc" ]],
                 "pagingType": "numbers",
                 responsive: true,
-                 dom: 'Bfrtip',
-                buttons: [{extend:'csvHtml5',title: laboratory,className:'ui primary button',text:'Export to CSV'}]
+                 dom: 'frtip',
               } );// pagination du tableau precedemment crée
           $('.laboratory_table').modal('show');
+           var buttons = new $.fn.dataTable.Buttons(table_row, {
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: laboratory,className:'ui primary button'}]
+        }).container().appendTo($('#buttons_laboratory'));
 
           $('#laboratorys_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
-           window.open(URL_ISTEX+row[0]+"/fulltext/pdf");
+           window.open(URL_ISTEX+row[1]+"/fulltext/pdf");
          });
     });
 
@@ -407,9 +411,11 @@ $(document).ready(function(){
         $('#country tbody').remove(); // remise a zero en cas de recherche simultané
         $('#country .row').remove();
         $('#country_info').remove();
+        $('#improve').addClass('green')
             $('#country_paginate').remove();  
             $('#country_filter ').remove();  
         searchcountry(query,'improved');
+
 
       });
 

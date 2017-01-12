@@ -90,12 +90,14 @@
           "deferRender": true
         } );// pagination du tableau precedemment crée
       $('#authors tbody').on('click', 'tr', function () {
+         $('.authors_table .header').empty();
         $( "#authors_row tbody" ).remove()
           var data = table.row(this).data();
           author=data[0].replace(/ /g,"_");   
           for (row in data[4]) {    
-            $( "#authors_row" ).append('<tr><td>'+data[4][row]['id']+'</td><td>'+ data[4][row]['title']+'</td></tr>'); //Affichage dans le tableau    
+            $( "#authors_row" ).append('<tr><td>'+data[4][row]['title']+'</td><td>'+ data[4][row]['id']+'</td></tr>'); //Affichage dans le tableau    
           }
+          $('.authors_table .header').append("Publications of "+data[0])
 
           
           var table_row = $('#authors_row').DataTable( {
@@ -104,13 +106,15 @@
                 "pageLength": 5, "order": [[ 1, "desc" ]],
                 "pagingType": "numbers",
                 responsive: true,
-                 dom: 'Bfrtip',
-                buttons: [{extend:'csvHtml5',title: author,className:'ui primary button',text:'Export to CSV'}]
+                 dom: 'frtip',
               } );// pagination du tableau precedemment crée
+          var buttons = new $.fn.dataTable.Buttons(table_row, {
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: author,className:'ui primary button'}]
+        }).container().appendTo($('#buttons_authors'));
           $('.authors_table').modal('show');
            $('#authors_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
-           window.open(URL_ISTEX+row[0]+"/fulltext/pdf");
+           window.open(URL_ISTEX+row[1]+"/fulltext/pdf");
          });
    
     });

@@ -1,9 +1,22 @@
 <div class="ui segment country" >   
-<i class="map icon leafletmap"></i>
-<button id="improve" class="circular ui icon button">
-  <i class="icon settings"></i>
-   Improve
-</button>           
+  <div class="ui grid">
+   <div class="four column row">
+    
+<button class="ui labeled green icon button leafletmap">
+<i class="map icon "></i>
+  View on map
+</button>
+
+
+    <button id="improve" class="circular ui toggle icon button" data-tooltip="Click here to improve country search by state and city data." data-position="top left" data-inverted=""">
+      <i class="icon settings"></i>
+       Improve
+    </button>    
+    <div id="buttons_country" class=" right floated column"></div>
+    </div>
+  </div>
+
+     
   <h1 id="name" class="ui huge header">Countries</h1>
     <table id="country" class="ui unstackable inverted teal table">
       <thead>

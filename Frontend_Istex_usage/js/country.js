@@ -106,9 +106,13 @@
 		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
 		          "pagingType": "numbers",  
 		          responsive: true,
-		          dom: 'Bfrtip',
-		          buttons: [{extend:'csvHtml5',text:'Export to CSV',title: query+"_country",className:'ui primary button'}]
+		          dom: 'frtip',
 		        } );
+
+		        var buttons = new $.fn.dataTable.Buttons(table, {
+    		     buttons: [{extend:'csvHtml5',text:'Export CSV',title: query+"_country",className:'ui primary button'}]
+				}).container().appendTo($('#buttons_country'));
+
 
           		$('.country h5').remove();
      			var total = (undefinedaff/documentswithaffiliations)*100;
