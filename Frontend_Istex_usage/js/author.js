@@ -108,6 +108,10 @@
                 buttons: [{extend:'csvHtml5',title: author,className:'ui primary button',text:'Export to CSV'}]
               } );// pagination du tableau precedemment crée
           $('.authors_table').modal('show');
+           $('#authors_row tbody').on('click', 'tr', function () {
+          var row = table_row.row(this).data();
+           window.open(URL+row[0]+"/fulltext/pdf");
+         });
     });
    
   } 

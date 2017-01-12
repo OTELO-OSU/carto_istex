@@ -1,5 +1,6 @@
   var data3;
   var query;
+  var URL="https://api.istex.fr/document/";
   function strReplaceAll(string, Find, Replace) { // fonction de remplacement des espace en underscore
       try {
           return string.replace( new RegExp(Find, "gi"), Replace );       
@@ -106,6 +107,11 @@
                 buttons: [{extend:'csvHtml5',title: laboratory,className:'ui primary button',text:'Export to CSV'}]
               } );// pagination du tableau precedemment crée
           $('.laboratory_table').modal('show');
+
+          $('#laboratorys_row tbody').on('click', 'tr', function () {
+          var row = table_row.row(this).data();
+           window.open(URL+row[0]+"/fulltext/pdf");
+         });
     });
 
 
