@@ -14,7 +14,7 @@
             legend: 'none',
             tooltip:{isHtml:true},
             title: 'BubbleChart of publications per author for query : '+query,
-            width:'100%',
+            width:900,
             height:550,
             hAxis: {display:false,
               viewWindowMode:'explicit',
@@ -44,10 +44,14 @@
 
       var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div_authors'));
       chart.draw(data, options);
-      $('.command_authors a').remove();
       $('#actions_authors #download').remove();
-      $('.command_authors').append('<a href=" '+chart.getImageURI() +'" download=authors_'+strReplaceAll(query," ","_")+'.png><i class="download icon"><i></a>');
       $('#actions_authors').prepend('<div id="download" class="ui right labeled icon button" > <a href="'+chart.getImageURI() +'" download=authors_'+strReplaceAll(query," ","_")+'.png>Download</a><i class="download icon"></i></div>');
+      $('#series_chart_div_authors').mouseout(function() {
+    $('#actions_authors #download').remove();
+    $('#actions_authors').prepend('<div id="download" class="ui right labeled icon button" > <a href="'+chart.getImageURI() +'" download=laboratory_'+strReplaceAll(query," ","_")+'.png>Download</a><i class="download icon"></i></div>');
+
+
+});
 
     }
 
