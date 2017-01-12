@@ -126,6 +126,7 @@ def processing(liste,send_end):
                     break;
                 else:
                     author=value2['name']
+                    title=value["title"]
                     author=author.upper()
                     affiliations=value2['affiliations']
                     regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
@@ -195,6 +196,7 @@ def processing(liste,send_end):
                         array["laboratory"]=laboratory
                         array["university"]=university
                         array["author"]=author
+                        array["title"]=title
 
 
                         response_array.append(array)

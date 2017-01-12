@@ -106,6 +106,8 @@
 		          "pageLength": 5, "order": [[ 1, "desc" ]], // pagination du tableau precedemment crée
 		          "pagingType": "numbers",  
 		          responsive: true,
+		          dom: 'Bfrtip',
+		          buttons: [{extend:'csvHtml5',text:'Export to CSV',title: query+"_country",className:'ui primary button'}]
 		        } );
 
           		$('.country h5').remove();

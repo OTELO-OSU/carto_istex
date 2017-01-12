@@ -87,6 +87,26 @@
           responsive: true,
           "deferRender": true
         } );// pagination du tableau precedemment crée
+       $('#laboratorys tbody').on('click', 'tr', function () {
+        $( "#laboratorys_row tbody" ).remove()
+          var data = table.row(this).data();
+          laboratory=data[1].replace(/ /g,"_");   
+          for (row in data[3]) {    
+            $( "#laboratorys_row" ).append('<tr><td>'+data[3][row]['id']+'</td><td>'+ data[3][row]['title']+'</td></tr>'); //Affichage dans le tableau    
+          }
+
+          
+          var table_row = $('#laboratorys_row').DataTable( {
+                lengthChange: false,
+                destroy:true,
+                "pageLength": 5, "order": [[ 1, "desc" ]],
+                "pagingType": "numbers",
+                responsive: true,
+                 dom: 'Bfrtip',
+                buttons: [{extend:'csvHtml5',title: laboratory,className:'ui primary button',text:'Export to CSV'}]
+              } );// pagination du tableau precedemment crée
+          $('.laboratory_table').modal('show');
+    });
 
 
 

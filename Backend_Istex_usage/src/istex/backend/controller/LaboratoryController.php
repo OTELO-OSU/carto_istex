@@ -18,11 +18,11 @@ class LaboratoryController
 			$tableau_laboratorys=[];
 			$master_tab=[];
 
-			
 			foreach ($received_array[1] as $key => $value) { // on parcourt le tableau que la requetes nous a renvoyé
 				$tab=array();
 				$tab[]=$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau
 				$tab[]=$value['id'];
+				$tab[]=$value['title'];
 				
 		/*if ($value['laboratory']==NULL && $value['university']!=NULL) {
 				$laboratorynull[]=$value['id'];
@@ -45,7 +45,6 @@ class LaboratoryController
 
 			}
 
-
 			//$laboratorynull = array_map("unserialize", array_unique(array_map("serialize", $laboratorynull)));
 			//$universitynull = array_map("unserialize", array_unique(array_map("serialize", $universitynull)));
 			//$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
@@ -65,13 +64,17 @@ class LaboratoryController
 
 			foreach($master_tab as $arg)
 			{
-			    $laboratorywithid[$arg[0]][] = $arg[1];
+				$array=[];
+				$array['id']=$arg[1];
+				$array['title']=$arg[2];
+			    $laboratorywithid[$arg[0]][] = $array;
 			}
 
 			arsort($laboratorywithid); //tri du labo qui a le plus de documents au plus petit nombre
 			foreach ($laboratorywithid as $key => $value) {
 				$array= array();
 				$array["total"]=count($value);
+				$array["info"]=$value;
 				$laboratorywithid[$key]=$array;
 				}
 			foreach ($laboratorywithid as $key => $value) {
@@ -80,6 +83,7 @@ class LaboratoryController
 					$array[]=$key[0];
 					$array[]=$key[1];
 					$array[]=$value["total"];
+					$array[]=$value['info'];
 					$laboratory[]=$array;
 				}
 			$response=array();

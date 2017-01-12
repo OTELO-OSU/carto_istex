@@ -17,6 +17,8 @@ class AuthorController
 				$tab[]=str_replace(".","",$value['author'])." , ".$value['laboratory']." , ".$value['university'];// on stocke les valeurs dans un tableau et on remplace les . par rien du tout
 				$tab[]=$value['laboratory'];
 				$tab[]=$value['id'];
+				$tab[]=$value['title'];
+
 			
 			if ($value['laboratory']==NULL) {
 						$test[]=$value['id'];
@@ -39,7 +41,10 @@ class AuthorController
 
 	foreach($master_tab as $arg)
 	{
-	    $authorwithid[$arg[0]][] = $arg[1];
+		$array=[];
+		$array['id']=$arg[2];
+		$array['title']=$arg[3];
+	    $authorwithid[$arg[0]][] = $array;
 	}
 		
 
@@ -47,6 +52,7 @@ class AuthorController
 				foreach ($authorwithid as $key => $value) {
 				$array= array();
 				$array["total"]=count($value);
+				$array["info"]=$value;
 				$authorwithid[$key]=$array;
 				}
 				foreach ($authorwithid as $key => $value) {
@@ -56,6 +62,7 @@ class AuthorController
 					$array[]=$key[1];
 					$array[]=$key[2];
 					$array[]=$value["total"];
+					$array[]=$value['info'];
 					$author[]=$array;
 				}
 				$response=array();

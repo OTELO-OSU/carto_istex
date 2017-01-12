@@ -10,7 +10,7 @@ $(document).ready(function(){
 	  .modal('show');
 	});
 
-	
+	 
 
 $('.leafletmap').click(function(){
 	$('.leafletview').modal('show');
