@@ -110,10 +110,10 @@
           $('.authors_table').modal('show');
            $('#authors_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
-           window.open(URL+row[0]+"/fulltext/pdf");
+           window.open(URL_ISTEX+row[0]+"/fulltext/pdf");
          });
-    });
    
+    });
   } 
 
 

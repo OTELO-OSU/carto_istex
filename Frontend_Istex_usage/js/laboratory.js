@@ -1,6 +1,6 @@
   var data3;
   var query;
-  var URL="https://api.istex.fr/document/";
+  var URL_ISTEX="https://api.istex.fr/document/";
   function strReplaceAll(string, Find, Replace) { // fonction de remplacement des espace en underscore
       try {
           return string.replace( new RegExp(Find, "gi"), Replace );       
@@ -91,7 +91,7 @@
        $('#laboratorys tbody').on('click', 'tr', function () {
         $( "#laboratorys_row tbody" ).remove()
           var data = table.row(this).data();
-          laboratory=data[1].replace(/ /g,"_");   
+          laboratory=data[0].replace(/ /g,"_");   
           for (row in data[3]) {    
             $( "#laboratorys_row" ).append('<tr><td>'+data[3][row]['id']+'</td><td>'+ data[3][row]['title']+'</td></tr>'); //Affichage dans le tableau    
           }
@@ -110,7 +110,7 @@
 
           $('#laboratorys_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
-           window.open(URL+row[0]+"/fulltext/pdf");
+           window.open(URL_ISTEX+row[0]+"/fulltext/pdf");
          });
     });
 
