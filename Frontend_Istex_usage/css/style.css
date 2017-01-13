@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 688px) {
+@media screen and (max-width: 408px) {
 	 #logos{
 		visibility: hidden;
 	}
@@ -15,6 +15,12 @@
 
 }
 
+tr{
+	font-size: 13px;
+}
+td{
+	font-size: 13px;
+}
 
 #istex-widget-search{
 	margin-top: 20%;
@@ -183,4 +189,40 @@
 }
 .loading_authors{
 	display: none
+}
+
+#series_chart_div {
+	width: 900px; 
+	height: 550px;
+
+}
+@media screen and (max-width: 1080px) {
+#series_chart_div {
+	zoom:0.6;
+	width: 600px; 
+	height: 550px;
+}
+
+#series_chart_div_authors {
+	width: 900px; 
+	height: 550px;
+
+}
+@media screen and (max-width: 1080px) {
+#series_chart_div_authors {
+	margin-left: 15%;
+	zoom:0.6;
+	width: 600px; 
+	height: 550px;
+}
+
+
+#map{
+	width: 100%; 
+	height: 100%;
+
+}
+
+
+
 }

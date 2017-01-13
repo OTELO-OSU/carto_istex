@@ -88,7 +88,8 @@
           "pageLength": 5, "order": [[ 2, "desc" ]],
           "pagingType": "numbers",
           responsive: true,
-          "deferRender": true
+          "deferRender": true,
+          "autoWidth": false
         } );// pagination du tableau precedemment crée
 
         var buttons = new $.fn.dataTable.Buttons(table, {
@@ -108,7 +109,7 @@
           var table_row = $('#laboratorys_row').DataTable( {
                 lengthChange: false,
                 destroy:true,
-                "pageLength": 5, "order": [[ 1, "desc" ]],
+                "pageLength": 3, "order": [[ 1, "desc" ]],
                 "pagingType": "numbers",
                 responsive: true,
                  dom: 'frtip',

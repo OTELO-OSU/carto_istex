@@ -91,7 +91,8 @@
           "pageLength": 5, "order": [[ 3, "desc" ]],
           "pagingType": "numbers",
           responsive: true,
-          "deferRender": true
+          "deferRender": true,
+          "autoWidth": false
         } );// pagination du tableau precedemment crée
         var buttons = new $.fn.dataTable.Buttons(table, {
              buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_authors",className:'ui primary button'}]
@@ -110,7 +111,7 @@
           var table_row = $('#authors_row').DataTable( {
                 lengthChange: false,
                 destroy:true,
-                "pageLength": 5, "order": [[ 1, "desc" ]],
+                "pageLength": 3, "order": [[ 1, "desc" ]],
                 "pagingType": "numbers",
                 responsive: true,
                  dom: 'frtip',
