@@ -128,13 +128,16 @@ td{
 }
 
 .bubbleauthors{
+	margin-left: 10px!important;
 	display: none!important;
 }
 
 .bubblelaboratorys{
+	margin-left: 10px!important;
 	display: none!important;
 }
 .leafletmap{
+	margin-left: 10px!important;
 	display: none!important;
 }
 
