@@ -405,6 +405,7 @@ $(document).ready(function(){
     $('#improve').hide();
      $(".istex_result").hide();
      $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
+     $('.istex-search-bar-wrapper input').last().attr('id', 'searchbutton');
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
         $('#noresult').hide(); 
         document.getElementById("istex-widget-search").style.marginTop="2%";
