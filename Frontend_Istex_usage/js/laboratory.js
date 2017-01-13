@@ -90,6 +90,10 @@
           responsive: true,
           "deferRender": true
         } );// pagination du tableau precedemment crée
+
+        var buttons = new $.fn.dataTable.Buttons(table, {
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_laboratorys",className:'ui primary button'}]
+        }).container().appendTo($('#buttons_laboratorys_master'));
        $('#laboratorys tbody').on('click', 'tr', function () {
         $('.laboratory_table .header').empty();
         $( "#laboratorys_row tbody" ).remove()
@@ -111,7 +115,7 @@
               } );// pagination du tableau precedemment crée
           $('.laboratory_table').modal('show');
            var buttons = new $.fn.dataTable.Buttons(table_row, {
-             buttons: [{extend:'csvHtml5',text:'Export CSV',title: laboratory,className:'ui primary button'}]
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_"+laboratory,className:'ui primary button'}]
         }).container().appendTo($('#actions_infolabo'));
            $('#actions_infolabo .dt-buttons').append('<div class="ui negative right labeled icon button">Fermer<i class="remove icon"></i> </div>')
           $('#laboratorys_row tbody').on('click', 'tr', function () {
@@ -410,6 +414,7 @@ $(document).ready(function(){
         if (query=="") {
           query="*";
         }
+        name=query.replace(/ /g,"_");
         init_request(query);
         setTimeout(function(){
            $('.rzslider .rz-pointer').off("click")

@@ -111,7 +111,7 @@
 		        } );
 
 		        var buttons = new $.fn.dataTable.Buttons(table, {
-    		     buttons: [{extend:'csvHtml5',text:'Export CSV',title: query+"_country",className:'ui primary button'}]
+    		     buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_country",className:'ui primary button'}]
 				}).container().appendTo($('#buttons_country'));
 
 

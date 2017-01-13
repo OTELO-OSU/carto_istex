@@ -93,6 +93,9 @@
           responsive: true,
           "deferRender": true
         } );// pagination du tableau precedemment crée
+        var buttons = new $.fn.dataTable.Buttons(table, {
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_authors",className:'ui primary button'}]
+        }).container().appendTo($('#buttons_authors_master'));
       $('#authors tbody').on('click', 'tr', function () {
          $('.authors_table .header').empty();
         $( "#authors_row tbody" ).remove()
@@ -113,7 +116,7 @@
                  dom: 'frtip',
               } );// pagination du tableau precedemment crée
           var buttons = new $.fn.dataTable.Buttons(table_row, {
-             buttons: [{extend:'csvHtml5',text:'Export CSV',title: author,className:'ui primary button'}]
+             buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_"+author,className:'ui primary button'}]
         }).container().appendTo($('#buttons_authors'));
           $('#actions_infoauthors .dt-buttons').append('<div class="ui negative right labeled icon button">Fermer<i class="remove icon"></i> </div>')
           $('.authors_table').modal('show');
