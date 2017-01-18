@@ -270,7 +270,6 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
-
 #Diagrammes de séquences:
 
 ![Alt text](/Img_doc/Istex_usage.png?raw=true)
@@ -283,5 +282,45 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
+#Docker 
+
+	-Un conteneur Docker est disponible:
+	Pour l'executer, il faut installer Docker:
+	Exemple pour ubuntu:
+		-sudo apt-get install apt-transport-https ca-certificates
+
+		-sudo apt-key adv \
+               --keyserver hkp://ha.pool.sks-keyservers.net:80 \
+               --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+        -sudo apt-get update
+        -sudo apt-get install docker-engine
+
+    Une fois Docker installé:
+    	-sudo docker build .
+    Attendre la generation de l'image
+
+    Une fois l'image generé:
+
+    	-sudo docker images
+
+    Prendre l'id de l'image generer et l'ajouter à cette commande qui va creer le container à partir de l'image:
+
+    	-sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
 
 
+    On recupere l'id du container,
+
+    	-sudo docker ps 
+
+    Pour relancer le container une fois celui ci créé:
+
+   		-sudo docker start CONTAINERID
+
+    Pour l'arreter:
+
+    	-sudo docker stop CONTAINERID
+
+    Pour executer des commandes:
+
+    	-sudo docker exec 
+    
