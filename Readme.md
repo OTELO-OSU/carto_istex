@@ -298,6 +298,7 @@ Pour l'executer, il faut installer Docker.
         -sudo apt-get install docker-engine
 
 **Une fois Docker installé:**
+    	
     	Recuperer les fichiers contenu dans le dossier Docker , et executer la commande:
     	-sudo docker build .
    		Attendre la generation de l'image
