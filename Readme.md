@@ -190,9 +190,9 @@ Si une affiliation possèdent seulement un laboratoire une fois celle ci compar�
 **Exemple :**
 
 Dans l’affiliation lors du passage avec les dictionnaires général, on obtient:
--LABORATORY FOR GEOCHEMICAL RESEARCH	
+- LABORATORY FOR GEOCHEMICAL RESEARCH	
 N’ayant pas d’institution, une recherche d’un autre laboratoire pouvant être considéré comme une institution va être lancé, on obtient :
--HUNGARIAN ACADEMY OF SCIENCES
+- HUNGARIAN ACADEMY OF SCIENCES
 On va considérer que le terme academy est une institution.
 On vérifie que le laboratoire n’est pas égal à l’institution.
 
@@ -235,7 +235,7 @@ Institution : GEOLOGICAL INSTITUTE
 **Librairie utilisé:**
 
 	CSS:
-	-Semantic-UI
+	- Semantic-UI
 
 	JS:
 	- Jquery
@@ -300,7 +300,7 @@ Pour l'executer, il faut installer Docker.
 **Une fois Docker installé:**
     	
     	Recuperer les fichiers contenu dans le dossier Docker :
-	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docke
+	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docker
 	executer la commande:
     	- sudo docker build .
    		Attendre la generation de l'image
