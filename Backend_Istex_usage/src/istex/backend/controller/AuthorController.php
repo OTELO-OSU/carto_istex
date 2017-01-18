@@ -2,7 +2,14 @@
 namespace istex\backend\controller;
 class AuthorController 
 {
-
+	/**
+     *  Methode traitement des auteurs
+     *
+     *  @param $received_array :
+     *          array recu depuis le traitement en python 
+     * 	@return $response:
+     *			array contenant les auteurs				
+     */
 	function Sort_by_author($received_array){
 		$received_array= json_decode($received_array,true);
 		if (count($received_array[1])==0) {
@@ -58,11 +65,11 @@ class AuthorController
 				foreach ($authorwithid as $key => $value) {
 					$array=array();
 					$key=split(",", $key);
-					$array[]=$key[0];
-					$array[]=$key[1];
-					$array[]=$key[2];
-					$array[]=$value["total"];
-					$array[]=$value['info'];
+					$array[]=$key[0]; //Nom de l'auteur
+					$array[]=$key[1]; //Laboratoire
+					$array[]=$key[2]; // Institution
+					$array[]=$value["total"]; // Total de documents
+					$array[]=$value['info']; //informations diverse (ID,title)
 					$author[]=$array;
 				}
 				$response=array();

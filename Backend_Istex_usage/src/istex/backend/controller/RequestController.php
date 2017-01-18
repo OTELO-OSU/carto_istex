@@ -1,12 +1,21 @@
 <?php
 namespace istex\backend\controller;
-ini_set('memory_limit', '-1');
+//ini_set('memory_limit', '-1');
 
 
 
 class RequestController 
 {
-	//fonction requetes curl 
+	/**
+     *  Methode d'execution des Requetes CURL
+     *
+     *  @param $url :
+     *          Url a appeler
+     *  @param $curlopt :
+     *			Option a ajouter
+     * 	@return $rawData:
+     *			Données Json recu
+     */
 	function Curlrequest($url,$curlopt){
         $ch = curl_init();
         $curlopt = array(CURLOPT_URL => $url) + $curlopt ;
@@ -16,7 +25,14 @@ class RequestController
 	    return $rawData;
 	}
 
-
+	/**
+     *  Methode de requetes vers l'API ISTEX
+     *
+     *  @param $query :
+     *          Nom rechercher par l'utilisateur
+     * 	@return $json:
+     *			Json traiter dans les différents controller	
+     */
 	function Request_alldoc_querypagebypage($query){
 		//$curl = curl_init(); // initialisation de curl
 		$hash= md5($query); // on hash la query

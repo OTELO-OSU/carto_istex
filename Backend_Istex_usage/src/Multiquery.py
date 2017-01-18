@@ -11,7 +11,10 @@ import pylibmc
 import hashlib
 import random
 
-
+#Fonction split  
+#param arr:array to split
+#param size: size of each array 
+#return: Array of splitted array
 def split(arr, size):
      arrs = []
      while len(arr) > size:
@@ -24,6 +27,11 @@ def split(arr, size):
 
 
 
+
+#Fonction processing  
+#param liste:list of data to parsed
+#param send_end: data return to merge with other process
+#return: send_end to parent process
 def processing(liste,send_end):
     array=[] #Definition tableau vide
     country=None
@@ -91,6 +99,8 @@ def processing(liste,send_end):
 result=[]
 pipe_list=[]
 
+
+#Fonction main
 def main():
     mc = pylibmc.Client(["127.0.0.1"])
     jsondata = mc.get(sys.argv[1])

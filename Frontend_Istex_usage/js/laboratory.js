@@ -10,7 +10,7 @@
   }
  
 
-  function drawSeriesChartlabo() { // fonction qui va créé les bubbles
+  function drawSeriesChartlabo() { // fonction qui va créé les bubbles chart
     var data = google.visualization.arrayToDataTable(data3);
     var options = {
       legend: 'none',
@@ -53,11 +53,17 @@
 });
                  
   }
-
+        /**
+         * methode de traitement des laboratoires
+         *
+         * @param parsed
+         *          array
+         */
     function parse_laboratorys(parsed){
+      console.log(parsed)
         data3 = [];
         data3.push(['ID','Y','X','Laboratory','Number of publications']);
-        var r = []
+        var r = [];
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
           if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
@@ -76,9 +82,11 @@
       total = total*100;          
       total= Math.round(total); 
       total= total/100;  
+
       $('.laboratory').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
       $('.laboratory').append('<h5> including '+empty+' records that do not have affiliations.</h5>');
       $('.loading_laboratory').hide();
+
       google.charts.load('current', {'packages':['corechart']}); // on charge les packages de google chart
       google.charts.setOnLoadCallback(drawSeriesChartlabo);
         var table = $('#laboratorys').DataTable( {
@@ -97,7 +105,7 @@
         }).container().appendTo($('#buttons_laboratorys_master'));
        $('#laboratorys tbody').on('click', 'tr', function () {
         $('.laboratory_table .header').empty();
-        $( "#laboratorys_row tbody" ).remove()
+        $( "#laboratorys_row tbody" ).remove();
           var data = table.row(this).data();
           laboratory=data[0].replace(/ /g,"_");   
           for (row in data[3]) {    
@@ -117,21 +125,20 @@
           $('.laboratory_table').modal('show');
            var buttons = new $.fn.dataTable.Buttons(table_row, {
              buttons: [{extend:'csvHtml5',text:'Export CSV',title: name+"_"+laboratory,className:'ui primary button'}]
-        }).container().appendTo($('#actions_infolabo'));
+            }).container().appendTo($('#actions_infolabo'));
            $('#actions_infolabo .dt-buttons').append('<div class="ui negative right labeled icon button">Fermer<i class="remove icon"></i> </div>')
           $('#laboratorys_row tbody').on('click', 'tr', function () {
           var row = table_row.row(this).data();
            window.open(URL_ISTEX+row[1]+"/fulltext/pdf");
          });
     });
-
-
-
 };
+
+
 function reload_bubble_labo(parsed){
         data3 = [];
         data3.push(['ID','Y','X','Laboratory','Number of publications']);
-        var r = []
+        var r = [];
         var x = 0;
         for (var k in parsed) { // on parcourt le JSON
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
@@ -150,18 +157,24 @@ function reload_bubble_labo(parsed){
 
       }
 
-
+        /**
+         * methode d'initialisation et requete vers le backend
+         *
+         * @param query
+         *          nom de la recherche utilisateur
+         */
 function init_request(query){
+        // remise a zero en cas de recherche simultané
         $('.loading_country').show();
         $('.loading_laboratory').show();
         $('.loading_authors').show();
         $('.avert').remove();
         $('.laboratory h5').remove();
-        $('#laboratorys tbody').remove();// remise a zero en cas de recherche simultané
+        $('#laboratorys tbody').remove();
         $('.authors h5').remove();
         $('.country h5').remove();
-        $('#authors tbody').remove();// remise a zero en cas de recherche simultané
-        $('#country tbody').remove(); // remise a zero en cas de recherche simultané
+        $('#authors tbody').remove();
+        $('#country tbody').remove(); 
         $('#country .row').remove();
         $('#authors .row').remove();
         $('#laboratorys_info').remove();
@@ -184,7 +197,7 @@ function init_request(query){
 
 
 
-          $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getlaboratorys",
+          $.post("/Backend_Istex_usage/src/index.php/getlaboratorys",
           {
             query: query
           },// requete ajax sur le backend
@@ -199,7 +212,7 @@ function init_request(query){
             }
             else{
               searchauthors(query);
-              var parsed = JSON.parse(data); // transformation en JSON
+              var parsed = JSON.parse(data); // transformation du JSON en array JS
               parselabo=parsed['documents'];
               undefinedaff=parsed['0']['noaff']['noaff'];
               empty=parsed['0']['noaff']['empty'];
@@ -218,35 +231,36 @@ function init_request(query){
 }
 
 
+        /**
+         * methode qui recupere les modifications sur le widget facets d'istex
+         *
+         * 
+         */
 
 function build_request_facets(){
   setTimeout(function(){ 
-  
-     query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-                    labelscorpus=$(".corpus input:checked")
-                   // console.log(labels)
-                   // console.log(labels.closest("li"))
+                  query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+                  labelscorpus=$(".corpus input:checked")
                    var corpus
                    var genre
                    var language
                    var wos
-
                     $.each(labelscorpus,function(index,value){
-                      val=value.labels[0].textContent;
-                      var value = val.replace(/[0-9]/g, '');
-                      if (corpus===undefined) {
-                      corpus=value
+                        val=value.labels[0].textContent;
+                        var value = val.replace(/[0-9]/g, '');
+                        if (corpus===undefined) {
+                          corpus=value;
 
-                      }
-                      else{
-                        corpus=corpus+" OR "+value
-                      }
+                        }
+                        else{
+                          corpus=corpus+" OR "+value;
+                        }
                     })
                     if (corpus===undefined) {
-                        corpus=""
+                        corpus="";
                     }
                     else{
-                      corpus=" AND corpusName:("+corpus+")"
+                        corpus=" AND corpusName:("+corpus+")";
                     }
                       
                      
@@ -254,18 +268,18 @@ function build_request_facets(){
                  $.each(labelsgenre,function(index,value){
                     value=value.closest("li").title;
                     if (genre===undefined) {
-                      genre=value
+                      genre=value;
                       }
                       else{
-                        genre=genre+" OR "+value
+                        genre=genre+" OR "+value;
                       }
                     
                   })
                     if (genre===undefined) {
-                        genre=""
+                        genre="";
                     }
                     else{
-                      genre=" AND genre:("+genre+")"
+                        genre=" AND genre:("+genre+")";
                     }
    
                 labelslanguage=$(".language input:checked")
@@ -353,58 +367,54 @@ function build_request_facets(){
                             break;
                           }
                     if (language===undefined) {
-                      language=value
+                        language=value;
                       }
                       else{
-                        language=language+" OR "+value
+                        language=language+" OR "+value;
                       }
                     })
                     
                     if (language===undefined) {
-                        language=""
+                        language="";
                     }
                     else{
-                      language=" AND language:("+language+")"
+                      language=" AND language:("+language+")";
                     }
 
                 labelswos=$(".wos input:checked")
                  $.each(labelswos,function(index,value){
-                      value=value.closest("li").title;
-                      value='"'+value+'"'
-                       if (wos===undefined) {
-                      wos=value
-
-                      }
-                      else{
-                        wos=wos+" OR "+value
-                      }
+                        value=value.closest("li").title;
+                        value='"'+value+'"';
+                    if (wos===undefined) {
+                        wos=value;
+                    }
+                    else{
+                        wos=wos+" OR "+value;
+                    }
                    
                   })
                     if (wos===undefined) {
-                        wos=""
+                        wos="";
                     }
                     else{
-                      wos=" AND wos:("+wos+")"
+                        wos=" AND wos:("+wos+")";
                     }
 
-                publicationdate=" AND publicationDate:["+$(".istex-facet-pubdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-pubdate  rzslider .rz-bubble")[3].innerText+"]"
-                copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]"
-                quality=" AND score:["+$(".istex-facet-quality  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-quality  rzslider .rz-bubble")[3].innerText+"]"
-                query=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality
+                publicationdate=" AND publicationDate:["+$(".istex-facet-pubdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-pubdate  rzslider .rz-bubble")[3].innerText+"]";
+                copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]";
+                quality=" AND score:["+$(".istex-facet-quality  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-quality  rzslider .rz-bubble")[3].innerText+"]";
+                query=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality;
                 
                 init_request(query);
-
-
-
               },800);
    
 }
 
 
 $(document).ready(function(){
-    $('#improve').hide();
+     $('#improve').hide();
      $(".istex_result").hide();
-     $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" )
+     $( ".istex-search-bar-wrapper" ).addClass( "ui fluid icon input" );
      $('.istex-search-bar-wrapper input').last().attr('id', 'searchbutton');
      $(".istex-search-bar-wrapper :submit").click(function(){//event click sur rechercher
         $('#noresult').hide(); 
@@ -421,13 +431,13 @@ $(document).ready(function(){
         setTimeout(function(){
            $('.rzslider .rz-pointer').off("click")
           $('.rzslider .rz-pointer').on("click",function(){
-               build_request_facets()    
+               build_request_facets();    
 
             }); 
 
         },1000)
-      $('#improve').off("click")
-      $('#improve').on('click', function() {
+        $('#improve').off("click");
+        $('#improve').on('click', function() {
         $('.loading_country').show();
         $('.country h5').remove();
         $('#country tbody').remove(); // remise a zero en cas de recherche simultané
@@ -435,8 +445,8 @@ $(document).ready(function(){
         $('#country_info').remove();
         $('#improve').addClass('green')
         $('#improve').html('<i class="checkmark box icon"></i>Improved');
-            $('#country_paginate').remove();  
-            $('#country_filter ').remove();  
+        $('#country_paginate').remove();  
+        $('#country_filter ').remove();  
         searchcountry(query,'improved');
 
 
@@ -444,9 +454,9 @@ $(document).ready(function(){
 
       })
 
-     $("form.istex-facets").off("change")
+     $("form.istex-facets").off("change");
      $("form.istex-facets").on("change",function(){
-      build_request_facets()
+      build_request_facets();
      
     });
 

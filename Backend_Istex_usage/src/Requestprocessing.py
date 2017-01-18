@@ -16,10 +16,10 @@ import unicodedata
 
 
 
-  
-
-
-
+#Fonction split  
+#param arr:array to split
+#param size: size of each array 
+#return: Array of splitted array
 def split(arr, size):
      arrs = []
      while len(arr) > size:
@@ -31,6 +31,9 @@ def split(arr, size):
 
 
 
+#Fonction Match_result_for_laboratory
+#param received_array:array(affiliations) 
+#return: Array of match
 def Match_result_for_laboratory(received_array):
     array=[]
     tableau_reference_laboratory=["DEPARTMENT","DEPARTAMENTO", "LABORATORY", "DIVISION", "SCHOOL", "ACADEMY", "CRPG", "LIEC", "LSE", "GEORESSOURCES","LABORATOIRE","DEPARTEMENT","MUSEUM","SECTION"," DEPT "," LABO "," DIV ","IRAP","I.R.A.P","DIPARTIMENTO","ECOLE","GROUPE DE RECHERCHE","GROUP","GROUPE","BATIMENT","GDR","BUREAU","LABORATORIUM","OFFICE","TEAM","EQUIPE","LPCML","DEVELOPMENT","DEVELOPPEMENT","SERVICE"]
@@ -105,7 +108,10 @@ def Search_for_university_labo(received_array,received_university):
 
 
 
-
+#Fonction processing  
+#param liste:list of data to parsed
+#param send_end: data return to merge with other process
+#return: send_end to parent process
 
 def processing(liste,send_end):
     noaffiliation={"noaff":0}
@@ -211,6 +217,9 @@ result=[]
 
 pipe_list = []
 arraytmp={}
+
+
+#Fonction main
 
 def main():
     mc = pylibmc.Client(["127.0.0.1"])

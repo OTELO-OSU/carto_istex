@@ -4,10 +4,16 @@ use \istex\backend\controller\RequestController as RequestApi;
 
 class CountryController 
 {
-	
-
-
-
+	/**
+     *  Methode traitement des pays
+     *
+     *  @param $received_array :
+     *          array recu depuis la methode get_name
+     *  @param $noaff:
+     *			array recu lors de la requetes vers l'api , utilisé pour compter les élement vide
+     * 	@return $response:
+     *			array contenant les pays				
+     */
 	function Sort_by_country($received_array,$noaff){
 		if (empty($received_array)) {
 			return "bad";
@@ -49,9 +55,9 @@ class CountryController
 	{
 		$array= array();
 		$Request = new RequestApi;
-		$countrywithid[$arg[0]]["gps"]["lat"]=$arg[3];
-		$countrywithid[$arg[0]]["gps"]["lon"]=$arg[4];
-		$countrywithid[$arg[0]]["gps"]["country_code"]=$arg[1];
+		$countrywithid[$arg[0]]["gps"]["lat"]=$arg[3];//latitude
+		$countrywithid[$arg[0]]["gps"]["lon"]=$arg[4];//longitude
+		$countrywithid[$arg[0]]["gps"]["country_code"]=$arg[1];//countrycode
 		$array[]=$arg[2];
 	    $countrywithid[$arg[0]][] = $array;
 	}
@@ -68,14 +74,25 @@ class CountryController
 				$array["noaff"]=$noaff[0]['noaff'];
 				$array["empty"]=$noaff[0]['empty'];
 				$array["total"]=$noaff[0]['total'];
-				$response[]=$array;
+				$response[]=$array;//Array d'info diverse(total ,empty,pas d'affiliations)
 				$response["documents"]=$countrywithid;
 				return $response;
 		}
 	}
 
-
-	//focntion qui recupere l'affiliations et qui envoie celui ci vers la requete nominatim
+	/**
+     *  Methode permettant de traiter le nom des pays
+     *
+     *  @param $received_array :
+     *          array recu depuis le traitement en python 
+     *	@param $query:
+     *          Nom rechercher par l'utilisateur
+     *	@param $improve:
+     *			argument qui definit le passage en mode avancé de recherche nomiantim 
+     *
+     * 	@return $response:
+     *			array contenant les pays identifiés	avec leur ID			
+     */
 	function get_name($received_array,$query,$improve){
 		$hash = md5($query);
 		$json=json_encode($received_array);
@@ -85,17 +102,9 @@ class CountryController
 			$value=json_decode($value,true);
 			$response_array[]=$value;
 		}
-
-		
-			
 		return $response_array;
-		
-		
 
-	}
-	
-
-	
+	}	
 }
 
 

@@ -51,10 +51,15 @@
     $('#actions_authors').prepend('<div id="download" class="ui right labeled icon button" > <a href="'+chart.getImageURI() +'" download=laboratory_'+strReplaceAll(query," ","_")+'.png>Download</a><i class="download icon"></i></div>');
 
 
-});
+  });
 
-    }
-
+}
+    /**
+         * methode de traitement des auteurs
+         *
+         * @param parsed
+         *          array
+         */
     function parse_authors(parsed){
      
         data4 = [];
@@ -129,13 +134,18 @@
     });
   } 
 
-
+         /**
+         * methode de rechargement des données dans le bubble chart
+         *
+         * @param parsed
+         *          array JS
+         */
   function reload_bubble_author(parsed){
         data4 = [];
         data4.push(['ID','Y','X','Author','Number of publications']);
         var r = []
         var x = 0;
-        for (var k in parsed) { // on parcourt le JSON
+        for (var k in parsed) { 
            if (x<5) { // les cinq premiers resultat avec affichage du label dans bubble chart
                   x++;
                   var occurence = parsed[k][3];
@@ -153,24 +163,27 @@
 
       }
 
+        /**
+         * methode de requete vers le backend
+         *
+         * @param query
+         *          nom de la recherche utilisateur
+         */
   function searchauthors(query){
-       
-       // query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-        $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getauthors",
+        $.post("/Backend_Istex_usage/src/index.php/getauthors",
         {
           query: query
         }, // requete ajax sur le backend
         function(data){
             $('.bubbleauthors').attr('style', 'display: inline-block !important;')
             var parsed = JSON.parse(data); // transformation en array
-             parseauthor=parsed['documents'];
+            parseauthor=parsed['documents'];
             undefinedaff=parsed['0']['noaff']['noaff'];
             documentswithaffiliations=parsed['0']['noaff']['total'];
             parse_authors(parseauthor);
-            searchcountry(query);
+            searchcountry(query); // lancement de la recherche des pays une fois terminer
         });
 
-          
     $(".reloadauthor").click(function(){
       reload_bubble_author(parseauthor); // on recreer le bubble chart
        });

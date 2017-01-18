@@ -11,8 +11,10 @@ $configuration = [
         'displayErrorDetails' => true,
     ],
 ];
-$c = new \Slim\Container($configuration);
+$c = new \Slim\Container($configuration);//Initialisation de Slim
 $app = new \Slim\App($c);
+
+//Declaration des différentes routes POST
 
 $app->post('/getcountrys', function (Request $req,Response $responseSlim) {
     $request = new RequestApi();

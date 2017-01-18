@@ -66,7 +66,7 @@ Pour que la mise en cache fonctionne, il faut que l'extension memcached soit act
 
 **Configuration de Memcached:**
 
-Passer la taille d'un item a maximum 12MO. Et augmenter le nombre de thread, selon la machine.
+Passer la taille d'un item a maximum 24MO. 
 
 
 **Dépendances:**

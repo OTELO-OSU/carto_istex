@@ -1,10 +1,15 @@
 
-
+ 		/**
+         * methode de requete vers le backend
+         *
+         * @param query
+         *          nom de la recherche utilisateur
+         * @param improve
+         * 			amelioration de la recherche
+         */
    
     	function searchcountry(query,improve){
-
-    	//var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-        $.post("/Projet_carto_istex/Backend_Istex_usage/src/index.php/getcountrys",
+        $.post("/Backend_Istex_usage/src/index.php/getcountrys",
         {
           query: query,
           improve:improve
@@ -28,7 +33,7 @@
 					x++;
 				}
 			}
-
+			//Definiton des randoms radius
     		max=Math.max.apply(null,array)
     		base=7
     		coef=0.3
@@ -123,23 +128,22 @@
 		        $('.country').append('<h5>'+undefinedaff+' records('+total+'%) do not contain data in the field being analyzed.</h5>');
 		        $('.country').append('<h5> including '+empty+' records that do not have affiliations.</h5>');
 		        if (typeof(group)!=='undefined') { // si une layer existe deja on la supprime
-    		mymap.removeLayer(group);
-   			 }
-      		group = L.featureGroup(markers); // on met le groupe de markers dans une layer
-      		group.addTo(mymap); // on l'ajoute a la map
-	        bounds = group.getBounds();	// on obtient le bounds pour placer la vue
-			mymap.invalidateSize();  //Resize de la map hidden div
-			mymap.fitBounds(bounds); // zoom sur la partie qui des poi qui nous interessent
-	       	$('#actions_leaflet #download').remove();
-	        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
-			$('.print').on('click', function() {//print de la map
-				$.print("#map",{title:"Map of publications per country for query : "+query});
-			});
-			 $('#improve').show();
-
-	        $('#legend h5').remove();
-          	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
-   			$('.loading_country').hide();
+    				mymap.removeLayer(group);
+   			 	}
+	      		group = L.featureGroup(markers); // on met le groupe de markers dans une layer
+	      		group.addTo(mymap); // on l'ajoute a la map
+		        bounds = group.getBounds();	// on obtient le bounds pour placer la vue
+				mymap.invalidateSize();  //Resize de la map hidden div
+				mymap.fitBounds(bounds); // zoom sur la partie qui des poi qui nous interessent
+		       	$('#actions_leaflet #download').remove();
+		        $('#actions_leaflet').prepend('<div id="download" class="ui right labeled icon button print" >Download</a><i class="download icon"></i></div>');
+				$('.print').on('click', function() {//print de la map
+					$.print("#map",{title:"Map of publications per country for query : "+query});
+				});
+				$('#improve').show();
+		        $('#legend h5').remove();
+	          	$('#legend').append('<h5>Map of publications per country for query : "'+query+'" </h5>');
+	   			$('.loading_country').hide();
 
         })
    	

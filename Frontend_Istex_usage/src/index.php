@@ -12,7 +12,6 @@ $configuration = [
 $c = new \Slim\Container($configuration);
 $app = new \Slim\App($c);
 
-
 $app->get('/', function (Request $req,Response $responseSlim) {
 $loader = new Twig_Loader_Filesystem('istex/frontend/templates');
 $twig = new Twig_Environment($loader);

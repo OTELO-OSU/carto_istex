@@ -4,6 +4,8 @@ use \Nominatim\ParameterParser as ParameterParser;
 use \Nominatim\Geocode as Geocode;
 require('build/settings/settings.php');
 require('lib/init-cmd.php');
+
+// Choix de la librairie a utiliser si improve ou non
 if ($argv[2]) {
 	require('lib/GeocodeImproved.php');
 
@@ -13,6 +15,7 @@ else{
 }
 
 require('lib/ParameterParser.php');
+
 ini_set('max_execution_time', 2);//timeout 2 secondes
 
 	$aCMDResult=array();

@@ -2,12 +2,15 @@
 namespace istex\backend\controller;
 class LaboratoryController 
 {
-
-
-
-
+	/**
+     *  Methode traitement des laboratoires
+     *
+     *  @param $received_array :
+     *          array recu depuis le traitement en python 
+     * 	@return $response:
+     *			array contenant les laboratoires			
+     */
 	function Sort_by_laboratory($received_array){
-		
 		$received_array= json_decode($received_array,true);
 		if (count($received_array[1])==0) {
 			$array[]="empty";
@@ -24,38 +27,23 @@ class LaboratoryController
 				$tab[]=$value['id'];
 				$tab[]=$value['title'];
 				
-		/*if ($value['laboratory']==NULL && $value['university']!=NULL) {
-				$laboratorynull[]=$value['id'];
-			}
-			else if ($value['university']==NULL && $value['laboratory']!=NULL) {
-				$universitynull[]=$value['id'];
-			}
-			else if($value['university']==NULL && $value['laboratory']==NULL)
-			{
-				$null[]=$value['id'];
-			}*/
+		
 			if (($value['laboratory']==NULL && $value['university']==NULL) || ($value['laboratory']==NULL) || ($value['university']==NULL)) {
 						
-						$test[]=$value['id'];
+						$null[]=$value['id']; 
 					}
 					else{
 						$master_tab[]=$tab;// on stocke le tableau dans un autre
-						$verif[]=$value['id'];
+						$verif[]=$value['id'];//array de verification des IDs
 						}
 
 			}
 
-			//$laboratorynull = array_map("unserialize", array_unique(array_map("serialize", $laboratorynull)));
-			//$universitynull = array_map("unserialize", array_unique(array_map("serialize", $universitynull)));
-			//$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
-			//var_dump($laboratorynull);
-			//var_dump($universitynull);
-			//var_dump($null);
+			//Unification des IDs
 			$verif = array_map("unserialize", array_unique(array_map("serialize", $verif)));
 			$master_tab = array_map("unserialize", array_unique(array_map("serialize", $master_tab)));
-			$test = array_map("unserialize", array_unique(array_map("serialize", $test)));
-			$result = array_diff($test, $verif);
-			//var_dump($result);
+			$null = array_map("unserialize", array_unique(array_map("serialize", $null)));
+			$result = array_diff($null, $verif);
 			$received_array[0]['empty']=$received_array[0]['noaff'];
 			$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
 
