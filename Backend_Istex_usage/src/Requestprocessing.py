@@ -2,14 +2,11 @@
 # coding=utf8
 import sys
 import subprocess
-import time
 import json
 import os
 import hashlib
 import pylibmc
 import re
-import json
-import urllib
 import string
 import multiprocessing 
 import unicodedata

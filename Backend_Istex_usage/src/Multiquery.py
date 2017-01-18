@@ -4,12 +4,10 @@
 import sys
 import subprocess
 import multiprocessing
-import time
 import json
 import os
 import pylibmc
 import hashlib
-import random
 
 #Fonction split  
 #param arr:array to split
