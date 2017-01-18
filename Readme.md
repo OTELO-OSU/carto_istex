@@ -6,15 +6,15 @@ Identifier les publications suivant plusieurs thésaurus sur les terres rares.
 
 Cartographie de différentes informations: 
 			
-	-Publiant et domiciliation des auteurs.
+	- Publiant et domiciliation des auteurs.
 			
-	-Localisation et type de gisements étudiés ou exploités de Terres Rares.
+	- Localisation et type de gisements étudiés ou exploités de Terres Rares.
  
-	-Nombre de publications sur les Terres Rares.
+	- Nombre de publications sur les Terres Rares.
 
-	-Disciplines, permettant de mettre en évidence la multidisciplinarité ou non autour des Terres Rares.
+	- Disciplines, permettant de mettre en évidence la multidisciplinarité ou non autour des Terres Rares.
 
-	-Institutions ou entreprises s'interressant aux Terres Rares.
+	- Institutions ou entreprises s'interressant aux Terres Rares.
 
 **But**
 
@@ -71,9 +71,9 @@ Passer la taille d'un item a maximum 24MO.
 
 **Dépendances:**
 
-	-Apache2
+	- Apache2
 
-	-PHP 5.6:
+	- PHP 5.6:
 		Librairie php: libmemcached (ne pas oublier d'activer l'extension dans la configuration php)
 		Php Curl afin d'effectuer les requetes sur l'API ISTEX
 		Php pgsql pour acceder a la base pgsql de nominatim
@@ -92,11 +92,11 @@ Passer la taille d'un item a maximum 24MO.
 	-t 20
 
 
-	-Python:
+	- Python:
 
-		-PIP
+		- PIP
 
-		-Installation de pylibmc (librairie python memcached)
+		- Installation de pylibmc (librairie python memcached)
 
 	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour executer les scripts.
 
@@ -121,9 +121,9 @@ Passer la taille d'un item a maximum 24MO.
 Cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
 
-	-CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
+	- CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
-	-Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
+	- Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
 
 	
 
@@ -138,33 +138,33 @@ Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 **Détails du script python Requestprocessing (permettant un tri des affilations en multiprocessing)**
 
 
-	-Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
+	- Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
 
-	-split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
+	- split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
 
-	-Processing(): Fonction de tri et de curation des affiliations, lancé en parralèle dans chaque process.
+	- Processing(): Fonction de tri et de curation des affiliations, lancé en parralèle dans chaque process.
 
-	-Match_result_for_laboratory():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_laboratory():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
 
-	-Search_for_labo():
+	- Search_for_labo():
 
-	-Search_for_university():
+	- Search_for_university():
 
-	-Search_for_university_labo_and_inst():
+	- Search_for_university_labo_and_inst():
 
-	-Search_for_university_labo():
+	- Search_for_university_labo():
 
-	-Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
 
 Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
 
 **Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):**
 
--split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
+- split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
 
--Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
+- Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
 
--Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
+- Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
 
 
 #Details du traitement des affiliations:
@@ -238,15 +238,15 @@ Institution : GEOLOGICAL INSTITUTE
 	-Semantic-UI
 
 	JS:
-	-Jquery
-	-Print js
-	-Integration du widget ISTEX Angular
-	-DataTables JS
-	-Googlechart JS
-	-Leaflet JS
+	- Jquery
+	- Print js
+	- Integration du widget ISTEX Angular
+	- DataTables JS
+	- Googlechart JS
+	- Leaflet JS
 
 	Moteur de template:
-	-TWIG
+	- TWIG
 
 
 **Organisation du code:**
@@ -265,7 +265,7 @@ Institution : GEOLOGICAL INSTITUTE
 
 **Les différentes templates:**
 
-	-Accueil.html.twig:
+	- Accueil.html.twig:
 		Template d'accueil, Les principaux éléments neccessaires y sont defini, les script js et css, la navbar, ainsi que les grilles.
 
 
@@ -290,41 +290,43 @@ Pour l'executer, il faut installer Docker.
 
 **Exemple pour ubuntu:**
 
-		-sudo apt-get install apt-transport-https ca-certificates
-		-sudo apt-key adv \
+		- sudo apt-get install apt-transport-https ca-certificates
+		- sudo apt-key adv \
                --keyserver hkp://ha.pool.sks-keyservers.net:80 \
                --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-        -sudo apt-get update
-        -sudo apt-get install docker-engine
+        - sudo apt-get update
+        - sudo apt-get install docker-engine
 
 **Une fois Docker installé:**
     	
-    	Recuperer les fichiers contenu dans le dossier Docker , et executer la commande:
-    	-sudo docker build .
+    	Recuperer les fichiers contenu dans le dossier Docker :
+	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docke
+	executer la commande:
+    	- sudo docker build .
    		Attendre la generation de l'image
 
 **Une fois l'image generé:**
 
-    	-sudo docker images
+    	- sudo docker images
 
     Prendre l'id de l'image generer et l'ajouter à cette commande qui va creer le container à partir de l'image:
 
-    	-sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
+    	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
 
 
     On recupere l'id du container,
 
-    	-sudo docker ps 
+    	- sudo docker ps 
 
     Pour relancer le container une fois celui ci créé:
 
-   		-sudo docker start CONTAINERID
+   		- sudo docker start CONTAINERID
 
     Pour l'arreter:
 
-    	-sudo docker stop CONTAINERID
+    	- sudo docker stop CONTAINERID
 
     Pour executer des commandes:
 
-    	-sudo docker exec 
+    	- sudo docker exec 
     
