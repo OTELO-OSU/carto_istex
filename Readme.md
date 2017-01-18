@@ -284,9 +284,11 @@ Institution : GEOLOGICAL INSTITUTE
 
 #Docker 
 
-	-Un conteneur Docker est disponible:
-	Pour l'executer, il faut installer Docker:
-	Exemple pour ubuntu:
+	**Un conteneur Docker est disponible:**
+
+	Pour l'executer, il faut installer Docker.
+
+	**Exemple pour ubuntu:**
 		-sudo apt-get install apt-transport-https ca-certificates
 
 		-sudo apt-key adv \
@@ -295,11 +297,11 @@ Institution : GEOLOGICAL INSTITUTE
         -sudo apt-get update
         -sudo apt-get install docker-engine
 
-    Une fois Docker installé:
+    **Une fois Docker installé:**
     	-sudo docker build .
     Attendre la generation de l'image
 
-    Une fois l'image generé:
+    **Une fois l'image generé:**
 
     	-sudo docker images
 
