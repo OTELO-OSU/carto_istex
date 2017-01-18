@@ -289,8 +289,8 @@ Institution : GEOLOGICAL INSTITUTE
 Pour l'executer, il faut installer Docker.
 
 **Exemple pour ubuntu:**
-		-sudo apt-get install apt-transport-https ca-certificates
 
+		-sudo apt-get install apt-transport-https ca-certificates
 		-sudo apt-key adv \
                --keyserver hkp://ha.pool.sks-keyservers.net:80 \
                --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
@@ -298,8 +298,9 @@ Pour l'executer, il faut installer Docker.
         -sudo apt-get install docker-engine
 
 **Une fois Docker installé:**
+    	
     	-sudo docker build .
-    Attendre la generation de l'image
+   		Attendre la generation de l'image
 
 **Une fois l'image generé:**
 
