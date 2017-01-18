@@ -1,6 +1,6 @@
 FROM debian:latest
 
-ADD modifyapache.sh /modifyapache.sh
+ADD 000-default.conf /000-default.conf
 
 ADD startup.sh /startup.sh
 
@@ -22,15 +22,9 @@ RUN pip install pylibmc
 
 RUN a2enmod rewrite
 
-RUN chmod +x modifyapache.sh
-
 RUN chmod +x startup.sh
 
-RUN ./modifyapache.sh create /var/www/html/Projet_carto_istex
-
-RUN rm  /etc/apache2/sites-enabled/000-default.conf 
-
-RUN  mv  /etc/apache2/sites-enabled/localhost.conf /etc/apache2/sites-enabled/000-default.conf 
+RUN  mv  000-default.conf /etc/apache2/sites-enabled/000-default.conf 
 
 
 
