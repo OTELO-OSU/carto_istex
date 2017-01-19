@@ -268,6 +268,33 @@ Institution : GEOLOGICAL INSTITUTE
 	- Accueil.html.twig:
 		Template d'accueil, Les principaux éléments necessaires y sont definis, les scripts js et css, la navbar, ainsi que les grilles.
 
+	- Country_list.html.twig:
+		Template affichant le tableau de résultats des pays
+
+	- authors_list.html.twig:
+		Template affichant le tableau de résultats des auteurs
+
+	- laboratory_list.html.twig:
+		Template affichant le tableau de résultats des laboratoires
+
+	- modal_bubble_authors.html.twig:
+		Template affichant le bubblechart, dans un modal, des auteurs
+
+	- modal_bubble_laboratorys.html.twig:
+		Template affichant le bubblechart, dans un modal, des laboratoires
+
+	- modal_leaflet_country.html.twig:
+		Template affichant la carte leaflet , dans un modal, des pays
+
+	- modal_authors_table.html.twig:
+		Template affichant un tableau detaillé des publications pour chaque auteurs avec id et title de la publication dans un modal
+
+	- modal_laboratorys_table.html.twig:
+		Template affichant un tableau detaillé des publications pour chaque laboratoires avec id et title de la publication dans un modal
+
+	- widget_istex.html.twig:
+		Inclusion du widget Istex avec des options definies
+
 **Fonctionnement:**
 	
 	Trois scripts JS principaux:
@@ -276,6 +303,11 @@ Institution : GEOLOGICAL INSTITUTE
 	- country.js
 
 	Chaque script fait un appel ajax vers le backend afin de recuperer des données JSON qui seront ensuite traité.
+	Les appels Ajax se font dans cet ordre, il sont synchrone:
+	1)laboratorys
+	2)authors
+	3)countrys
+
 	Pour chaque script, les données sont traités et afficher sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
 
 	Le widget Istex à été integrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
