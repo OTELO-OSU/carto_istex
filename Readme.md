@@ -232,16 +232,18 @@ Pour faire simple, la surcouche API a été retiré.
 Les resultats reste identique, mais en enlevant la couche http, on constate un gain de temps.
 
 **Fonctionnement de Geocode**
+
 Premierement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers on été ajouter au projet dans le dossier qui contient les controllers.
 
 Le dossier lib contient la librairie Nominatim, et ses dependances: Geocode.php , db.php....
+
 Le dossier build contient les settings, settings.php permet de definir sur quel BDD Postgresql nous allons travailer: 
 
 	@define('CONST_Database_DSN', 'pgsql://nominatim:nominatim@localhost:55001/nominatim'); 
 
 Afin d'optimiser le fonctionnement de Nominatim, lors d'une premiere recherche, celui ci ne recherche que dans les pays:
 
-	Exemple de retour:
+	Exemple de query envoyé à nominatim:
 	- USA
 	- U.S.A
 	- States of america
@@ -255,12 +257,13 @@ Afin d'optimiser le fonctionnement de Nominatim, lors d'une premiere recherche, 
 	retourneront:
 	- NULL
 
-Ce retour est une modfiication volontaire de la librairie nominatim, afin d'optimiser la vitesse de traitement.
+Ce retour NULL est une modification volontaire de la librairie nominatim, afin d'optimiser la vitesse de traitement.
+Ainsi la recherche par pays se base uniquement sur les pays, nominatim permet d'uniformiser l'écriture.
 
 L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
 
 
-	Exemple de retour:
+	Exemple de query envoyé à nominatim:
 	- USA
 	- U.S.A
 	- States of america
@@ -273,6 +276,8 @@ L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliqu
 
 	retourneront:
 	-  United States of America
+	
+Ainsi la recherche par pays se base sur les pays, état,région,departement,ville, nominatim permet d'uniformiser l'écriture.
 
 
 #Front-end:
