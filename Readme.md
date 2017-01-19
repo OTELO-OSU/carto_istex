@@ -266,8 +266,19 @@ Institution : GEOLOGICAL INSTITUTE
 **Les différentes templates:**
 
 	- Accueil.html.twig:
-		Template d'accueil, Les principaux éléments neccessaires y sont defini, les script js et css, la navbar, ainsi que les grilles.
+		Template d'accueil, Les principaux éléments necessaires y sont definis, les scripts js et css, la navbar, ainsi que les grilles.
 
+**Fonctionnement:**
+	
+	Trois scripts JS principaux:
+	- laboratorys.js
+	- authors.js
+	- country.js
+
+	Chaque script fait un appel ajax vers le backend afin de recuperer des données JSON qui seront ensuite traité.
+	Pour chaque script, les données sont traités et afficher sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
+
+	Le widget Istex à été integrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
 
 
 #Diagrammes de séquences:
