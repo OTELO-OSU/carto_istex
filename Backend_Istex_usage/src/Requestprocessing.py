@@ -55,7 +55,7 @@ def Search_for_labo(received_array,received_laboratory):
 #Institution-all
 def Match_result_for_university(received_array):
     array=[]
-    tableau_reference_university=[" UNIV ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" , " INST ","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO","UNIVERSITE","UNIVERSITIES","UNIVERSITES","MAX-PLANCK", "MAX PLANCK","IFREMER","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM","BRGM","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE", "CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
+    tableau_reference_university=[" UNIV ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" , " INST ","INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO","UNIVERSITE","UNIVERSITIES","UNIVERSITES","MAX-PLANCK", "MAX PLANCK","IFREMER","MUSEUM","SURVEY","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM","BRGM","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE", "FACULTY","FACULTAD","FACULTE","CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","UNIVERSITA","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
     for reference in tableau_reference_university:
         for value in received_array:
                 university=value
@@ -92,7 +92,7 @@ def Search_for_university_labo_and_inst(received_array):
 #Institution-Labo
 def Search_for_university_labo(received_array,received_university):
     array=[]
-    tableau_reference_university=["CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
+    tableau_reference_university=["CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD","FACULTE", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
     for reference in tableau_reference_university:
         for value in received_array:
                 university=value
@@ -114,10 +114,7 @@ def processing(liste,send_end):
     data=liste
     country=None
     parse=None
-    global laboratory 
-    laboratory=None
-    global university
-    university=None
+    
     for value in data:
         if not 'author' in value:
             noaffiliation["noaff"]+=1
@@ -166,9 +163,10 @@ def processing(liste,send_end):
                                 parse = affiliations.split(',')
                                 country = parse[len(parse)-1]
                         Id=value["id"] 
-                        if parse is not None:  
+                        if parse is not None:
+                            university=None
+                            laboratory=None  
                             laboratory=Match_result_for_laboratory(parse)
-                            university=Match_result_for_university(parse)
                             if laboratory is None:
                                 laboratory=Search_for_university(parse)
                                 if laboratory is None:
@@ -178,19 +176,22 @@ def processing(liste,send_end):
                                     if laboratory==None:
                                         laboratory=Search_for_university_labo_and_inst(parse)
                                 
+                            else:
+                                university=Match_result_for_university(parse)
+
                             if university is None:
                                 university=Search_for_labo(parse,laboratory)
+                            if university is None and laboratory is not None:
+                                university=Match_result_for_university(parse)
 
 
                         if country is not None:
                             country.replace(".", "", 1)
                             regex = r"[\[{\(].*[\]}\)]|[0-9÷\-_@~;:.?'+*-]"
-                            if type(country) is unicode:
                                 
-                                country=country.upper()
-                                country=country.replace(" ", "", 1)
-                                country=re.sub(regex, "", country)
-                                country=urllib.quote(country.encode('utf-8'))
+                            country=country.upper()
+                            country=country.replace(" ", "", 1)
+                            country=re.sub(regex, "", country)
 
 
 
