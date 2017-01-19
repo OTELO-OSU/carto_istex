@@ -47,7 +47,6 @@ def Search_for_labo(received_array,received_laboratory):
     tableau_reference_laboratory=["SCHOOL", "ACADEMY"]
     for reference in tableau_reference_laboratory:
         for value in received_array:
-                if type(value) is unicode:
                     laboratory=value
                     if reference in laboratory:
                         if received_laboratory!=laboratory.lstrip():
@@ -73,11 +72,11 @@ def Search_for_university(received_array):
     tableau_reference_university=[ "COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE NATIONALE POUR LA RECHERCHE SCIENTIFIQUE","COMMISSARIAT A L'ENERGIE ATOMIQUE","UNIVERSITE","UNIVERSITIES","UNIVERSITES","CNRS"," CNRS "," C.N.R.S ","C.N.R.S","CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE"," UNIV ", " INST ", "UNIVERSITY","UNIVERSITAT","UNIVERSITA","UNIVERSIDAD" ,"INSTITUTE","INSTITUT", "INSTITUTION","INSTITUTO","BRGM"," IPGP ","IPG PARIS"," CEA ","CENTRE DE RECHERCHES PETROGRAPHIQUES ET GEOCHIMIQUES","UNIVERSITA","MAX-PLANCK", "MAX PLANCK","IFREMER","INRA","IRD","IRSTEA","CEMAGREF","INRIA","INED","IFSTAR","INSERM"]
     for reference in tableau_reference_university:
         for value in received_array:
-                if type(value) is unicode:
-                    if reference in university:
-                        if "CNRS" in  filter(str.isupper, university): 
-                            university="CNRS"
-                        return university.lstrip()                      
+                university=value
+                if reference in university:
+                    if "CNRS" in  filter(str.isupper, university): 
+                        university="CNRS"
+                    return university.lstrip()                      
 
 #Institution-institution
 def Search_for_university_labo_and_inst(received_array):
@@ -85,8 +84,7 @@ def Search_for_university_labo_and_inst(received_array):
     tableau_reference_university=["COMMISSARIAT A L'ENERGIE ATOMIQUE","BRGM"," IPGP ","IPG PARIS"," CEA "]
     for reference in tableau_reference_university:
         for value in received_array:
-                if type(value) is unicode:
-                    university=value
+                university=value
                 if reference in university:
                     return university.lstrip()
                 
@@ -97,8 +95,7 @@ def Search_for_university_labo(received_array,received_university):
     tableau_reference_university=["CENTER","CENTRO", "HOSPITAL","HOPITAL", "COLLEGE", "FACULTY","FACULTAD", "COUNCIL", "OBSERVATORY","OBSERVATOIRE","AGENCY","AGENCE","NATIONAL LABORATORY", "NATIONAL DEPARTMENT", "NATIONAL DIVISION", "NATIONAL SCHOOL", "NATIONAL ACADEMY","CENTRE","FOUNDATION","NATIONAL LABO", "NATIONAL DEPT", "NATIONAL DIV","ZENTRUM","CORPORATION","CORP","MINISTRY","MINISTERE","COMPANY","MUSEO"]
     for reference in tableau_reference_university:
         for value in received_array:
-                if type(value) is unicode:
-                    university=value
+                university=value
                 if reference in university:
                     if received_university!=university:
                         return university.lstrip()
@@ -131,7 +128,10 @@ def processing(liste,send_end):
                     break;
                 else:
                     author=value2['name']
-                    title=value["title"]
+                    if 'title' in value:
+                        title=value["title"]
+                    else:
+                        title="null"
                     author=author.upper()
                     affiliations=value2['affiliations']
                     regex = r"[\[{\(].*[\]}\)]|[[0-9÷\-_@~;:.?+()*-]"
@@ -177,7 +177,6 @@ def processing(liste,send_end):
                                     laboratory=Search_for_university_labo(parse,university)
                                     if laboratory==None:
                                         laboratory=Search_for_university_labo_and_inst(parse)
-                                        
                                 
                             if university is None:
                                 university=Search_for_labo(parse,laboratory)
