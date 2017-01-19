@@ -121,7 +121,7 @@ Passer la taille d'un item a maximum 24MO.
 Cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
 Elle est compsé de plusieurs fonctions:
 
-	- CurlRequest() : Prends en parametre l'url aisni que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
+	- CurlRequest() : Prends en parametre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
 	- Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
 
@@ -226,8 +226,53 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
+#Fonctionnement de la librairie Nominatim:
+Dans un but de gain de temps, l'interrogation de nominatim se fait par sa librairie,c'est à dire que la base de données Postgresql est interrogé directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
+Pour faire simple, la surcouche API a été retiré.
+Les resultats reste identique, mais en enlevant la couche http, on constate un gain de temps.
+
+**Fonctionnement de Geocode**
+Premierement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers on été ajouter au projet dans le dossier qui contient les controllers.
+
+Le dossier lib contient la librairie Nominatim, et ses dependances: Geocode.php , db.php....
+Le dossier build contient les settings, settings.php permet de definir sur quel BDD Postgresql nous allons travailer: 
+
+	@define('CONST_Database_DSN', 'pgsql://nominatim:nominatim@localhost:55001/nominatim'); 
+
+Afin d'optimiser le fonctionnement de Nominatim, lors d'une premiere recherche, celui ci ne recherche que dans les pays:
+
+	Exemple de retour:
+	- USA
+	- U.S.A
+	- States of america
+
+	retourne: United States of America
+
+	- Michigan
+	- California
+	- New York
+
+	retourneront:
+	- NULL
+
+Ce retour est une modfiication volontaire de la librairie nominatim, afin d'optimiser la vitesse de traitement.
+
+L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
 
 
+	Exemple de retour:
+	- USA
+	- U.S.A
+	- States of america
+
+	retourne: United States of America
+
+	- Michigan
+	- California
+	- New York
+
+	retourneront:
+	-  United States of America
 
 
 #Front-end:
