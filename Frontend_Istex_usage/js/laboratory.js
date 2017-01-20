@@ -60,7 +60,6 @@
          *          array
          */
     function parse_laboratorys(parsed){
-      console.log(parsed)
         data3 = [];
         data3.push(['ID','Y','X','Laboratory','Number of publications']);
         var r = [];
@@ -165,6 +164,8 @@ function reload_bubble_labo(parsed){
          */
 function init_request(query){
         // remise a zero en cas de recherche simultané
+        documentswithaffiliations=null;
+        $('#warning').hide();     
         $('.loading_country').show();
         $('.loading_laboratory').show();
         $('.loading_authors').show();
@@ -286,6 +287,7 @@ function build_request_facets(){
                   $.each(labelslanguage,function(index,value){
                       val=value.labels[0].textContent;
                       var value = val.replace(/[0-9]/g, '');
+                      var value=value.replace(/\s+/g, '');
                        switch(value){
                             case 'Français':
                               value = 'fre';
@@ -295,9 +297,6 @@ function build_request_facets(){
                               break
                             case 'Latin' : 
                               value = 'lat';
-                              break;
-                            case 'Allemand' : 
-                              value = 'deu' ;
                               break;
                             case 'Allemand' : 
                               value = 'ger' ;
@@ -322,10 +321,7 @@ function build_request_facets(){
                               break;  
                             case 'Galicien' : 
                               value = 'glg' ;
-                              break;  
-                            case 'Grec' : 
-                              value = 'grc' ;
-                              break;  
+                              break;   
                             case 'Grec' : 
                               value = 'gre';
                               break;  
@@ -404,7 +400,6 @@ function build_request_facets(){
                 copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]";
                 quality=" AND score:["+$(".istex-facet-quality  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-quality  rzslider .rz-bubble")[3].innerText+"]";
                 query=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality;
-                
                 init_request(query);
               },800);
    
@@ -420,8 +415,7 @@ $(document).ready(function(){
         $('#noresult').hide(); 
         document.getElementById("istex-widget-search").style.marginTop="2%";
         document.getElementById("istex-widget-search").style.marginBottom="1px";
-        $(".istex_result").show();
-        $('#warning').hide();     
+        $(".istex_result").show();     
         query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
         if (query=="") {
           query="*";

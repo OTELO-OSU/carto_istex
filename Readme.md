@@ -280,6 +280,8 @@ L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliqu
 Ainsi la recherche par pays se base sur les pays, état,région,departement,ville, nominatim permet d'uniformiser l'écriture.
 
 
+
+
 #Front-end:
 
 **Librairie utilisé:**
