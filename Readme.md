@@ -148,9 +148,9 @@ Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 
 	- Search_for_labo():Recherche dans l'affiliation qui ne possede pas d'institution, un deuxieme laboratoires.
 
-	- Search_for_university():Recherche dans l'affiliation qui ne possede pas de labo, une deuxieme institution parmi la liste INstitution-Major, sinon on considere comme NULL.
+	- Search_for_university():Recherche dans l'affiliation qui ne possede pas de labo, une deuxieme institution parmi la liste Institution-Major, sinon on considere comme NULL.
 
-	- Search_for_university_labo():Si on en a trouvé une, on la passe dans le tableau Institution -Labo, si match, on affiche deux instituion differentes.
+	- Search_for_university_labo():Si on en a trouvé une, on la passe dans le tableau Institution -Labo, si match, on affiche deux institution differentes.
 
 	- Search_for_university_labo_and_inst():Si pas de match dans Search_for_university_labo(), on recherche dans Institution-institution, si il y a un match, on affiche 2 fois la meme institution.
 
