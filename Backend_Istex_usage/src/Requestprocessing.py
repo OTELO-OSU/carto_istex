@@ -183,7 +183,9 @@ def processing(liste,send_end):
                                 university=Search_for_labo(parse,laboratory)
                             if university is None and laboratory is not None:
                                 university=Match_result_for_university(parse)
-
+                        else:
+                            laboratory=None
+                            university=None
 
                         if country is not None:
                             country.replace(".", "", 1)
