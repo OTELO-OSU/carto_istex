@@ -4,12 +4,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 
 require '../vendor/autoload.php';
-$configuration = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
-$c = new \Slim\Container($configuration);
+
+
+$c = new \Slim\Container();
 $app = new \Slim\App($c);
 
 $app->get('/', function (Request $req,Response $responseSlim) {
@@ -18,6 +15,7 @@ $twig = new Twig_Environment($loader);
 echo $twig->render('accueil.html.twig');
 
 });
+
 
 $app->run();
 

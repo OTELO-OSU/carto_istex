@@ -6,12 +6,8 @@ use \istex\backend\controller\CountryController as Country;
 use \istex\backend\controller\AuthorController as Author;
 use \istex\backend\controller\LaboratoryController as Laboratory;
 require '../vendor/autoload.php';
-$configuration = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
-$c = new \Slim\Container($configuration);//Initialisation de Slim
+
+$c = new \Slim\Container();//Initialisation de Slim
 $app = new \Slim\App($c);
 
 //Declaration des différentes routes POST
