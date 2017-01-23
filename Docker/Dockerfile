@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debootstrap/minbase
 
 ADD 000-default.conf /000-default.conf
 
