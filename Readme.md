@@ -32,7 +32,7 @@ Elle est composé d’un backend codé en PHP avec le micro-framework SLIM ainsi
 
 **Principe de fonctionnement :**
 
-Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration du widget Istex-SNU.
+Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration des widgets Istex-SNU.
 Différents appels POST AJAX avec en paramètre la query vont être envoyé vers le backend.
 Une réponse au format JSON va être retourné contenant les informations à traiter et à afficher.
 La réponse est traitée par les  scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
@@ -277,8 +277,7 @@ L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliqu
 	retourneront:
 	-  United States of America
 
-Ainsi la recherche par pays se base sur les pays, état,région,departement,ville, nominatim permet d'uniformiser l'écriture.
-
+Ainsi la recherche par pays se base sur les pays, état,région,département,ville, Nominatim permet d'uniformiser l'écriture du pays.
 
 
 
@@ -363,6 +362,8 @@ Ainsi la recherche par pays se base sur les pays, état,région,departement,vill
 	Pour chaque script, les données sont traités et afficher sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
 
 	Le widget Istex à été integrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
+
+	Dès qu'un changement est detecté, on envoie une requetes vers le backend avec les paramètres choisi. 
 
 
 #Diagrammes de séquences:
