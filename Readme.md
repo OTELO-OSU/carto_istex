@@ -55,7 +55,7 @@ Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux,
 
 
 
-#Langage et outils utilisé:
+#Langages et outils utilisés:
 
 PHP
 Memcached afin de gérer la mise en cache.

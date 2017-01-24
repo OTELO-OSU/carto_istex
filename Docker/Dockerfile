@@ -1,4 +1,4 @@
-FROM debootstrap/minbase
+FROM ubuntu:latest
 
 ADD 000-default.conf /000-default.conf
 
