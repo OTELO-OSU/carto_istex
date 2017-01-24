@@ -1,6 +1,6 @@
 #Projet Cartographie Istex usage OTELo
 
-**Presentation et objectifs**
+**Présentation et objectifs**
 
 Identifier les publications suivant plusieurs thésaurus sur les terres rares.
 
@@ -21,7 +21,7 @@ Cartographie de différentes informations:
 Ce projet permettra de compléter le travail bibliographique des chercheurs, doctorants et post-doctorants impliqués dans le projet sur les terres rares du sol à l'atmosphère, et des éléments de réponses complémentaires sur:
 
 La connaissance des processus géologiques intervenant dans l'enrichissement des terres rares,
-l’impacts des terres rares sur l'écosphère terrestre et aquatique.
+l’impact des terres rares sur l'écosphère terrestre et aquatique.
 
 
 **Introduction**
@@ -58,11 +58,11 @@ Le Widget de recherche ISTEX à été intégrer à l’application.
 
 
 
-#Language et outils utilisé:
+#Langage et outils utilisé:
 
 PHP
-Memcached afin de gere la mise en cache.
-Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hote.
+Memcached afin de gérer la mise en cache.
+Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hôte.
 
 **Configuration de Memcached:**
 
@@ -76,7 +76,7 @@ Passer la taille d'un item a maximum 24MO.
 	- PHP 5.6:
 		Librairie php: libmemcached (ne pas oublier d'activer l'extension dans la configuration php)
 		Php Curl afin d'effectuer les requetes sur l'API ISTEX
-		Php pgsql pour acceder a la base pgsql de nominatim
+		Php pgsql pour accéder a la base pgsql de nominatim
 		Pear 
 		DB php
 
@@ -98,7 +98,7 @@ Passer la taille d'un item a maximum 24MO.
 
 		- Installation de pylibmc (librairie python memcached)
 
-	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour executer les scripts.
+	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour exécuter les scripts.
 
 
 #Back-end:
@@ -112,18 +112,18 @@ Passer la taille d'un item a maximum 24MO.
 			--index.php : fichier de routes
 			--Multiquery.py
 			--Requestprocessing.py 
-		--vendor : contient les dependances slim necessaires au routage
+		--vendor : contient les dépendances slim nécessaires au routage
 
 
 **Détails des différentes classes et fonctions PHP:**
 
 -**RequestController**: 
-Cette classe va permettre d'effectuer les requetes vers l'api Istex et recuperer les données necessaire au tri.
-Elle est compsé de plusieurs fonctions:
+Cette classe va permettre d'effectuer les requêtes vers l'api Istex et récupérer les données nécessaire au tri.
+Elle est composé de plusieurs fonctions:
 
-	- CurlRequest() : Prends en parametre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
+	- CurlRequest() : Prends en paramètre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
-	- Request_alldoc_querypagebypage(): Elle prends en parametre la query ( les termes de recherche de l'utilisateur),Cette fonction verifie si une reponse a laquery est présente en cache, puis si aucun cache n'est présent, elle interroge la base IStex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possede une affiliations correcte.
+	- Request_alldoc_querypagebypage(): Elle prends en paramètre la query ( les termes de recherche de l'utilisateur),Cette fonction vérifie si une réponse a la query est présente en cache, puis si aucun cache n'est présent, elle interroge l’API Istex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possède une affiliations correcte.
 
 	
 
@@ -135,26 +135,26 @@ Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 
 
 
-**Détails du script python Requestprocessing (permettant un tri des affilations en multiprocessing)**
+**Détails du script python Requestprocessing (permettant un tri des affiliations en multiprocessing)**
 
 
-	- Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
+	- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancées les différents tableaux dans un process chacun.
 
 	- split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
 
-	- Processing(): Fonction de tri et de curation des affiliations, lancé en parralèle dans chaque process.
+	- Processing(): Fonction de tri et de curation des affiliations, lancé en parallèle dans chaque process.
 
-	- Match_result_for_laboratory():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_laboratory():Elle prends en paramètre un tableau qui est en fait les différentes partie de l’affiliation. Elle compare avec le dictionnaire puis retourne le résultat qui a matché, sinon elle ne retourne rien.
 
-	- Search_for_labo():Recherche dans l'affiliation qui ne possede pas d'institution, un deuxieme laboratoires.
+	- Search_for_labo():Recherche dans l'affiliation qui ne possède pas d'institution, un deuxième laboratoires.
 
-	- Search_for_university():Recherche dans l'affiliation qui ne possede pas de labo, une deuxieme institution parmi la liste Institution-Major, sinon on considere comme NULL.
+	- Search_for_university():Recherche dans l'affiliation qui ne possède pas de labo, une deuxième institution parmi la liste Institution-Major, sinon on considère comme NULL.
 
-	- Search_for_university_labo():Si on en a trouvé une, on la passe dans le tableau Institution -Labo, si match, on affiche deux institution differentes.
+	- Search_for_university_labo():Si on en a trouvé une, on la passe dans le tableau Institution -Labo, si match, on affiche deux institution différentes.
 
-	- Search_for_university_labo_and_inst():Si pas de match dans Search_for_university_labo(), on recherche dans Institution-institution, si il y a un match, on affiche 2 fois la meme institution.
+	- Search_for_university_labo_and_inst():Si pas de match dans Search_for_university_labo(), on recherche dans Institution-institution, si il y a un match, on affiche 2 fois la même institution.
 
-	- Match_result_for_university():Elle prends en parametre un tableau qui est en fait les différentes partie de l'affilation.Elle compare avec le dictionnaire puis retourne le resultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_university():Elle prends en paramètre un tableau qui est en fait les différentes partie de l’affiliation. Elle compare avec le dictionnaire puis retourne le résultat qui a matché, sinon elle ne retourne rien.
 
 Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
 
@@ -162,12 +162,12 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 
 - split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
 
-- Main(): Fonction principale, découpage en tableau du json recu, afin de lancées les différents tableaux dans un process chacun.
+- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancées les différents tableaux dans un process chacun.
 
-- Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parralèle dans chaque process.
+- Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parallèle dans chaque process.
 
 
-#Details du traitement des affiliations:
+#Détails du traitement des affiliations:
 
 **Présentation d’une affiliation :**
 
@@ -229,19 +229,19 @@ Institution : GEOLOGICAL INSTITUTE
 #Fonctionnement de la librairie Nominatim:
 Dans un but de gain de temps, l'interrogation de nominatim se fait par sa librairie,c'est à dire que la base de données Postgresql est interrogé directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
 Pour faire simple, la surcouche API a été retiré.
-Les resultats reste identique, mais en enlevant la couche http, on constate un gain de temps.
+Les résultats reste identique, mais en enlevant la couche http, on constate un gain de temps.
 
 **Fonctionnement de Geocode**
 
-Premierement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers on été ajouter au projet dans le dossier qui contient les controllers.
+Premièrement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers on été ajouter au projet dans le dossier qui contient les controllers.
 
-Le dossier lib contient la librairie Nominatim, et ses dependances: Geocode.php , db.php....
+Le dossier lib contient la librairie Nominatim, et ses dépendances: Geocode.php , db.php....
 
-Le dossier build contient les settings, settings.php permet de definir sur quel BDD Postgresql nous allons travailer: 
+Le dossier build contient les settings, settings.php permet de définir sur quel BDD Postgresql nous allons travailler: 
 
 	@define('CONST_Database_DSN', 'pgsql://nominatim:nominatim@localhost:55001/nominatim'); 
 
-Afin d'optimiser le fonctionnement de Nominatim, lors d'une premiere recherche, celui ci ne recherche que dans les pays:
+Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche, celui ci ne recherche que dans les pays:
 
 	Exemple de query envoyé à nominatim:
 	- USA
@@ -303,7 +303,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 **Organisation du code:**
 
 	Frontend_Istex_usage
-		--css :contient la librairie Semantic UI ainsi que le css produit et les dependances necessaires au widget Istex
+		--css :contient la librairie Semantic UI ainsi que le css produit et les dépendances nécessaires au widget Istex
 		--img : contient les images
 		--js : contient les librairies utilisés ainsi que le code produit 
 		--leaflet : contient les fichiers relatif à l'utilisation de leaflet(js,img,css)
@@ -317,7 +317,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 **Les différentes templates:**
 
 	- Accueil.html.twig:
-		Template d'accueil, Les principaux éléments necessaires y sont definis, les scripts js et css, la navbar, ainsi que les grilles.
+		Template d'accueil, Les principaux éléments nécessaires y sont définis, les scripts js et css, la navbar, ainsi que les grilles.
 
 	- Country_list.html.twig:
 		Template affichant le tableau de résultats des pays
@@ -338,13 +338,13 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 		Template affichant la carte leaflet , dans un modal, des pays
 
 	- modal_authors_table.html.twig:
-		Template affichant un tableau detaillé des publications pour chaque auteurs avec id et title de la publication dans un modal
+		Template affichant un tableau détaillé des publications pour chaque auteurs avec id et title de la publication dans un modal
 
 	- modal_laboratorys_table.html.twig:
-		Template affichant un tableau detaillé des publications pour chaque laboratoires avec id et title de la publication dans un modal
+		Template affichant un tableau détaillé des publications pour chaque laboratoires avec id et title de la publication dans un modal
 
 	- widget_istex.html.twig:
-		Inclusion du widget Istex avec des options definies
+		Inclusion du widget Istex avec des options définies
 
 **Fonctionnement:**
 	
@@ -353,7 +353,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 	- authors.js
 	- country.js
 
-	Chaque script fait un appel ajax vers le backend afin de recuperer des données JSON qui seront ensuite traité.
+	Chaque script fait un appel ajax vers le backend afin de récupérer des données JSON qui seront ensuite traité.
 	Les appels Ajax se font dans cet ordre, il sont synchrone:
 	1)laboratorys
 	2)authors
@@ -361,18 +361,25 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 
 	Pour chaque script, les données sont traités et afficher sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
 
-	Le widget Istex à été integrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
+	Le widget Istex à été intégrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
 
-	Dès qu'un changement est detecté, on envoie une requetes vers le backend avec les paramètres choisi. 
+	Dès qu'un changement est détecté, on envoie une requêtes vers le backend avec les paramètres choisi. 
 
 
 #Diagrammes de séquences:
 
+Diagramme de séquences générale:
+
 ![Alt text](/Img_doc/Istex_usage.png?raw=true)
+
+Diagramme de séquences du Backend:
 
 ![Alt text](/Img_doc/Istex_usage_Backend.png?raw=true)
 
+Diagramme de séquences du Frontend:
+
 ![Alt text](/Img_doc/Istex_usage_Frontend.png?raw=true)
+
 
 
 
@@ -382,7 +389,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 
 **Un conteneur Docker est disponible:**
 
-Pour l'executer, il faut installer Docker.
+Pour l’exécuter, il faut installer Docker.
 
 **Exemple pour ubuntu:**
 
@@ -395,17 +402,17 @@ Pour l'executer, il faut installer Docker.
 
 **Une fois Docker installé:**
     	
-    	Recuperer les fichiers contenu dans le dossier Docker :
+    	Récupérer les fichiers contenu dans le dossier Docker :
 	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docker
 	executer la commande:
     	- sudo docker build .
    		Attendre la generation de l'image
 
-**Une fois l'image generé:**
+**Une fois l'image géneré:**
 
     	- sudo docker images
 
-    Prendre l'id de l'image generer et l'ajouter à cette commande qui va creer le container à partir de l'image:
+    Prendre l'id de l'image générer et l'ajouter à cette commande qui va créer le container à partir de l'image:
 
     	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
 
@@ -418,11 +425,11 @@ Pour l'executer, il faut installer Docker.
 
    		- sudo docker start CONTAINERID
 
-    Pour l'arreter:
+    Pour l’arrêter:
 
     	- sudo docker stop CONTAINERID
 
-    Pour executer des commandes:
+    Pour exécuter des commandes:
 
     	- sudo docker exec 
     
