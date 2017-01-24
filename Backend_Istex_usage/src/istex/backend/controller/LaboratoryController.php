@@ -67,7 +67,7 @@ class LaboratoryController
 				}
 			foreach ($laboratorywithid as $key => $value) {
 					$array=array();
-					$key=split(",", $key);
+					$key=explode(",", $key);
 					$array[]=$key[0];
 					$array[]=$key[1];
 					$array[]=$value["total"];

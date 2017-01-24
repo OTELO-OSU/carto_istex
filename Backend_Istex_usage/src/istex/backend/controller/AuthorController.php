@@ -64,7 +64,7 @@ class AuthorController
 				}
 				foreach ($authorwithid as $key => $value) {
 					$array=array();
-					$key=split(",", $key);
+					$key=explode(",", $key);
 					$array[]=$key[0]; //Nom de l'auteur
 					$array[]=$key[1]; //Laboratoire
 					$array[]=$key[2]; // Institution
