@@ -26,27 +26,26 @@ l’impact des terres rares sur l'écosphère terrestre et aquatique.
 
 **Introduction**
 
-L’application Carto Istex permet la réalisation de cartographie d'informations à partir du réservoir de publication ISTEX suivant leur provenance (Pays, Laboratoire) et leurs auteurs.
+L’application Carto Istex permet la réalisation de cartographie d'informations à partir du réservoir de publications ISTEX suivant leurs provenances (Pays, Laboratoire) et leurs auteurs.
 Elle est composé d’un backend codé en PHP avec le micro-framework SLIM ainsi que d’un frontend codé en HTML,CSS ,JavaScript et de la librairie Jquery.
 
 
 **Principe de fonctionnement :**
 
-Un utilisateur effectue une recherche (query) dans le champs prévu à cet effet. Champs issu de l'intégration des widgets Istex-SNU.
-Différents appels POST AJAX avec en paramètre la query vont être envoyé vers le backend.
-Une réponse au format JSON va être retourné contenant les informations à traiter et à afficher.
-La réponse est traitée par les  scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
+Un utilisateur effectue une recherche (query) dans le champ prévu à cet effet. Champ issu de l'intégration des widgets Istex-SNU.
+Différents appels POST AJAX, avec en paramètre la query, vont être envoyés vers le backend.
+Une réponse au format JSON va être retournée contenant les informations à traiter et à afficher.
+La réponse est traitée par les scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
 L’utilisateur peut ensuite consulter les résultats sous forme de tableau dynamique et paginé, ou sous forme de carte exportable en format PDF et/ou PNG.
 
 
 
 **Aspect de générale de l’application :**
 
-Pour l’aspect CSS le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsive rapidement. 
+Pour l’aspect CSS le framework Semantic UI à été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsives rapidement. 
 Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
 Afin de réaliser des Bubblechart (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
-Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre d’affiliations erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publications peut avoir un auteur mais une mauvaise affiliations.
-Le Widget de recherche ISTEX à été intégrer à l’application.
+Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre de publications erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégorie, le nombre diffère selon la catégorie, en effet une publication peut avoir un auteur mais une mauvaise affiliation.
 
 
 
@@ -56,17 +55,15 @@ Le Widget de recherche ISTEX à été intégrer à l’application.
 
 
 
-
-
 #Langage et outils utilisé:
 
 PHP
 Memcached afin de gérer la mise en cache.
-Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activé ainsi qu'un serveur memcached soit installé sur la machine hôte.
+Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activée ainsi qu'un serveur memcached soit installé sur la machine hôte.
 
 **Configuration de Memcached:**
 
-Passer la taille d'un item a maximum 24MO. 
+Passer la taille d'un item à maximum 24MO. 
 
 
 **Dépendances:**
@@ -76,7 +73,7 @@ Passer la taille d'un item a maximum 24MO.
 	- PHP 5.6:
 		Librairie php: libmemcached (ne pas oublier d'activer l'extension dans la configuration php)
 		Php Curl afin d'effectuer les requêtes sur l'API ISTEX
-		Php pgsql pour accéder a la base pgsql de nominatim
+		Php pgsql pour accéder à la base pgsql de nominatim
 		Pear 
 		DB php
 
@@ -98,7 +95,7 @@ Passer la taille d'un item a maximum 24MO.
 
 		- Installation de pylibmc (librairie python memcached)
 
-	Afin que les script python se lance convenablement il faut s'assurer que www-data ai les droits pour exécuter les scripts.
+	Afin que les scripts python se lancent convenablement il faut s'assurer que www-data ai les droits pour exécuter les scripts.
 
 
 #Back-end:
