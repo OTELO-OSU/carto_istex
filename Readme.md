@@ -14,7 +14,7 @@ Cartographie de différentes informations:
 
 	- Disciplines, permettant de mettre en évidence la multidisciplinarité ou non autour des Terres Rares.
 
-	- Institutions ou entreprises s'interressant aux Terres Rares.
+	- Institutions ou entreprises s’intéressant aux Terres Rares.
 
 **But**
 
@@ -75,7 +75,7 @@ Passer la taille d'un item a maximum 24MO.
 
 	- PHP 5.6:
 		Librairie php: libmemcached (ne pas oublier d'activer l'extension dans la configuration php)
-		Php Curl afin d'effectuer les requetes sur l'API ISTEX
+		Php Curl afin d'effectuer les requêtes sur l'API ISTEX
 		Php pgsql pour accéder a la base pgsql de nominatim
 		Pear 
 		DB php
@@ -291,7 +291,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 	JS:
 	- Jquery
 	- Print js
-	- Integration du widget ISTEX Angular
+	- Intégration du widget ISTEX Angular
 	- DataTables JS
 	- Googlechart JS
 	- Leaflet JS
@@ -404,11 +404,11 @@ Pour l’exécuter, il faut installer Docker.
     	
     	Récupérer les fichiers contenu dans le dossier Docker :
 	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docker
-	executer la commande:
+	exécuter la commande:
     	- sudo docker build .
-   		Attendre la generation de l'image
+   		Attendre la génération de l'image
 
-**Une fois l'image géneré:**
+**Une fois l'image généré:**
 
     	- sudo docker images
 
@@ -417,7 +417,7 @@ Pour l’exécuter, il faut installer Docker.
     	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
 
 
-    On recupere l'id du container,
+    On récupéré l'id du container,
 
     	- sudo docker ps 
 
@@ -432,4 +432,3 @@ Pour l’exécuter, il faut installer Docker.
     Pour exécuter des commandes:
 
     	- sudo docker exec 
-    
