@@ -236,7 +236,7 @@ Le dossier lib contient la librairie Nominatim, et ses dépendances: Geocode.php
 
 Le dossier build contient les settings, settings.php permet de définir sur quel BDD Postgresql nous allons travailler: 
 
-	@define('CONST_Database_DSN', 'pgsql://nominatim:nominatim@localhost:55001/nominatim'); 
+	@define('CONST_Database_DSN', 'pgsql://USERNAME:PASSWORD@IP:5532/nominatim'); 
 
 Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche, celui ci ne recherche que dans les pays:
 
@@ -411,16 +411,12 @@ Pour l’exécuter, il faut installer Docker.
 
     Prendre l'id de l'image générer et l'ajouter à cette commande qui va créer le container à partir de l'image:
 
-    	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE ./startup.sh
+    	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE 
 
 
     On récupéré l'id du container,
 
     	- sudo docker ps 
-
-    Pour relancer le container une fois celui ci créé:
-
-   		- sudo docker start CONTAINERID
 
     Pour l’arrêter:
 
@@ -429,3 +425,5 @@ Pour l’exécuter, il faut installer Docker.
     Pour exécuter des commandes:
 
     	- sudo docker exec 
+
+ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
