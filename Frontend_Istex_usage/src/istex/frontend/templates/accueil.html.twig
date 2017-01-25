@@ -43,8 +43,13 @@
     {% include 'modal_leaflet_country.html.twig' %}
     {% include 'modal_laboratorys_table.html.twig' %}
     {% include 'modal_authors_table.html.twig' %}
+    {% include 'aide.html.twig' %}
 
 
+    <button class=" ui labeled icon button helpme">
+  <i class="help circle icon"></i>
+  Help
+</button>
 <div class="ui grid container">
     <div class="ten wide centered column">
         {% include 'widget_istex.html.twig' %}
@@ -73,6 +78,7 @@
    <div class="ui red inverted center aligned segment" id="noresult"><h4><i class="warning sign icon"></i> Warning: No result to be parsed!</h4></div>
   </div>
 </div>  
+
 
 <div class="ui stackable three column grid">
    	<div class="column">
@@ -124,7 +130,9 @@
                 // Init the navbar
                 $('#example').navBar();
             }(jQuery));
-
+$('.ui.accordion')
+  .accordion()
+;
 
 
      

@@ -10,6 +10,11 @@ $(document).ready(function(){
 	  .modal('show');
 	});
 
+	$('.helpme').click(function(){
+		$('.aide')
+		  .modal('show');
+		});
+
 	 
 
 $('.leafletmap').click(function(){
@@ -19,3 +24,5 @@ $('.leafletmap').click(function(){
 	});
 
 });
+
+
