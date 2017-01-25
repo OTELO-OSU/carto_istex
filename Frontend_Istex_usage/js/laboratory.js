@@ -241,13 +241,14 @@ function init_request(query){
 function build_request_facets(){
   setTimeout(function(){ 
                   query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
-                  labelscorpus=$(".corpus input:checked")
-                   var corpus
-                   var genre
-                   var language
-                   var wos
+                  labelscorpus=$(".corpus input:checked");
+                   var corpus;
+                   var genre;
+                   var language;
+                   var wos;
+                    console.log(labelscorpus)
                     $.each(labelscorpus,function(index,value){
-                        val=value.labels[0].textContent;
+                        val=value.nextSibling.nodeValue;
                         var value = val.replace(/[0-9]/g, '');
                         if (corpus===undefined) {
                           corpus=value;
@@ -285,7 +286,7 @@ function build_request_facets(){
    
                 labelslanguage=$(".language input:checked")
                   $.each(labelslanguage,function(index,value){
-                      val=value.labels[0].textContent;
+                        val=value.nextSibling.nodeValue;
                       var value = val.replace(/[0-9]/g, '');
                       var value=value.replace(/\s+/g, '');
                        switch(value){
