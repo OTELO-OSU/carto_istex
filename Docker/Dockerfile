@@ -22,6 +22,8 @@ RUN pip install pylibmc
 
 RUN a2enmod rewrite
 
+RUN echo ServerName localhost >> /etc/apache2/apache2.conf
+
 RUN chmod +x startup.sh
 
 RUN  mv  000-default.conf /etc/apache2/sites-enabled/000-default.conf 
