@@ -226,7 +226,7 @@ Institution : GEOLOGICAL INSTITUTE
 #Fonctionnement de la librairie Nominatim:
 Dans un but de gain de temps, l'interrogation de nominatim se fait par sa librairie,c'est à dire que la base de données Postgresql est interrogé directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
 Pour faire simple, la surcouche API a été retiré.
-Les résultats reste identique, mais en enlevant la couche http, on constate un gain de temps.
+Les résultats restent identique, mais en enlevant la couche http, on constate un gain de temps.
 
 **Fonctionnement de Geocode**
 
