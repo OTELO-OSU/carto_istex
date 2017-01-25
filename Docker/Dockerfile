@@ -8,7 +8,7 @@ ADD memcached.conf /memcached.conf
 
 RUN mv memcached.conf /etc/memcached.conf
 
-RUN apt-get update && apt-get install -y php5 php5-memcached git libapache2-mod-php5 php5-mysql php5-cli php5-curl php-pear memcached  python-pip libmemcached-dev python-dev zlib1g-dev 
+RUN apt-get update && apt-get install -y php5 php5-memcached git libapache2-mod-php5 php5-mysql php5-pgsql php5-cli php5-curl php-pear memcached  python-pip libmemcached-dev python-dev zlib1g-dev 
 
 RUN git clone https://github.com/arnouldpy/carto_istex.git
 
