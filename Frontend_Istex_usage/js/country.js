@@ -113,6 +113,7 @@
 		          "pagingType": "numbers",  
 		          responsive: true,
 		          dom: 'frtip',
+		          "autoWidth": false
 		        } );
 
 		        var buttons = new $.fn.dataTable.Buttons(table, {

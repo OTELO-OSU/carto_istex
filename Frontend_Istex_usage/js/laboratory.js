@@ -238,15 +238,14 @@ function init_request(query){
          * 
          */
 
-function build_request_facets(){
-  setTimeout(function(){ 
-                  query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
+function build_request_facets(slider){
+  setTimeout(function(){
+                  var query=document.getElementsByClassName('istex-search-input')[0].value // recuperation de la valeur de l'input
                   labelscorpus=$(".corpus input:checked");
                    var corpus;
                    var genre;
                    var language;
                    var wos;
-                    console.log(labelscorpus)
                     $.each(labelscorpus,function(index,value){
                         val=value.nextSibling.nodeValue;
                         var value = val.replace(/[0-9]/g, '');
@@ -396,13 +395,22 @@ function build_request_facets(){
                     else{
                         wos=" AND wos:("+wos+")";
                     }
-
-                publicationdate=" AND publicationDate:["+$(".istex-facet-pubdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-pubdate  rzslider .rz-bubble")[3].innerText+"]";
-                copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]";
-                quality=" AND score:["+$(".istex-facet-quality  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-quality  rzslider .rz-bubble")[3].innerText+"]";
-                query=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality;
-                init_request(query);
-              },800);
+                  if (slider=="slider"){
+                
+                var publicationdate=" AND publicationDate:["+$(".istex-facet-pubdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-pubdate  rzslider .rz-bubble")[3].innerText+"]";
+                var copyrightdate=" AND copyrightDate:["+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-copyrightdate  rzslider .rz-bubble")[3].innerText+"]";
+                var quality=" AND score:["+$(".istex-facet-quality  rzslider .rz-bubble")[2].innerText+" TO "+$(".istex-facet-quality  rzslider .rz-bubble")[3].innerText+"]";
+                allquery=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality;
+              
+                  }
+                  else{
+                    var publicationdate=""
+                    var copyrightdate=""
+                    var quality=""
+                    allquery=query+corpus+publicationdate+copyrightdate+language+wos+genre+quality;
+                  }
+                init_request(allquery);
+             },1000);  
    
 }
 
@@ -426,7 +434,7 @@ $(document).ready(function(){
         setTimeout(function(){
            $('.rzslider .rz-pointer').off("click")
           $('.rzslider .rz-pointer').on("click",function(){
-               build_request_facets();    
+               build_request_facets("slider");    
 
             }); 
 
@@ -440,8 +448,7 @@ $(document).ready(function(){
         $('#country_info').remove();
         $('#improve').addClass('green')
         $('#improve').html('<i class="checkmark box icon"></i>Improved');
-        $('#country_paginate').remove();  
-        $('#country_filter ').remove();  
+       
         searchcountry(query,'improved');
 
 
@@ -451,7 +458,7 @@ $(document).ready(function(){
 
      $("form.istex-facets").off("change");
      $("form.istex-facets").on("change",function(){
-      build_request_facets();
+      build_request_facets("checkbox");
      
     });
 
