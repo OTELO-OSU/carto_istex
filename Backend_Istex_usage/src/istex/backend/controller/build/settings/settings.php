@@ -7,7 +7,7 @@ if (isset($_GET['debug']) && $_GET['debug']) @define('CONST_Debug', true);
 
 // General settings
 @define('CONST_Debug', false);
-@define('CONST_Database_DSN', 'pgsql://nominatim:nominatim@127.0.0.1:55001/nominatim');
+@define('CONST_Database_DSN', 'pgsql://USERNAME:PASSWORD@IP:5532/nominatim');
 @define('CONST_Database_Web_User', 'www-data');
 @define('CONST_Max_Word_Frequency', '50000');
 @define('CONST_Limit_Reindexing', true);
