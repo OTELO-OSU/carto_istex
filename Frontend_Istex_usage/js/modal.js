@@ -15,6 +15,11 @@ $(document).ready(function(){
 		  .modal('show');
 		});
 
+	$('.demonstration').click(function(){
+		$('.demo')
+		  .modal('show');
+		});
+
 	 
 
 $('.leafletmap').click(function(){
