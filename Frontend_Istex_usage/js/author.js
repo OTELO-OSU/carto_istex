@@ -14,6 +14,7 @@
             legend: 'none',
             tooltip:{isHtml:true},
             title: 'BubbleChart of publications per author for query : '+query,
+            chartArea:{left:0,top:20,width:"100%",height:"90%"},
             width:900,
             height:550,
             hAxis: {display:false,

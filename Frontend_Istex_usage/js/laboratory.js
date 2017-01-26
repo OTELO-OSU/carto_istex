@@ -18,6 +18,7 @@
       title: 'BubbleChart of publications per laboratory for query : '+query,
       width:900,
       height:550,
+      chartArea:{left:0,top:20,width:"100%",height:"90%"},
       hAxis: {display:false,
         viewWindowMode:'explicit',
         viewWindow
