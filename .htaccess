@@ -1,3 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ /Frontend_Istex_usage/src/index.php [QSA,L]
+
