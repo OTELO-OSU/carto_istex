@@ -44,8 +44,8 @@ L’utilisateur peut ensuite consulter les résultats sous forme de tableau dyna
 
 Pour l’aspect CSS le framework Semantic UI à été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsives rapidement. 
 Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
-Afin de réaliser des Bubblechart (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
-Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre de publications erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégorie, le nombre diffère selon la catégorie, en effet une publication peut avoir un auteur mais une mauvaise affiliation.
+Afin de réaliser des Bubblecharts (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
+Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre de publications erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publication peut avoir un auteur mais une mauvaise affiliation.
 
 
 
@@ -107,7 +107,7 @@ Passer la taille d'un item à maximum 24MO.
 			--istex 
 				--backend/controller contient les controllers ainsi que les dépendances nominatim  
 			--index.php : fichier de routes
-			--Multiquery.py
+			--Multiquery.py 
 			--Requestprocessing.py 
 		--vendor : contient les dépendances slim nécessaires au routage
 
@@ -120,7 +120,7 @@ Elle est composé de plusieurs fonctions:
 
 	- CurlRequest() : Prends en paramètre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
-	- Request_alldoc_querypagebypage(): Elle prends en paramètre la query ( les termes de recherche de l'utilisateur),Cette fonction vérifie si une réponse a la query est présente en cache, puis si aucun cache n'est présent, elle interroge l’API Istex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possède une affiliations correcte.
+	- Request_alldoc_querypagebypage(): Elle prends en paramètre la query ( les termes de recherche de l'utilisateur),Cette fonction vérifie si une réponse a la query est présente en cache, puis si aucun cache n'est présent, elle interroge l’API Istex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possède une affiliation correcte.
 
 	
 
@@ -137,7 +137,7 @@ Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
 
 	- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancées les différents tableaux dans un process chacun.
 
-	- split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
+	- split(): permet de découper un tableau python en plusieurs petits tableaux d'une taille donnée.
 
 	- Processing(): Fonction de tri et de curation des affiliations, lancé en parallèle dans chaque process.
 
@@ -171,7 +171,7 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 "Laboratoire de Géologie des bassins sédimentaires, Université Paris VI, 4 place Jussieu, Paris, France"
 
 Certaines affiliations contiennent des point-virgules comme séparateur, on transforme donc ceux ci en virgules.Le même traitement est effectué pour les tirets.
-L’affiliation est découpé en lots, chaque lot, ces lots sont « nettoyées » des caractères spéciaux et accents afin d’effectuer une comparaison optimal.
+L’affiliation est découpé en lots, ces lots sont « nettoyées » des caractères spéciaux et accents afin d’effectuer une comparaison optimal.
 
 Le couple laboratoire, institution est obtenus avec différents traitement selon la forme d’écriture de l’affiliation.
 Pour cela on utilise deux dictionnaires de données(Institution-All,Labo-All,voir le diagramme), un pour les laboratoires ainsi qu’un pour les institutions.
