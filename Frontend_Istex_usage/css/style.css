@@ -236,6 +236,13 @@ td{
 	width: 70px;
 }
 
+#logo{
+  width: 70px;
+}
+#title{
+  color: black;
+  margin-bottom: 14%
+}
 
 .loading_country{
 	display: none
