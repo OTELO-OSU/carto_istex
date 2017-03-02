@@ -27,25 +27,25 @@ l’impact des terres rares sur l'écosphère terrestre et aquatique.
 **Introduction**
 
 L’application Carto Istex permet la réalisation de cartographie d'informations à partir du réservoir de publications ISTEX suivant leurs provenances (Pays, Laboratoire) et leurs auteurs.
-Elle est composé d’un backend codé en PHP avec le micro-framework SLIM ainsi que d’un frontend codé en HTML,CSS ,JavaScript et de la librairie Jquery.
+Elle est composée d’un backend codé en PHP avec le micro-framework SLIM ainsi que d’un frontend codé en HTML,CSS ,JavaScript et de la librairie Jquery.
 
 
 **Principe de fonctionnement :**
 
 Un utilisateur effectue une recherche (query) dans le champ prévu à cet effet. Champ issu de l'intégration des widgets Istex-SNU.
-Différents appels POST AJAX, avec en paramètre la query, vont être envoyés vers le backend.
-Une réponse au format JSON va être retournée contenant les informations à traiter et à afficher.
-La réponse est traitée par les scripts JavaScript :, getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
+Différents appels POST AJAX, avec en paramètre la "query", vont être envoyés vers le backend.
+Une réponse de l'api ISTEX au format JSON va être retournée contenant les informations à traiter et à afficher.
+La réponse est traitée par les scripts JavaScript : getcountry pour les pays, getlaboratory pour les laboratoires ainsi que getauthor pour les auteurs.
 L’utilisateur peut ensuite consulter les résultats sous forme de tableau dynamique et paginé, ou sous forme de carte exportable en format PDF et/ou PNG.
 
 
 
 **Aspect de générale de l’application :**
 
-Pour l’aspect CSS le framework Semantic UI à été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsives rapidement. 
-Pour afficher une carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
+Pour l’aspect, le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsives légère et rapide. 
+Pour afficher la carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
 Afin de réaliser des Bubblecharts (Graphique à bulles) la librairie GoogleChart a été utilisée. L’utilisateur peut enregistrer le graphique généré au format PNG.
-Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux, ainsi on peut aisément effectuer une recherche dans les tableaux de résultat ou même les trier par ordre alphabétique ou par nombre. Le nombre de publications erronées , (publication possédant une affiliation qui ne peut être traité correctement) est affiché pour chaque catégories, le nombre diffère selon la catégorie, en effet une publication peut avoir un auteur mais une mauvaise affiliation.
+Le plugin Jquery Datatable a été utilisé pour rendre dynamique les tableaux ainsi la recherche dans les tableaux est facilitée. Il est même possible de trier ceux-ci par ordre alphabétique ou par nombre. Concernant le nombre de publications erronées (publication possédant une affiliation qui ne peut être traité correctement), il est affiché pour chaque catégories (pays, institution, auteur), le nombre diffère selon la catégorie, en effet une publication peut avoir un auteur mais une mauvaise affiliation.
 
 
 
@@ -59,7 +59,7 @@ Le plugin Jquery Datatable à été utilisé pour rendre dynamique les tableaux,
 
 PHP
 Memcached afin de gérer la mise en cache.
-Pour que la mise en cache fonctionne, il faut que l'extension memcached soit activée ainsi qu'un serveur memcached soit installé sur la machine hôte.
+Activer l'extension memcached sur la machine hôte.
 
 **Configuration de Memcached:**
 
@@ -95,7 +95,7 @@ Passer la taille d'un item à maximum 24MO.
 
 		- Installation de pylibmc (librairie python memcached)
 
-	Afin que les scripts python se lancent convenablement il faut s'assurer que www-data ai les droits pour exécuter les scripts.
+	Afin que les scripts python se lancent convenablement il faut s'assurer que www-data ait les droits pour exécuter les scripts.
 
 
 #Back-end:
@@ -115,51 +115,51 @@ Passer la taille d'un item à maximum 24MO.
 **Détails des différentes classes et fonctions PHP:**
 
 -**RequestController**: 
-Cette classe va permettre d'effectuer les requêtes vers l'api Istex et récupérer les données nécessaire au tri.
-Elle est composé de plusieurs fonctions:
+Cette classe va permettre d'effectuer les requêtes vers l'api Istex et récupérer les données nécessaires au tri.
+Elle est composée de plusieurs fonctions:
 
-	- CurlRequest() : Prends en paramètre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
+	- CurlRequest() : Prend en paramètre l'url ainsi que les options de type CURL, elle retourne les données de l'api Istex au format JSON.
 
-	- Request_alldoc_querypagebypage(): Elle prends en paramètre la query ( les termes de recherche de l'utilisateur),Cette fonction vérifie si une réponse a la query est présente en cache, puis si aucun cache n'est présent, elle interroge l’API Istex. Les affiliations sont en suite parser et comparer a un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possède une affiliation correcte.
+	- Request_alldoc_querypagebypage(): Elle prend en paramètre la requête (les termes de recherche de l'utilisateur),Cette fonction vérifie si une réponse à la requête est présente en cache, puis si aucun cache n'est présent, elle interroge l’API Istex. Les affiliations sont ensuite parsées et comparées à un dictionnaire de mots. Cette fonction retourne un tableau avec tous les documents qui possèdent une affiliation correcte.
 
 	
 
 -**LaboratoryController**:
-Cette classe permet de rassembler les laboratoires entre eux et ainsi les compter.
+Cette classe permet de rassembler les laboratoires entre eux et les compter.
 
 -**AuthorController**:
-Cette classe permet de rassembler les auteurs entre eux et ainsi les compter.
+Cette classe permet de rassembler les auteurs entre eux et les compter.
 
 
 
 **Détails du script python Requestprocessing (permettant un tri des affiliations en multiprocessing)**
 
 
-	- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancées les différents tableaux dans un process chacun.
+	- Main(): Fonction principale, découpage en tableau du json reçu, puis lancement du traitement des différents tableaux dans un process chacun.
 
 	- split(): permet de découper un tableau python en plusieurs petits tableaux d'une taille donnée.
 
 	- Processing(): Fonction de tri et de curation des affiliations, lancé en parallèle dans chaque process.
 
-	- Match_result_for_laboratory():Elle prends en paramètre un tableau qui est en fait les différentes partie de l’affiliation. Elle compare avec le dictionnaire puis retourne le résultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_laboratory():Elle prend en paramètre un tableau contenant un partie de l’affiliation. Elle compare avec le dictionnaire puis retourne le résultat si ok, sinon elle ne retourne rien.
 
-	- Search_for_labo():Recherche dans l'affiliation qui ne possède pas d'institution, un deuxième laboratoires.
+	- Search_for_labo():Recherche dans l'affiliation qui ne possède pas d'institution, un deuxième laboratoire.
 
-	- Search_for_university():Recherche dans l'affiliation qui ne possède pas de labo, une deuxième institution parmi la liste Institution-Major, sinon on considère comme NULL.
+	- Search_for_university():Recherche dans l'affiliation qui ne possède pas de labo, une deuxième institution parmi la liste Institution-Major, si pas de réponse, on considère comme NULL.
 
-	- Search_for_university_labo():Si on en a trouvé une, on la passe dans le tableau Institution -Labo, si match, on affiche deux institution différentes.
+	- Search_for_university_labo():Si on en trouv une, on la passe dans au tableau Institution-Labo, si OK, on affiche deux institutions différentes.
 
-	- Search_for_university_labo_and_inst():Si pas de match dans Search_for_university_labo(), on recherche dans Institution-institution, si il y a un match, on affiche 2 fois la même institution.
+	- Search_for_university_labo_and_inst():Si pas de resultat dans Search_for_university_labo(), on recherche dans la liste Institution-institution, si OK, on affiche 2 fois la même institution.
 
-	- Match_result_for_university():Elle prends en paramètre un tableau qui est en fait les différentes partie de l’affiliation. Elle compare avec le dictionnaire puis retourne le résultat qui a matché, sinon elle ne retourne rien.
+	- Match_result_for_university():Elle prend en paramètre un tableau contenant les différentes partie de l’affiliation. Elle compare avec le dictionnaire (liste) puis retourne le résultat si OK, sinon elle ne retourne rien.
 
 Les deux fonctions ci dessus permettent de s'assurer de la validité des affiliations.
 
 **Détails du script Multiquery qui permet d'interroger le serveur Nominatim en local(Sans passer par une surcouche http comme le propose l'API de base):**
 
-- split(): permet de découper un tableau python en plusieurs petit tableau d'une taille donnée.
+- split(): permet de découper un tableau python en plusieurs petits tableaux d'une taille donnée.
 
-- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancées les différents tableaux dans un process chacun.
+- Main(): Fonction principale, découpage en tableau du json reçu, afin de lancer les différents tableaux dans un process chacun.
 
 - Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parallèle dans chaque process.
 
@@ -171,14 +171,14 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 "Laboratoire de Géologie des bassins sédimentaires, Université Paris VI, 4 place Jussieu, Paris, France"
 
 Certaines affiliations contiennent des point-virgules comme séparateur, on transforme donc ceux ci en virgules.Le même traitement est effectué pour les tirets.
-L’affiliation est découpé en lots, ces lots sont « nettoyées » des caractères spéciaux et accents afin d’effectuer une comparaison optimal.
+L’affiliation est découpée en lots, ces lots sont « nettoyés » des caractères spéciaux et accents afin d’effectuer une comparaison optimale.
 
-Le couple laboratoire, institution est obtenus avec différents traitement selon la forme d’écriture de l’affiliation.
-Pour cela on utilise deux dictionnaires de données(Institution-All,Labo-All,voir le diagramme), un pour les laboratoires ainsi qu’un pour les institutions.
+Le couple laboratoire/institution est obtenu avec différents traitements selon la forme d’écriture de l’affiliation.
+Pour cela on utilise deux dictionnaires de données (Institution-All,Labo-All,voir le diagramme), un pour les laboratoires et l'autre pour les institutions.
 
 Cas général :
 
-En effet une affiliation peut avoir un couple laboratoire, institution, si les données contenue dans l’affiliation match avec celles contenue dans le dictionnaire de données , on obtient bien un couple laboratoire,institution.
+En effet une affiliation peut avoir un couple laboratoire/institution, si les données contenue dans l’affiliation correspondent à celles contenues dans le dictionnaire de données , on obtient bien un couple laboratoire/institution.
 
 Cas particuliers : 
 
@@ -188,7 +188,7 @@ Si une affiliation possèdent seulement un laboratoire une fois celle ci compar�
 
 Dans l’affiliation lors du passage avec les dictionnaires général, on obtient:
 - LABORATORY FOR GEOCHEMICAL RESEARCH	
-N’ayant pas d’institution, une recherche d’un autre laboratoire pouvant être considéré comme une institution va être lancé, on obtient :
+N’ayant pas d’institution, une recherche un autre laboratoire pouvant être considéré comme une institution , on obtient :
 - HUNGARIAN ACADEMY OF SCIENCES
 On va considérer que le terme academy est une institution.
 On vérifie que le laboratoire n’est pas égal à l’institution.
@@ -199,7 +199,7 @@ Laboratoire :LABORATORY FOR GEOCHEMICAL RESEARCH
 Insitution :HUNGARIAN ACADEMY OF SCIENCES
 
 
-Si une affiliation possèdent seulement une institution,on recherchera avec le dictionnaire (Institution-Major,dictionnaire d’institution confirmée)dans le cas ou un résultat ne match pas,on déclare vide le champs institution,sinon on le recherche dans le dictionnaire (Institution-Labo ,dictionnaires de nom pouvant être des laboratoires), si il y a un match alors on affiche l’institution trouvé avec le dictionnaire générale ainsi que la deuxième institution si elle n’est pas égal à la première.Si le résultat ne match pas, alors on recherche dans le dictionnaire (Institution-institution, dictionnaires d’institution étant des laboratoires) et s’il y a un match on affiche deux fois la même institution.
+Si une affiliation possède seulement une institution,on recherchera avec le dictionnaire (Institution-Major,dictionnaire d’institution confirmée); dans le cas ou un résultat ne correspond pas,on déclare vide le champs institution,sinon on le recherche dans le dictionnaire (Institution-Labo ,dictionnaires de nom pouvant être des laboratoires), si il y a une correspondance alors on affiche l’institution trouvée avec le dictionnaire général ainsi que la deuxième institution si elle n’est pas égal à la première.Si le résultat ne correspond toujours pas, alors on recherche dans le dictionnaire (Institution-institution, dictionnaires d’institution étant des laboratoires) et s’il y a une correspondance on affiche deux fois la même institution.
 
 **Exemple :**
 
@@ -224,23 +224,23 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 #Fonctionnement de la librairie Nominatim:
-Dans un but de gain de temps, l'interrogation de nominatim se fait par sa librairie,c'est à dire que la base de données Postgresql est interrogé directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
+Dans un objectif de gain de temps, l'interrogation de nominatim se fait par sa propre librairie,c'est à dire que la base de données Postgresql est interrogée directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
 Pour faire simple, la surcouche API a été retiré.
-Les résultats restent identique, mais en enlevant la couche http, on constate un gain de temps.
+Les résultats restent identiques, mais en enlevant la couche http, on constate une amélioration des temps de réponses.
 
 **Fonctionnement de Geocode**
 
-Premièrement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers on été ajouter au projet dans le dossier qui contient les controllers.
+Premièrement , il a  fallu recompiler le projet Nominatim afin d'obtenir un dossier build, et lib, ces dossiers ont été ajouté au projet dans le dossier qui contient les controllers.
 
 Le dossier lib contient la librairie Nominatim, et ses dépendances: Geocode.php , db.php....
 
-Le dossier build contient les settings, settings.php permet de définir sur quel BDD Postgresql nous allons travailler: 
+Le dossier build contient les settings, settings.php permet de définir sur quelle BDD Postgresql nous allons travailler: 
 
 	@define('CONST_Database_DSN', 'pgsql://USERNAME:PASSWORD@IP:5532/nominatim'); 
 
-Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche, celui ci ne recherche que dans les pays:
+Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche, on limite la recherche aux pays:
 
-	Exemple de query envoyé à nominatim:
+	Exemple de query envoyée à nominatim:
 	- USA
 	- U.S.A
 	- States of america
@@ -254,10 +254,10 @@ Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche,
 	retourneront:
 	- NULL
 
-Ce retour NULL est une modification volontaire de la librairie nominatim, afin d'optimiser la vitesse de traitement.
+Ce retour NULL est une modification volontaire de la librairie nominatim, afin d'optimiser les temps de réponses.
 Ainsi la recherche par pays se base uniquement sur les pays, nominatim permet d'uniformiser l'écriture.
 
-L'utilisateur peut s'il le souhaite utiliser la librairie non modifié, en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
+L'utilisateur peut s'il le souhaite utiliser la librairie non modifiée, en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
 
 
 	Exemple de query envoyé à nominatim:
@@ -300,14 +300,14 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 **Organisation du code:**
 
 	Frontend_Istex_usage
-		--css :contient la librairie Semantic UI ainsi que le css produit et les dépendances nécessaires au widget Istex
+		--css :contient la librairie Semantic UI ainsi que le css et les dépendances nécessaires au widget Istex
 		--img : contient les images
-		--js : contient les librairies utilisés ainsi que le code produit 
+		--js : contient les librairies utilisées ainsi que le code  
 		--leaflet : contient les fichiers relatif à l'utilisation de leaflet(js,img,css)
 		--src :contient les sources du frontend
 			--index.php : contient la routes vers la vue twig
 			--istex/frontend/templates contient les templates twig
-		--vendor: contient les dependances slim necessaires au routage
+		--vendor: contient les dépendances slim nécessaires au routage
 
 
 
@@ -338,7 +338,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 		Template affichant un tableau détaillé des publications pour chaque auteurs avec id et title de la publication dans un modal
 
 	- modal_laboratorys_table.html.twig:
-		Template affichant un tableau détaillé des publications pour chaque laboratoires avec id et title de la publication dans un modal
+		Template affichant un tableau détaillé des publications pour chaque laboratoire avec id et title de la publication dans un modal
 
 	- widget_istex.html.twig:
 		Inclusion du widget Istex avec des options définies
@@ -350,17 +350,17 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 	- authors.js
 	- country.js
 
-	Chaque script fait un appel ajax vers le backend afin de récupérer des données JSON qui seront ensuite traité.
-	Les appels Ajax se font dans cet ordre, il sont synchrone:
+	Chaque script fait un appel ajax vers le backend afin de récupérer des données JSON qui seront ensuite traitées.
+	Les appels Ajax se font dans cet ordre, il sont synchrones:
 	1)laboratorys
 	2)authors
 	3)countrys
 
-	Pour chaque script, les données sont traités et afficher sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
+	Pour chaque script, les données sont traitées et affichées sur Googlechart pour les auteurs et les laboratoires, Leaflet est utilisé pour afficher les pays sur une carte du monde.
 
-	Le widget Istex à été intégrer afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont trapper.
+	Le widget Istex a été intégré afin de pouvoir choisir différentes facets de recherche,les valeurs de chaque champs de ce widget sont capturées.
 
-	Dès qu'un changement est détecté, on envoie une requêtes vers le backend avec les paramètres choisi. 
+	Dès qu'un changement est détecté, on envoie une requête vers le backend avec les paramètres choisi. 
 
 
 #Diagrammes de séquences:
@@ -409,12 +409,12 @@ Pour l’exécuter, il faut installer Docker.
 
     	- sudo docker images
 
-    Prendre l'id de l'image générer et l'ajouter à cette commande qui va créer le container à partir de l'image:
+    Prendre l'id de l'image générée et l'ajouter à cette commande qui va créer le container à partir de l'image:
 
     	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE 
 
 
-    On récupéré l'id du container,
+    On récupére l'id du container,
 
     	- sudo docker ps 
 
