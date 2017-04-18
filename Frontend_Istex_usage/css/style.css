@@ -120,6 +120,9 @@ td{
 #warning{
 	display: none;
 }
+#warningcountry{
+  display: none;
+}
 
 #noresult{
 	display: none;

@@ -16,7 +16,7 @@ class CountryController
      */
 	function Sort_by_country($received_array,$noaff){
 		if (empty($received_array)) {
-			return "bad";
+			return "Error";
 		}
 		else{
 			$noaff=json_decode($noaff,true);
@@ -98,11 +98,13 @@ class CountryController
 		$json=json_encode($received_array);
 		$results= shell_exec('python Multiquery.py '.escapeshellarg($hash).' '.escapeshellarg($improve));
 		$results= json_decode($results);
-		foreach ($results as $key => $value) {
-			$value=json_decode($value,true);
-			$response_array[]=$value;
-		}
+		if ($results) {
+			foreach ($results as $key => $value) {
+				$value=json_decode($value,true);
+				$response_array[]=$value;
+			}
 		return $response_array;
+		}
 
 	}	
 }

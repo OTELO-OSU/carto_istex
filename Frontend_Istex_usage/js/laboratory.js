@@ -166,7 +166,8 @@ function reload_bubble_labo(parsed){
 function init_request(query){
         // remise a zero en cas de recherche simultané
         documentswithaffiliations=null;
-        $('#warning').hide();     
+        $('#warning').hide(); 
+        $('#warningcountry').hide();
         $('.loading_country').show();
         $('.loading_laboratory').show();
         $('.loading_authors').show();

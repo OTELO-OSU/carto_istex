@@ -15,6 +15,9 @@
           improve:improve
         }, // requete ajax sur le backend
         function(data){
+        	if (data=='"Error"') {
+        		$('#warningcountry').show();
+        	}
         	$('.leafletmap').attr('style', 'display: inline-block !important;')
         	$('#improve').attr('style', 'display: inline-block !important;')
             var parsed = JSON.parse(data); // transformation en JSON
