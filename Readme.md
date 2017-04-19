@@ -1,4 +1,4 @@
-#Projet Cartographie Istex usage OTELo
+# Projet Cartographie Istex usage OTELo
 
 **Présentation et objectifs**
 
@@ -55,7 +55,7 @@ Le plugin Jquery Datatable a été utilisé pour rendre dynamique les tableaux a
 
 
 
-#Langages et outils utilisés:
+# Langages et outils utilisés:
 
 PHP
 Memcached afin de gérer la mise en cache.
@@ -98,7 +98,7 @@ Passer la taille d'un item à maximum 24MO.
 	Afin que les scripts python se lancent convenablement il faut s'assurer que www-data ait les droits pour exécuter les scripts.
 
 
-#Back-end:
+# Back-end:
 
 **Organisation du code:**
 
@@ -363,7 +363,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 	Dès qu'un changement est détecté, on envoie une requête vers le backend avec les paramètres choisi. 
 
 
-#Diagrammes de séquences:
+# Diagrammes de séquences:
 
 Diagramme de séquences générale:
 
@@ -382,7 +382,7 @@ Diagramme de séquences du Frontend:
 
 
 
-#Docker 
+# Docker 
 
 **Un conteneur Docker est disponible:**
 
