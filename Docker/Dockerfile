@@ -16,7 +16,7 @@ RUN mv carto_istex /var/www/html/Projet_carto_istex
 
 RUN pear upgrade
 
-RUN pear install DB
+RUN pear install -f DB
 
 RUN pip install pylibmc
 
