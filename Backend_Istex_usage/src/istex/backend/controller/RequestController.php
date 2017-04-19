@@ -102,6 +102,7 @@ class RequestController
 			$response_array= array();// initialisation d'un tableau
 			$noaffiliations= array();// initialisation d'un tableau
 			$json=json_encode($result);
+
 			$cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
 
 			$results= shell_exec('python Requestprocessing.py '.escapeshellarg($hash));
