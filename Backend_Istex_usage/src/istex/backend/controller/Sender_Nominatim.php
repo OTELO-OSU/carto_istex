@@ -20,6 +20,7 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 
 	$aCMDResult=array();
 	if (empty($argv[1])) {
+		$oDB =& getDB();//import settings bdd
 		$array=array();
 		$array['country']="NULL";
 		$array['country_code']="NULL";
