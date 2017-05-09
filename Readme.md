@@ -400,7 +400,7 @@ Pour l’exécuter, il faut installer Docker.
 **Une fois Docker installé:**
     	
     	Récupérer les fichiers contenu dans le dossier Docker :
-	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docker
+	git clone https://github.com/arnouldpy/carto_istex/ && cd carto_istex/Docker/
 	exécuter la commande:
     	- sudo docker build .
    		Attendre la génération de l'image
