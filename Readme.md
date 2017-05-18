@@ -164,7 +164,7 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 - Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parallèle dans chaque process.
 
 
-#Détails du traitement des affiliations:
+# Détails du traitement des affiliations:
 
 **Présentation d’une affiliation :**
 
@@ -223,7 +223,7 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
-#Fonctionnement de la librairie Nominatim:
+# Fonctionnement de la librairie Nominatim:
 Dans un objectif de gain de temps, l'interrogation de nominatim se fait par sa propre librairie,c'est à dire que la base de données Postgresql est interrogée directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
 Pour faire simple, la surcouche API a été retiré.
 Les résultats restent identiques, mais en enlevant la couche http, on constate une amélioration des temps de réponses.
@@ -278,7 +278,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 
 
 
-#Front-end:
+# Front-end:
 
 **Librairie utilisé:**
 
