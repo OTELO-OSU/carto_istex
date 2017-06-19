@@ -147,9 +147,9 @@ Cette classe permet de rassembler les auteurs entre eux et les compter.
 
 	- Search_for_university():Recherche dans l'affiliation qui ne possède pas de labo, une deuxième institution parmi la liste Institution-Major, si pas de réponse, on considère comme NULL.
 
-	- Search_for_university_labo():Si on en trouv une, on la passe dans au tableau Institution-Labo, si OK, on affiche deux institutions différentes.
+	- Search_for_university_labo():Si on en trouve une, on la passe dans au tableau Institution-Labo, si OK, on affiche deux institutions différentes.
 
-	- Search_for_university_labo_and_inst():Si pas de resultat dans Search_for_university_labo(), on recherche dans la liste Institution-institution, si OK, on affiche 2 fois la même institution.
+	- Search_for_university_labo_and_inst():Si pas de résultat dans Search_for_university_labo(), on recherche dans la liste Institution-institution, si OK, on affiche 2 fois la même institution.
 
 	- Match_result_for_university():Elle prend en paramètre un tableau contenant les différentes partie de l’affiliation. Elle compare avec le dictionnaire (liste) puis retourne le résultat si OK, sinon elle ne retourne rien.
 
@@ -164,7 +164,7 @@ Les deux fonctions ci dessus permettent de s'assurer de la validité des affilia
 - Processing(): Fonction d'interrogation de nominatim faisant appel à un script php afin d'interroger la librairie PHP de Nominatim, lancé en parallèle dans chaque process.
 
 
-#Détails du traitement des affiliations:
+# Détails du traitement des affiliations:
 
 **Présentation d’une affiliation :**
 
@@ -223,7 +223,7 @@ Institution : GEOLOGICAL INSTITUTE
 
 
 
-#Fonctionnement de la librairie Nominatim:
+# Fonctionnement de la librairie Nominatim:
 Dans un objectif de gain de temps, l'interrogation de nominatim se fait par sa propre librairie,c'est à dire que la base de données Postgresql est interrogée directement par le script Sender_nominatim.php via la librairie Geocode de nominatim.
 Pour faire simple, la surcouche API a été retiré.
 Les résultats restent identiques, mais en enlevant la couche http, on constate une amélioration des temps de réponses.
@@ -278,7 +278,7 @@ Ainsi la recherche par pays se base sur les pays, état,région,département,vil
 
 
 
-#Front-end:
+# Front-end:
 
 **Librairie utilisé:**
 
@@ -400,7 +400,7 @@ Pour l’exécuter, il faut installer Docker.
 **Une fois Docker installé:**
     	
     	Récupérer les fichiers contenu dans le dossier Docker :
-	svn checkout https://github.com/arnouldpy/carto_istex/trunk/Docker
+	git clone https://github.com/arnouldpy/carto_istex/ && cd carto_istex/Docker/
 	exécuter la commande:
     	- sudo docker build .
    		Attendre la génération de l'image
