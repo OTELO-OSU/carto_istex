@@ -19,6 +19,7 @@ RUN mv memcached.conf /etc/memcached.conf\
 && chmod +x startup.sh\
 &&  mv  000-default.conf /etc/apache2/sites-enabled/000-default.conf \
 
+ENTRYPOINT ./startup.sh && /bin/bash
 
 
 

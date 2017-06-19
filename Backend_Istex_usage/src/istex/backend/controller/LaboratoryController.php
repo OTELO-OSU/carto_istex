@@ -46,7 +46,6 @@ class LaboratoryController
 			$result = array_diff($null, $verif);
 			$received_array[0]['empty']=$received_array[0]['noaff'];
 			$received_array[0]['noaff']=$received_array[0]['noaff']+count($result);
-
 			$laboratorywithid = array();
 
 

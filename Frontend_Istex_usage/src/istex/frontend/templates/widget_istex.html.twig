@@ -2,6 +2,7 @@
 
 <script>
     var istexConfig = {
+	istexApi:'https://api.istex.fr',
         titleLength: 80,
         abstractLength: 160,
         labels: {
@@ -28,7 +29,8 @@
                 'copyrightdate' : 'Début du copyright'
             }
         },
-    facetsToLoad: [ 'genre', 'corpusName','publicationDate','copyrightDate','language','wos','score'],
+
+    facetsToLoad: [ 'genre', 'corpusName','publicationDate','copyrightDate','language','categories.wos','score'],
         advancedToLoad: {
             'author.name':"",
             'host.editor.name':"",

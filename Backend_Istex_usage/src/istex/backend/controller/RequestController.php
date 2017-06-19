@@ -1,7 +1,7 @@
 <?php
 namespace istex\backend\controller;
 ini_set('memory_limit', '-1');
-
+$GLOBALS['URL'] = "https://api.istex.fr";
 
 
 class RequestController 
@@ -45,7 +45,7 @@ class RequestController
 		}
 		else{ // sinon on effectue la query
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
-		$url='https://api.istex.fr/document/?q='.$query.'&size=*&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
+		$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s';
 		$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
@@ -61,8 +61,7 @@ class RequestController
 			 if ($responseencoded->total>=5000) {  // Si les resultats de la requete son superieur a 5000
 			 	$response1 = json_decode(json_encode($responseencoded->hits),true); // Passage du format JSON en tableau php
 
-				
-				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
+				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,
@@ -74,7 +73,7 @@ class RequestController
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
 				
-				$url='https://api.istex.fr/document/?q='.$query.'&size=5000&from=10000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,wos,score';
+				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,
@@ -88,7 +87,6 @@ class RequestController
 				
 
 				
-	
 
 
 				$result = array_merge($response1, $response2,$response3); // on merge les differents tableau de reponse en un seul
@@ -97,12 +95,11 @@ class RequestController
 			 else{
 			 	$result=json_decode(json_encode($responseencoded->hits),true); // Si moins de 5000 resultats on garde le resultats de la premiere requetes
 			 }
-			
+
 			
 			$response_array= array();// initialisation d'un tableau
 			$noaffiliations= array();// initialisation d'un tableau
 			$json=json_encode($result);
-
 			$cache=$m->set($hash, $json, 120);// on set le tableau obtenu dans le cache
 
 			$results= shell_exec('python Requestprocessing.py '.escapeshellarg($hash));
