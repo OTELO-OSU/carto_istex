@@ -11,10 +11,10 @@ RUN pear upgrade && \
     a2enmod rewrite && \
     echo ServerName localhost >> /etc/apache2/apache2.conf
 
-RUN git clone https://github.com/arnouldpy/carto_istex.git /var/www/html/Projet_carto_istex
+COPY . /var/www/html/Projet_carto_istex/
 
-COPY memcached.conf /etc/memcached.conf
-COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY startup.sh /startup.sh
+COPY ./Docker/memcached.conf /etc/memcached.conf
+COPY ./Docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./Docker/startup.sh /startup.sh
 
 ENTRYPOINT /startup.sh
