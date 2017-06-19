@@ -401,7 +401,7 @@ docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
 ```
 
 Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
-|http://127.0.0.1:8080](http://127.0.0.1:8080)
+[http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
 
