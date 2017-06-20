@@ -2,23 +2,22 @@
 
 **Présentation et objectifs**
 
-Identifier les publications suivant plusieurs thésaurus sur les terres rares.
+Réaliser des cartographies d'informations à partir du réservoir de publication ISTEX 
 
-Cartographie de différentes informations: 
+Cartographies des : 
 			
-	- Publiant et domiciliation des auteurs.
+	- auteurs.
 			
-	- Localisation et type de gisements étudiés ou exploités de Terres Rares.
- 
-	- Nombre de publications sur les Terres Rares.
+	- Institutions/laboratoire
+	
+	- Pays 
 
-	- Disciplines, permettant de mettre en évidence la multidisciplinarité ou non autour des Terres Rares.
-
-	- Institutions ou entreprises s’intéressant aux Terres Rares.
+issus d'une recherche X. 
 
 **But**
 
-Ce projet permettra de compléter le travail bibliographique des chercheurs, doctorants et post-doctorants impliqués dans le projet sur les terres rares du sol à l'atmosphère, et des éléments de réponses complémentaires sur:
+Ce projet permettra de compléter le travail bibliographique des chercheurs, doctorants et post-doctorants impliqués dans leur projets.
+Dans le cadre du financement du projet ISTEX-Usage OTELo, ces cartographies permettront d'apporter un complément bibliographique sur les terres rares du sol à l'atmosphère, et des éléments de réponses complémentaires sur:
 
 La connaissance des processus géologiques intervenant dans l'enrichissement des terres rares,
 l’impact des terres rares sur l'écosphère terrestre et aquatique.
@@ -40,7 +39,7 @@ L’utilisateur peut ensuite consulter les résultats sous forme de tableau dyna
 
 
 
-**Aspect de générale de l’application :**
+**Aspect général de l’application :**
 
 Pour l’aspect, le framework Semantic UI a été choisi pour sa simplicité d’utilisation et sa bonne documentation. Il permet de réaliser des interfaces graphiques responsives légère et rapide. 
 Pour afficher la carte des pays, la librairie Leaflet a été choisie, pour sa simplicité d’utilisation ainsi que sa légèreté. L’utilisateur à la possibilité d’exporter la carte générée au format PDF ou même de l’imprimer.
