@@ -382,48 +382,28 @@ Diagramme de séquences du Frontend:
 
 
 
-# Docker 
+# Déployer carto_istex avec Docker 
 
-**Un conteneur Docker est disponible:**
+Pré-requis : avoir Docker d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
 
-Pour l’exécuter, il faut installer Docker.
+Récupérez ensuite le dépôt et construisez l'image docker qui sera nomée carto_istex :
 
-**Exemple pour ubuntu:**
+```
+git clone https://github.com/arnouldpy/carto_istex/
+cd carto_istex/Docker/
+docker build -t carto_istex_img .
+```
 
-		- sudo apt-get install apt-transport-https ca-certificates
-		- sudo apt-key adv \
-               --keyserver hkp://ha.pool.sks-keyservers.net:80 \
-               --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-        - sudo apt-get update
-        - sudo apt-get install docker-engine
+Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
 
-**Une fois Docker installé:**
-    	
-    	Récupérer les fichiers contenu dans le dossier Docker :
-	git clone https://github.com/arnouldpy/carto_istex/ && cd carto_istex/Docker/
-	exécuter la commande:
-    	- sudo docker build .
-   		Attendre la génération de l'image
+```
+docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
+```
 
-**Une fois l'image généré:**
+Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
+[http://127.0.0.1:8080](http://127.0.0.1:8080)
 
-    	- sudo docker images
+Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
 
-    Prendre l'id de l'image générée et l'ajouter à cette commande qui va créer le container à partir de l'image:
-
-    	- sudo docker run  -i -t -p 127.0.0.1:8080:80 IDHERE 
-
-
-    On récupére l'id du container,
-
-    	- sudo docker ps 
-
-    Pour l’arrêter:
-
-    	- sudo docker stop CONTAINERID
-
-    Pour exécuter des commandes:
-
-    	- sudo docker exec 
-
+TODO : préparamétrer un serveur Nominatim via un conteneur docker.
 ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
