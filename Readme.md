@@ -2,13 +2,13 @@
 
 **Présentation et objectifs**
 
-Réaliser des cartographies d'informations à partir du réservoir de publication ISTEX 
+Réaliser des cartographies d'informations à partir du réservoir de publications ISTEX 
 
 Cartographies des : 
 			
 	- auteurs.
 			
-	- Institutions/laboratoire
+	- Institutions/laboratoires
 	
 	- Pays 
 
