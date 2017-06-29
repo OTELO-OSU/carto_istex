@@ -1,8 +1,8 @@
 <?php
 //Import librairie nominatim
-use \Nominatim\ParameterParser as ParameterParser;
-use \Nominatim\Geocode as Geocode;
-require('build/settings/settings.php');
+//use \Nominatim\ParameterParser as ParameterParser;
+
+require('settings/settings.php');
 require('lib/init-cmd.php');
 
 // Choix de la librairie a utiliser si improve ou non
@@ -36,14 +36,11 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 		$aCMDResult["limit"]=2;
 		$name=$argv[1];//recuperation de l'argument(pays)
 		$oDB =& getDB();//import settings bdd
-		$oParams = new ParameterParser($aCMDResult);//import parser
-		$languages=$oParams->getPreferredLanguages("en");//on recupere les resultats en anglais
 		$oGeocode = new Geocode($oDB);//Objet Geocode
-		$oGeocode->setLanguagePreference($languages);//Set de la langue
-		$oGeocode->getIncludeAddressDetails();//on inclut les details des adresses pour plus de precision lors de la recherche
-		$oGeocode->loadParamArray($oParams);//On charge les parametres
+		$oGeocode->setLanguagePreference(getPreferredLanguages("en"));
 		$oGeocode->setQuery($name);//on set la query
 		$aSearchResults = $oGeocode->lookup();//on cherche
+
 		if (!count($aSearchResults)==0)//Si il y a un resultat
 		{	
 			if (empty($aSearchResults[0]['address']['country'])) {
