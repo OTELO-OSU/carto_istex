@@ -18,7 +18,8 @@ require('lib/ParameterParser.php');
 
 ini_set('max_execution_time', 2);//timeout 2 secondes
 
-	$aCMDResult=array();
+	$aCMDResult=array("addressdetails"=>true);
+$oParams = new Nominatim\ParameterParser($aCMDResult);
 	if (empty($argv[1])) {
 		$oDB =& getDB();//import settings bdd
 		$array=array();
@@ -36,8 +37,9 @@ ini_set('max_execution_time', 2);//timeout 2 secondes
 		$aCMDResult["limit"]=2;
 		$name=$argv[1];//recuperation de l'argument(pays)
 		$oDB =& getDB();//import settings bdd
-		$oGeocode = new Geocode($oDB);//Objet Geocode
-		$oGeocode->setLanguagePreference(getPreferredLanguages("en"));
+    		$oGeocode = new Nominatim\Geocode($oDB);//Objet Geocode
+		$oGeocode->setLanguagePreference($oParams->getPreferredLanguages("en"));
+    		$oGeocode->loadParamArray($oParams);
 		$oGeocode->setQuery($name);//on set la query
 		$aSearchResults = $oGeocode->lookup();//on cherche
 
