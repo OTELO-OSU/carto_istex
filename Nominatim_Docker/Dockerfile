@@ -17,14 +17,15 @@ RUN apt-get install -y build-essential cmake g++ libboost-dev libboost-system-de
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* /var/tmp/*
 
-RUN useradd -d /srv/nominatim -s /bin/bash -m nominatim && \
+ENV POSTGRESQL_PASSWORD nominatim
+
+RUN useradd -d /srv/nominatim -s /bin/bash -m nominatim -p $POSTGRESQL_PASSWORD && \
 PATH="/usr/lib/postgresql/9.5/bin:$PATH"
 
 # Configure postgres
 RUN echo "host nominatim  nominatim    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf && \
-    echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
+    echo "listen_addresses='carto_istex_nominatim,localhost'" >> /etc/postgresql/9.5/main/postgresql.conf
 
-ENV POSTGRESQL_PASSWORD nominatim
 
 RUN service postgresql start && \
  sudo -u postgres createuser -s nominatim && \
