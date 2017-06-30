@@ -400,7 +400,9 @@ docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
 ```
 Vous pouvez installer un serveur Nominatim avec un conteneur docker disponible dans le dossier Nominatim_Docker
 La version de nominatim dans ce docker est la V3.0.0.
+
 Il vous faut dcoker-compose installer pour continuer.
+
 Prensez a modifier le mot de passe dans le Dockerfile  ENV POSTGRESQL_PASSWORD MOTDEPASSE
 Vous pouvez installer tout le projet:
 
