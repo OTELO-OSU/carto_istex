@@ -24,9 +24,12 @@ PATH="/usr/lib/postgresql/9.5/bin:$PATH"
 RUN echo "host nominatim  nominatim    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf && \
     echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
 
+ENV POSTGRESQL_PASSWORD nominatim
+
 RUN service postgresql start && \
  sudo -u postgres createuser -s nominatim && \
- sudo -u postgres createuser www-data
+ sudo -u postgres psql -c "ALTER USER nominatim WITH PASSWORD '$POSTGRESQL_PASSWORD';"
+
 
 # Nominatim install
 
