@@ -1,0 +1,18 @@
+version: '2'
+services:
+  carto_istex:
+    build: .
+    image: carto_istex_img
+    container_name: carto_istex
+    links: 
+     - carto_istex_nominatim_img
+    ports:
+     - "8080:80"
+   
+  carto_istex_nominatim_img:
+    image: carto_istex_nominatim_img
+    build: ./Nominatim_Docker
+    container_name: carto_istex_nominatim
+    ports:
+     - "5432:5432"
+
