@@ -402,6 +402,7 @@ Vous pouvez installer un serveur Nominatim avec un conteneur docker disponible d
 La version de nominatim dans ce docker est la V3.0.0.
 
 Vous pouvez installer tout le projet:
+
 	- Docker de Carto_istex
 	- Docker de Nominatim 3.0.0
 en effectuant la commande 
@@ -413,6 +414,7 @@ qui va se charger de construire les différentes images et les liers entre elles
 Une fois la generation effectué, il ne vous reste plus executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
 
 Script d'initialisation disponible:
+
 	- install_small.sh (Script initialisant la base nominatim avec les données de Monaco, dedié au tests).
 	- install_planet.sh (Script initialisant la base nominatim avec les données de la planete entière, dedié a la production,ATTENTION: le delais d'indexation peut prendre plusieurs jour, selon votre machine).
 
