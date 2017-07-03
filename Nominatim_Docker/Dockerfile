@@ -26,18 +26,14 @@ PATH="/usr/lib/postgresql/9.5/bin:$PATH"
 RUN echo "host nominatim  nominatim    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf && \
     echo "listen_addresses='carto_istex_nominatim,localhost'" >> /etc/postgresql/9.5/main/postgresql.conf
 
-
 RUN service postgresql start && \
  sudo -u postgres createuser -s nominatim && \
  sudo -u postgres psql -c "ALTER USER nominatim WITH PASSWORD '$POSTGRESQL_PASSWORD';"
 
-
 # Nominatim install
-
 RUN wget http://www.nominatim.org/release/Nominatim-3.0.0.tar.bz2 && \
 tar xf Nominatim-3.0.0.tar.bz2 
 WORKDIR Nominatim-3.0.0
-
 RUN mkdir build 
 WORKDIR build 
 RUN cmake .. && \
@@ -51,7 +47,5 @@ COPY install_custom.sh install_custom.sh
 RUN chmod +x  install_small.sh && \
     chmod +x install_planet.sh && \
     chmod +x install_custom.sh
-
-
 COPY start.sh /start.sh
 ENTRYPOINT /start.sh
