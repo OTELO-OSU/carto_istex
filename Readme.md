@@ -383,11 +383,9 @@ Diagramme de séquences du Frontend:
 
 # Déployer carto_istex avec Docker 
 
-Pré-requis : 
+Pré-requis : avoir Docker et docker-compose d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
 	
-	- avoir Docker d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
 	
-	-  docker-compose
 
 
 Récupérez ensuite le dépôt :
