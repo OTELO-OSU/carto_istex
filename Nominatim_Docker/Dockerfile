@@ -44,7 +44,6 @@ RUN cmake .. && \
 ADD install_small install_small
 ADD install_planet install_planet
 
-EXPOSE 5432
 
 COPY install_small.sh install_small.sh
 COPY install_planet.sh install_planet.sh
