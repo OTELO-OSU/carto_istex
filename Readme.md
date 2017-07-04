@@ -402,6 +402,7 @@ Vous pouvez installer un serveur Nominatim avec un conteneur docker disponible d
 La version de nominatim dans ce docker est la V3.0.0.
 
 Il vous faut docker-compose installer pour continuer.
+Par défaut, l'application carto-istex est mappé sur le port 8080 , le serveur postgresql de nominatim sur le 5432 , si vous souhaitez modifié ce port, vous devez editer le Dockerfile, ainsi que docker-compose.yml
 
 Prensez a modifier le mot de passe dans le Dockerfile  ENV POSTGRESQL_PASSWORD MOTDEPASSE
 Vous pouvez installer tout le projet:
@@ -415,6 +416,11 @@ docker-compose up
 qui va se charger de construire les différentes images et les liers entre elles.
 
 Une fois la generation effectué, il ne vous reste plus executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
+Pour cela executer la commande:
+```
+docker exec -it carto_istex_nominatim /bin/bash
+Une fois dans le docker executer le script d'initialisation de votre choix  (voir ci dessous)
+```
 
 Script d'initialisation disponible:
 
