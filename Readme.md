@@ -383,38 +383,42 @@ Diagramme de séquences du Frontend:
 
 # Déployer carto_istex avec Docker 
 
-Pré-requis : avoir Docker d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
+Pré-requis : avoir Docker et docker-compose d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
+	
+	
 
-Récupérez ensuite le dépôt et construisez l'image docker qui sera nomée carto_istex :
+
+Récupérez ensuite le dépôt :
 
 ```
 git clone https://github.com/arnouldpy/carto_istex/
-cd carto_istex/Docker/
-docker build -t carto_istex_img .
+cd carto_istex/
 ```
 
-Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
 
-```
-docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
-```
-Vous pouvez installer un serveur Nominatim avec un conteneur docker disponible dans le dossier Nominatim_Docker
-La version de nominatim dans ce docker est la V3.0.0.
+La version de nominatim dans ce docker est la V3.0.0.Si vous souhaiter utiliser une version plus recente, suivez la procédure de mise a niveau décrite dans le README du dossier NOMINATIM_DOCKER
 
-Il vous faut dcoker-compose installer pour continuer.
+Par défaut, l'application carto-istex est mappé sur le port 8080 , le serveur postgresql de nominatim sur le 5432 , si vous souhaitez modifié ce port, vous devez editer le Dockerfile, ainsi que docker-compose.yml
 
-Prensez a modifier le mot de passe dans le Dockerfile  ENV POSTGRESQL_PASSWORD MOTDEPASSE
+Prensez aussi a choisir un mot de passe dans le Dockerfile  ENV POSTGRESQL_PASSWORD MOTDEPASSE
+
 Vous pouvez installer tout le projet:
 
 	- Docker de Carto_istex
 	- Docker de Nominatim 3.0.0
+	
 en effectuant la commande 
 ```
 docker-compose up
 ```
 qui va se charger de construire les différentes images et les liers entre elles.
 
-Une fois la generation effectué, il ne vous reste plus executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
+Une fois la generation effectué, il ne vous reste plus qu'a executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
+Pour cela executer la commande:
+```
+docker exec -it carto_istex_nominatim /bin/bash
+Une fois dans le docker executer le script d'initialisation de votre choix  (voir ci dessous)
+```
 
 Script d'initialisation disponible:
 
@@ -424,6 +428,19 @@ Script d'initialisation disponible:
 
 Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
+
+Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
+
+Récupérez  le dépôt et construisez l'image docker qui sera nomée carto_istex :
+```
+git clone https://github.com/arnouldpy/carto_istex/
+cd carto_istex/Docker/
+docker build -t carto_istex_img .
+```
+Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
+```
+docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
+```
 
 Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
 
