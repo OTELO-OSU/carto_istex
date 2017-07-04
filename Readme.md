@@ -392,7 +392,7 @@ Récupérez ensuite le dépôt :
 
 ```
 git clone https://github.com/arnouldpy/carto_istex/
-cd carto_istex/Docker/
+cd carto_istex/
 ```
 
 
