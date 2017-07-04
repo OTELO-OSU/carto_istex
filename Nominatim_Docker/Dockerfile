@@ -9,7 +9,7 @@ RUN apt-get update -qq && \
 # Install packages 
 RUN apt-get install -y build-essential cmake g++ libboost-dev libboost-system-dev \
                         libboost-filesystem-dev wget curl libexpat1-dev zlib1g-dev libxml2-dev\
-                        libbz2-dev libpq-dev libgeos-dev libgeos++-dev libproj-dev \
+                        libbz2-dev libpq-dev libgeos-dev libgeos++-dev libproj-dev  build-essential python-dev python-setuptools libboost-python-dev libboost-thread-dev python-pip \
                         postgresql-server-dev-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 \
                         apache2 php php-pgsql sudo libapache2-mod-php php-pear php-db \
                         php-intl git && \
@@ -31,6 +31,7 @@ RUN service postgresql start && \
  sudo -u postgres psql -c "ALTER USER nominatim WITH PASSWORD '$POSTGRESQL_PASSWORD';"
 
 # Nominatim install
+
 RUN wget http://www.nominatim.org/release/Nominatim-3.0.0.tar.bz2 && \
 tar xf Nominatim-3.0.0.tar.bz2 
 WORKDIR Nominatim-3.0.0
@@ -38,6 +39,10 @@ RUN mkdir build
 WORKDIR build 
 RUN cmake .. && \
  make
+
+
+ADD install_small install_small
+ADD install_planet install_planet
 
 EXPOSE 5432
 
