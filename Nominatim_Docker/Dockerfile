@@ -1,6 +1,5 @@
 FROM ubuntu:16.04
 MAINTAINER Anthony Guiot<anthony.guiot@univ-lorraine.fr>
-
 RUN apt-get update -qq && \
     apt-get install locales && \
     locale-gen en_US.UTF-8 && \
@@ -17,8 +16,7 @@ RUN apt-get install -y build-essential cmake g++ libboost-dev libboost-system-de
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* /var/tmp/*
 
-ENV POSTGRESQL_PASSWORD nominatim
-
+ENV POSTGRESQL_PASSWORD n0m!n@tim
 RUN useradd -d /srv/nominatim -s /bin/bash -m nominatim -p $POSTGRESQL_PASSWORD && \
 PATH="/usr/lib/postgresql/9.5/bin:$PATH"
 
@@ -43,8 +41,9 @@ RUN cmake .. && \
 
 ADD install_small install_small
 ADD install_planet install_planet
-
-
+COPY changepassword.php changepassword.php
+COPY settings.php /settings/settings.php
+RUN php changepassword.php '$POSTGRESQL_PASSWORD'
 COPY install_small.sh install_small.sh
 COPY install_planet.sh install_planet.sh
 COPY install_custom.sh install_custom.sh

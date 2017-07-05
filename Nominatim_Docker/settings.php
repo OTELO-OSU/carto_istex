@@ -1,6 +1,6 @@
 <?php
-@define('CONST_BasePath', 'istex/backend/controller');
-@define('CONST_InstallPath', 'istex/backend/controller/build');
+@define('CONST_BasePath', '/Nominatim-3.0.0');
+@define('CONST_InstallPath', '/Nominatim-3.0.0/build');
 if (file_exists(getenv('NOMINATIM_SETTINGS'))) require_once(getenv('NOMINATIM_SETTINGS'));
 if (file_exists(CONST_InstallPath.'/settings/local.php')) require_once(CONST_InstallPath.'/settings/local.php');
 if (isset($_GET['debug']) && $_GET['debug']) @define('CONST_Debug', true);
@@ -120,3 +120,4 @@ if (isset($_GET['debug']) && $_GET['debug']) @define('CONST_Debug', true);
 @define('CONST_Log_DB', false);
 // Set to a file name to enable logging to a file.
 @define('CONST_Log_File', false);
+
