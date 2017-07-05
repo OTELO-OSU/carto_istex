@@ -15,6 +15,8 @@ en effet comme expliqué dans le readme du projet, dans un soucis de temps de tr
 
 # IMPORTANT : Librairie Geocode
 
+La librairie Geocode permet d'effectuer la recherche d'un mot clé dans la base, dans le projet carto_istex, il existe une version modifié qui permet de recherche uniquement au niveau pays (comme expliquer dans la documentation).
+Lors d'une mise à jour de la version nominatim , il est necessaire de recréer cette version modifié en suivant les instructions suivantes:
 
 
 
