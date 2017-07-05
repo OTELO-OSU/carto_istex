@@ -19,6 +19,5 @@ services:
     build: ./Nominatim_Docker
     container_name: carto_istex_nominatim
    
-    ports:
-     - "5432:5432"
+   
  
