@@ -4,21 +4,17 @@
 
 require('settings/settings.php');
 require('lib/init-cmd.php');
-
-// Choix de la librairie a utiliser si improve ou non
+require('lib/Geocode.php');
+require('lib/ParameterParser.php');
+// Choix de la feature a utiliser si improve ou non
 if ($argv[2]) {
-	require('lib/GeocodeImproved.php');
-
+        $aCMDResult=array("addressdetails"=>true);
 }
 else{
-	require('lib/Geocode.php');
+        $aCMDResult=array("addressdetails"=>true,"featureType"=>"country");
 }
-
-require('lib/ParameterParser.php');
-
 ini_set('max_execution_time', 2);//timeout 2 secondes
 
-	$aCMDResult=array("addressdetails"=>true);
 $oParams = new Nominatim\ParameterParser($aCMDResult);
 	if (empty($argv[1])) {
 		$oDB =& getDB();//import settings bdd
