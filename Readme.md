@@ -253,10 +253,10 @@ Afin d'optimiser le fonctionnement de Nominatim, lors d'une première recherche,
 	retourneront:
 	- NULL
 
-Ce retour NULL est une modification volontaire de la librairie nominatim, afin d'optimiser les temps de réponses.
+Ce retour NULL est une obtenu en precisant la featuretype dans le script SenderNominatim.php, on peut y sécifier: country, city,state, afin d'optimiser les temps de réponses.
 Ainsi la recherche par pays se base uniquement sur les pays, nominatim permet d'uniformiser l'écriture.
 
-L'utilisateur peut s'il le souhaite utiliser la librairie non modifiée, en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
+L'utilisateur peut s'il le souhaite rechercher dans toute la base (ce qui impactera le temps de réponse), en cliquant sur le bouton "improve" une fois le premier passage Nominatim effectué.
 
 
 	Exemple de query envoyé à nominatim:
