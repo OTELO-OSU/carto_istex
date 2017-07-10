@@ -20,6 +20,27 @@ Lors d'une mise à jour de la version nominatim , il est necessaire de recréer 
 
 
 
+Faites une copie de Geocode.php et renommer la copie en GeocodeImproved.php
+
+
+Maintenant, modifiez cette partie du fichier Geocode.php:   
+
+    $aViewBoxPlaceIDs = chksql(                         
+         $this->oDB->getAll($sSQL),		
+          "Could not get places for search terms."		
+    );
+
+en 
+
+     $aViewBoxPlaceIDs = [];
+                              
+Voila , la librairie est modifie pour ne prendre que les pays de base.
+
+
+
+
+
+
 
 Il vous faudra ensuite regenerer les deux images docker (carto_istex_img et carto_istex_nominatim_img).
 
