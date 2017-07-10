@@ -10,7 +10,7 @@ services:
     links: 
      - carto_istex_nominatim_img
     ports:
-     - "8080:80"
+     - "127.0.0.1:8080:80"
     restart: always
 
    
@@ -18,6 +18,7 @@ services:
     image: carto_istex_nominatim_img
     build: ./Nominatim_Docker
     container_name: carto_istex_nominatim
+    restart: always
    
    
  
