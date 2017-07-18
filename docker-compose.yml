@@ -5,6 +5,7 @@ services:
     image: memcached_img
     build: ./Memcached_Docker
     container_name: memcached
+    command: memcached -m 3096m -I 32M
 
   carto_istex:
     image: carto_istex_img
@@ -28,6 +29,7 @@ services:
     volumes:
       - postgresql_nominatim:/var/lib/postgresql/9.5/main
       - config_nominatim:/Nominatim-3.0.0/build/settings
+
 
 
 volumes:
