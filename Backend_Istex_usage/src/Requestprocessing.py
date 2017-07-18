@@ -223,7 +223,7 @@ arraytmp={}
 #Fonction main
 
 def main():
-    mc = pylibmc.Client(["127.0.0.1"])
+    mc = pylibmc.Client(["memcached"])
     jsondata = mc.get(sys.argv[1])
     listes_re= json.loads(jsondata)
     listes=split(listes_re,1000)

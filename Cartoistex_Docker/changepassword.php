@@ -1,6 +1,6 @@
 <?php
 $PASSWORD=urlencode($argv[1]);
-$file = 'var/www/html/Projet_carto_istex/Backend_Istex_usage/src/istex/backend/controller/settings/settings.php';
+$file = '/var/www/html/Projet_carto_istex/Backend_Istex_usage/src/istex/backend/controller/settings/settings.php';
 
 $current = file_get_contents($file);
 

@@ -5,4 +5,4 @@ sudo -u nominatim ./utils/setup.php --osm-file data.osm.pbf --all --threads 2
 
 sudo -u postgres createuser www-data
 
-sudo -u nominatim -H ./utils/update.php --import-osmosis-all
+exec sudo -u nominatim -H ./utils/update.php --import-osmosis-all

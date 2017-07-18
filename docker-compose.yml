@@ -1,5 +1,11 @@
 version: '3.3'
 services:
+
+  memcached_img:
+    image: memcached_img
+    build: ./Memcached_Docker
+    container_name: memcached
+
   carto_istex:
     image: carto_istex_img
     build: .
@@ -7,18 +13,24 @@ services:
  
     depends_on:
      - carto_istex_nominatim_img
+     - memcached_img
     links: 
      - carto_istex_nominatim_img
+     - memcached_img
     ports:
      - "127.0.0.1:8080:80"
-    restart: always
 
    
   carto_istex_nominatim_img:
     image: carto_istex_nominatim_img
     build: ./Nominatim_Docker
     container_name: carto_istex_nominatim
-    restart: always
-   
-   
+    volumes:
+      - postgresql_nominatim:/var/lib/postgresql/9.5/main
+      - config_nominatim:/Nominatim-3.0.0/build/settings
+
+
+volumes:
+  postgresql_nominatim: {}
+  config_nominatim : {}
  

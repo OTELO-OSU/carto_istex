@@ -37,7 +37,7 @@ class RequestController
 		//$curl = curl_init(); // initialisation de curl
 		$hash= md5($query); // on hash la query
 		$m = new \Memcached(); // initialisation memcached
-		$m->addServer('localhost', 11211); // ajout server memecached
+		$m->addServer('memcached', 11211); // ajout server memecached
 		$m->setOption(\Memcached::OPT_COMPRESSION, false);
 		$cache=$m->get($hash);//on lit la memoire
 		if ($cache) { // si présent dans la memoire on retourne le cache

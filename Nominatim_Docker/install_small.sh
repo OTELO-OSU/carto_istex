@@ -10,4 +10,4 @@ sudo -u nominatim -H ./utils/update.php --init-updates
 
 
 
-sudo -u nominatim -H ./utils/update.php --import-osmosis-all
+exec sudo -u nominatim -H ./utils/update.php --import-osmosis-all

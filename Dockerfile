@@ -1,24 +1,20 @@
-FROM debian:jessie
+FROM php:5.6.30-apache
 
 ENV POSTGRESQL_PASSWORD nominatim
-
+RUN rm -f /etc/apache2/mods-available/php5.load
 RUN apt-get update && \
-    apt-get install -y php5 php5-memcached git libapache2-mod-php5 php5-mysql php5-pgsql \
-                       php5-cli php5-curl php5-intl php-pear memcached  python-pip libmemcached-dev python-dev zlib1g-dev && \
+    apt-get install -y  python-pip libmemcached-dev python-dev zlib1g-dev libapache2-mod-php5 php5-memcached php-pear php5-cli php-db php5-curl php5-pgsql php5-intl && \
     apt-get clean
 
-RUN pear upgrade && \
-    pear install -f DB && \
+
+RUN pear install -f DB && \
     pip install pylibmc && \
-    a2enmod rewrite && \
-    echo ServerName localhost >> /etc/apache2/apache2.conf
+    a2enmod rewrite 
+
+    
 
 COPY . /var/www/html/Projet_carto_istex/
 
-COPY ./Docker/changepassword.php /changepassword.php
-RUN php changepassword.php $POSTGRESQL_PASSWORD
-COPY ./Docker/memcached.conf /etc/memcached.conf
-COPY ./Docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY ./Docker/startup.sh /startup.sh
+RUN php Projet_carto_istex/Cartoistex_Docker/changepassword.php $POSTGRESQL_PASSWORD
+COPY ./Cartoistex_Docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-ENTRYPOINT /startup.sh

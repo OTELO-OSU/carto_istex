@@ -33,7 +33,7 @@ def split(arr, size):
 def processing(liste,send_end):
     array=[] #Definition tableau vide
     country=None
-    mc = pylibmc.Client(["127.0.0.1"]) #Connexion à memcached
+    mc = pylibmc.Client(["memcached"]) #Connexion à memcached
     for item in liste:
         if item["country"] is None:
             country="NULL"
@@ -49,7 +49,7 @@ def processing(liste,send_end):
             
             countrycached = mc.get(hashed)
             if countrycached == None:
-                script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                script_response = subprocess.Popen(["php5","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 (stdout, stderr) = script_response.communicate()
                 script_response.wait()
                 script_response =stdout
@@ -69,7 +69,7 @@ def processing(liste,send_end):
             else:
                 if improved=="improved":
                     if countrycached=='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL"}':
-                        script_response = subprocess.Popen(["php","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        script_response = subprocess.Popen(["php5","istex/backend/controller/Sender_Nominatim.php",country,improved],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                         (stdout, stderr) = script_response.communicate()
                         script_response.wait()
                         script_response =stdout
@@ -103,7 +103,7 @@ pipe_list=[]
 
 #Fonction main
 def main():
-    mc = pylibmc.Client(["127.0.0.1"])
+    mc = pylibmc.Client(["memcached"])
     jsondata = mc.get(sys.argv[1])
     listes= json.loads(jsondata)
     listes=split(listes[1],500)

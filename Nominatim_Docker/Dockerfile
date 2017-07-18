@@ -20,6 +20,7 @@ ENV POSTGRESQL_PASSWORD nominatim
 RUN useradd -d /srv/nominatim -s /bin/bash -m nominatim -p $POSTGRESQL_PASSWORD && \
 PATH="/usr/lib/postgresql/9.5/bin:$PATH"
 
+
 # Configure postgres
 RUN echo "host nominatim  nominatim    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf && \
     echo "listen_addresses='carto_istex_nominatim,localhost'" >> /etc/postgresql/9.5/main/postgresql.conf
@@ -47,8 +48,10 @@ RUN php changepassword.php '$POSTGRESQL_PASSWORD'
 COPY install_small.sh install_small.sh
 COPY install_planet.sh install_planet.sh
 COPY install_custom.sh install_custom.sh
+COPY update_nominatim_database.sh update_nominatim_database.sh
 RUN chmod +x  install_small.sh && \
     chmod +x install_planet.sh && \
-    chmod +x install_custom.sh
-COPY start.sh /start.sh
-ENTRYPOINT /start.sh
+    chmod +x install_custom.sh && \
+    chmod +x update_nominatim_database.sh
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
