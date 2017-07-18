@@ -432,6 +432,12 @@ Ainsi que carto_istex_config_nominatim qui stocke le fichier de config des updat
 Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
+NB:
+Lors d'un changement de base , pensez à supprimer less volumes créé précèdemment avec la commande: 
+```
+docker volumes rm VOLUME_NAME
+```
+
 Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
 
 Récupérez  le dépôt et construisez l'image docker qui sera nomée carto_istex :
