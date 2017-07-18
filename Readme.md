@@ -403,7 +403,7 @@ Par défaut, l'application carto-istex est mappé sur le port 8080 , si vous sou
 Prensez aussi à choisir un mot de passe dans le Dockerfile présent dans le dossier Nominatim_Docker ainsi que dans le dossier Cartoistex_Docker  ENV POSTGRESQL_PASSWORD MOTDEPASSE
 
 Vous pouvez installer tout le projet:
-
+	- Docker de memcached
 	- Docker de Carto_istex
 	- Docker de Nominatim 3.0.0
 	
