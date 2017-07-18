@@ -426,6 +426,9 @@ Script d'initialisation disponible:
 	- install_planet.sh (Script initialisant la base nominatim avec les données de la planete entière, dedié a la production,ATTENTION: le delais d'indexation peut prendre plusieurs jour, selon votre machine).
 	- install_custom.sh (Script initialisant la base nominatim qui prends une URL d'un fichier de données osm.pbf en paramètre)
 
+Deux volumes seront créé, un pour la persistance de la base de données de nominatim: carto_istex_postgresql_nominatim.
+Ainsi que carto_istex_config_nominatim qui stocke le fichier de config des update de nominatim.
+
 Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
@@ -439,10 +442,11 @@ docker build -t carto_istex_img .
 ```
 Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
 ```
-docker run -it --name carto_istex -p 127.0.0.1:8080:80 carto_istex_img
+docker run -it --name memcached memcached_img
+docker run -it --name carto_istex --link memcached -p 127.0.0.1:8080:80 carto_istex_img
 ```
+ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
 
 Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
 
-TODO : préparamétrer un serveur Nominatim via un conteneur docker.
-ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
+
