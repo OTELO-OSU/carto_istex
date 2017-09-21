@@ -177,6 +177,10 @@ td{
 	cursor: pointer;
 }
 
+#footer{
+  background-color: #00B5AD;
+}
+
 .command_authors a{
 	cursor: pointer;
 }
