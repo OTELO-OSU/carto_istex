@@ -45,7 +45,7 @@ class RequestController
 		}
 		else{ // sinon on effectue la query
 		$query=rawurlencode($query); //encodage des caracteres d'espacers pour les passer dans l'url
-		$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s';
+		$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&sid=carto-istex';
 		$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
@@ -61,7 +61,7 @@ class RequestController
 			 if ($responseencoded->total>=5000) {  // Si les resultats de la requete son superieur a 5000
 			 	$response1 = json_decode(json_encode($responseencoded->hits),true); // Passage du format JSON en tableau php
 
-				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'';
+				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'&sid=carto-istex';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,
@@ -73,7 +73,7 @@ class RequestController
 				$response2 = json_decode(json_encode($response2->hits),true); 
 
 				
-				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'';
+				$url=$GLOBALS['URL'].'/document/?q='.$query.'&size=5000&defaultOperator=AND&output=id,author.affiliations,author.name,title&facet=genre,corpusName,publicationDate,copyrightDate,language,categories.wos,qualityIndicators.score&scroll=60s&scrollId='.$responseencoded->scrollId.'&sid=carto-istex';
 				$curlopt=array(CURLOPT_RETURNTRANSFER => true,
 			 	 CURLOPT_ENCODING => "",
 			  	CURLOPT_MAXREDIRS => 10,
