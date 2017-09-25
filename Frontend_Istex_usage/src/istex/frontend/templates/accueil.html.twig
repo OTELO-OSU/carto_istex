@@ -1,46 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
-	<title>Cartographie ISTEX usage</title>
-	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/semantic/dist/semantic.min.css">
-	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/rzslider.css">
-  <script src="../../Frontend_Istex_usage/js/jquery.min.js"></script>
-  <link rel="stylesheet" href="../../Frontend_Istex_usage/css/navbar.css">
-  <link rel="stylesheet" href="../../Frontend_Istex_usage/leaflet/leaflet.css" />
-  <script src="../../Frontend_Istex_usage/leaflet/leaflet.js"></script>
-  <script src="../../Frontend_Istex_usage/js/print.js"></script>
-  <script src="../../Frontend_Istex_usage/js/modal.js"></script>
-	<link rel="stylesheet" type="text/css" href="../../Frontend_Istex_usage/css/style.min.css">
 
-</head>
-
-<body>
-<header id="header"></header>
-     <nav id="example">
-          <div class="navbar ui inverted teal menu ">
-              
-                <div class="item">
-                  <img id="logo" class="ui small image"  src="../../Frontend_Istex_usage/img/logo_carto_istex.png"  alt="Carto_Istex"/>
-    </div>
-                  <h1 id="title">Carto Istex</h1>
-                
-                <div id='logos' class="navbar-menu right menu">
-                     <div class="item">
-                    <img id="ul" class="ui small image"  src="../../Frontend_Istex_usage/img/UL_logo.png"  alt="Université de lorraine"/>
-                   </div>
-                <div class="item">
-                    <img class="ui small image"  src="../../Frontend_Istex_usage/img/OTELO.png"  alt="Otelo"/>
-                  </div>
-                  <div class="item">
-                    <img class="ui small image" id="cnrs"  src="../../Frontend_Istex_usage/img/cnrs.png"  alt="CNRS"/>
-                 </div>
-               
-           
-            </div>
-           
-        </nav>
+    {% include 'header.html.twig' %}
 
     {% include 'modal_bubble_authors.html.twig' %} <!--  Differentes inclusion de templates twig -->
     {% include 'modal_bubble_laboratorys.html.twig' %}
@@ -104,13 +63,9 @@
 <div class="row"></div>
 
 </div>
-<div id="footer" class="ui inverted vertical footer segment">
-   <div class="ui center aligned container">
-      <div class="ui horizontal inverted small divided link list">
-         <a href="https://github.com/OTELO-OSU/carto_istex" class="item">Source code on github</a>
-      </div>
-   </div>
-</div>
+
+{% include 'footer.html.twig' %}
+
 
 
 <script src="../../Frontend_Istex_usage/js/istexwebheader.js" data-header-target="#header"></script>
@@ -135,6 +90,10 @@
 <script src="../../Frontend_Istex_usage/js/modernizr.js"></script>
 
 <script type="text/javascript" src="../../Frontend_Istex_usage/js/googlechart.js"></script>
+
+{% include 'tracker_piwik.html.twig' %}
+
+
    <script>
    $(document).ready(function(){ 
 

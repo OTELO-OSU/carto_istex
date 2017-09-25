@@ -17,5 +17,13 @@ echo $twig->render('accueil.html.twig');
 });
 
 
+$app->get('/cookies', function (Request $req,Response $responseSlim) {
+$loader = new Twig_Loader_Filesystem('istex/frontend/templates');
+$twig = new Twig_Environment($loader);
+echo $twig->render('cookies.html.twig');
+
+});
+
+
 $app->run();
 
