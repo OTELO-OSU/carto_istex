@@ -19,7 +19,7 @@
     // Mode de debug local
     if ((window.localStorage && window.localStorage.getItem('web_header_local'))
         || (window.location.search && window.location.search.match(/web_header_local(=true)?(&|$)/))
-        || window.location.hostname.match(/localhost|127\.0\.0\./)
+        || window.location.hostname.match(/localhost|127\.0\.0\.1/)
     ) {
       ressourcesUrl = window.location.hostname.match(/localhost|127\.0\.0\.1/)
                       && window.location.origin
