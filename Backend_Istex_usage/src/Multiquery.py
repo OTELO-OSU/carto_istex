@@ -53,7 +53,7 @@ def processing(liste,send_end):
                 (stdout, stderr) = script_response.communicate()
                 script_response.wait()
                 script_response =stdout
-                if "ERREUR" in script_response:
+                if "ERROR" in script_response:
                     script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL"}'
                 if script_response is None:
                     script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL"}'
@@ -73,7 +73,7 @@ def processing(liste,send_end):
                         (stdout, stderr) = script_response.communicate()
                         script_response.wait()
                         script_response =stdout
-                        if "ERREUR" in script_response:
+                        if "ERROR" in script_response:
                             script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL","improved":1}'
                         if script_response is None:
                             script_response='{"country":"NULL","country_code":"NULL","lat":"NULL","lon":"NULL","improved":1}'
@@ -106,7 +106,7 @@ def main():
     mc = pylibmc.Client(["memcached"])
     jsondata = mc.get(sys.argv[1])
     listes= json.loads(jsondata)
-    listes=split(listes[1],500)
+    listes=split(listes[1],150)
 
 
     for liste in listes:

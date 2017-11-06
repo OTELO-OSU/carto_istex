@@ -13,7 +13,7 @@ if ($argv[2]) {
 else{
         $aCMDResult=array("addressdetails"=>true,"featureType"=>"country");
 }
-ini_set('max_execution_time', 2);//timeout 2 secondes
+ini_set('max_execution_time', 3);//timeout 3 secondes
 
 $oParams = new Nominatim\ParameterParser($aCMDResult);
 	if (empty($argv[1])) {
