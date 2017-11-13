@@ -11,6 +11,8 @@ services:
     image: carto_istex_img
     build: .
     container_name: carto_istex
+    environment:
+     - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
  
     depends_on:
      - carto_istex_nominatim_img
@@ -20,6 +22,7 @@ services:
      - memcached_img
     ports:
      - "127.0.0.1:8080:80"
+
   
 
    
@@ -27,6 +30,8 @@ services:
     image: carto_istex_nominatim_img
     build: ./Nominatim_Docker
     container_name: carto_istex_nominatim
+    environment:
+     - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
     volumes:
       - postgresql_nominatim:/var/lib/postgresql/9.5/main
       - config_nominatim:/Nominatim-3.0.0/build/settings
