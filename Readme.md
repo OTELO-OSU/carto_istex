@@ -400,7 +400,16 @@ La version de nominatim dans ce docker est la V3.0.0.Si vous souhaiter utiliser 
 
 Par défaut, l'application carto-istex est mappé sur le port 8080 , si vous souhaitez modifié ce port, vous devez editer le fichier docker-compose.yml
 
-Prensez aussi à choisir un mot de passe dans le Dockerfile présent dans le dossier Nominatim_Docker ainsi que dans le dossier Cartoistex_Docker  ENV POSTGRESQL_PASSWORD MOTDEPASSE
+Pensez aussi à choisir un mot de passe pour la base postgres et a configurer la valeur shared buffers en fonction de votre hardware:
+Positionner une variable d'environnnement 
+
+	export POSTGRESQL_PASSWORD=PASSWORD
+
+	export SHARED_BUFFERS=2GB
+	
+La valeur de shared buffers doit etre de 2GB pour un import de petite base de test et de 45GB pour la production, pour plus d'information vous pouvez vous rendre sur le wiki de nominatim ou de postgresql.
+
+
 
 Vous pouvez installer tout le projet:
 
