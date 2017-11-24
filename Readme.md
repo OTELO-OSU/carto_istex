@@ -443,10 +443,7 @@ Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à 
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 NB:
-Lors d'un changement de base , pensez à supprimer less volumes créé précèdemment avec la commande: 
-```
-docker volumes rm VOLUME_NAME
-```
+Lors d'un changement de type de base , pensez à supprimer les données créé dans cartoistex_postgresql_nominatim/_data
 
 Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
 
