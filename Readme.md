@@ -436,17 +436,13 @@ Script d'initialisation disponible:
 	- install_planet.sh (Script initialisant la base nominatim avec les données de la planete entière, dedié a la production,ATTENTION: le delais d'indexation peut prendre plusieurs jour, selon votre machine).
 	- install_custom.sh (Script initialisant la base nominatim qui prends une URL d'un fichier de données osm.pbf en paramètre)
 
-Deux volumes seront créé, un pour la persistance de la base de données de nominatim: carto_istex_postgresql_nominatim.
-Ainsi que carto_istex_config_nominatim qui stocke le fichier de config des update de nominatim.
+Un volume sera créé pour la persistance de la base de données de nominatim: /carto_istex_postgresql_nominatim/_data.
 
 Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 NB:
-Lors d'un changement de base , pensez à supprimer less volumes créé précèdemment avec la commande: 
-```
-docker volumes rm VOLUME_NAME
-```
+Lors d'un changement de type de base , pensez à supprimer les données créé dans cartoistex_postgresql_nominatim/_data
 
 Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
 
