@@ -23,7 +23,7 @@ services:
      - carto_istex_nominatim_img
      - memcached_img
     ports:
-     - "127.0.0.1:8080:80"
+     - "8080:80"
 
   
 
