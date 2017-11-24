@@ -1,6 +1,5 @@
 #!/bin/bash
-sudo -u postgres createuser -s nominatim 
-sudo -u postgres psql -c "ALTER USER nominatim WITH PASSWORD '$POSTGRESQL_PASSWORD';"
+
 curl -L http://download.geofabrik.de/europe/monaco-latest.osm.pbf --create-dirs -o data.osm.pbf
 sudo -u postgres createuser www-data
 sudo -u nominatim ./utils/setup.php --osm-file data.osm.pbf --all --threads 2 

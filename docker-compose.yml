@@ -13,6 +13,8 @@ services:
     container_name: carto_istex
     environment:
      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+
+
  
     depends_on:
      - carto_istex_nominatim_img
@@ -34,12 +36,12 @@ services:
      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
      - SHARED_BUFFERS=${SHARED_BUFFERS}
     volumes:
-      - postgresql_nominatim:/var/lib/postgresql/9.5/main
-      - config_nominatim:/Nominatim-3.0.0/build/settings
+      - ./cartoistex_postgresql_nominatim/_data/:/var/lib/postgresql/9.5/main-carto_istex/
 
 
 
-volumes:
-  postgresql_nominatim: {}
-  config_nominatim : {}
+
+
+
+
  

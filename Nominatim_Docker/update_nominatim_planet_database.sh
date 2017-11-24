@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp install_planet/local.php settings/local.php
 
 sudo -u nominatim -H pip install --user osmium
 
