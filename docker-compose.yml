@@ -36,7 +36,7 @@ services:
      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
      - SHARED_BUFFERS=${SHARED_BUFFERS}
     volumes:
-      - ./cartoistex_postgresql_nominatim/_data/:/var/lib/postgresql/9.5/main-carto_istex/
+      - /applis/carto/cartoistex_postgresql_nominatim/_data/:/var/lib/postgresql/9.5/main-carto_istex/
 
 
 
