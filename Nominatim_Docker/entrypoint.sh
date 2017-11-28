@@ -22,8 +22,7 @@ then
 	
 	sed  -i 's/^\(fsync = \).*/\1On/' /etc/postgresql/9.5/main/postgresql.conf 
 	sed  -i 's/^\(full_page_writes = \).*/\1On/' /etc/postgresql/9.5/main/postgresql.conf
-        trap 'exit 0' SIGTERM
-	while true; do :; done
+     	tail -f /dev/null
 
 else
     tail -f /dev/null
