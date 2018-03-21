@@ -51,6 +51,87 @@ Le plugin Jquery Datatable a été utilisé pour rendre dynamique les tableaux a
 ![Alt text](/Img_doc/Accueil.png?raw=true)
 
 
+# Déployer carto_istex avec Docker 
+
+Pré-requis : avoir Docker et docker-compose d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
+	
+	
+
+
+Récupérez ensuite le dépôt :
+
+```
+git clone https://github.com/arnouldpy/carto_istex/
+cd carto_istex/
+```
+
+
+La version de nominatim dans ce docker est la V3.0.0.Si vous souhaiter utiliser une version plus recente, suivez la procédure de mise a niveau décrite dans le README du dossier NOMINATIM_DOCKER
+
+Par défaut, l'application carto-istex est mappé sur le port 8080 , si vous souhaitez modifié ce port, vous devez editer le fichier docker-compose.yml
+
+Pensez aussi à choisir un mot de passe pour la base postgres et a configurer la valeur shared buffers en fonction de votre hardware:
+Positionner une variable d'environnnement 
+
+	export POSTGRESQL_PASSWORD=PASSWORD
+
+	export SHARED_BUFFERS=2GB
+	
+La valeur de shared buffers doit etre de 2GB pour un import de petite base de test et de 45GB pour la production, pour plus d'information vous pouvez vous rendre sur le wiki de nominatim ou de postgresql.
+
+
+
+Vous pouvez installer tout le projet:
+
+		- Docker de memcached
+		- Docker de Carto_istex
+		- Docker de Nominatim 3.0.0
+	
+en effectuant la commande 
+```
+docker-compose up
+```
+qui va se charger de construire les différentes images et les liers entre elles.
+
+Une fois la generation effectué, il ne vous reste plus qu'a executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
+Pour cela executer la commande:
+```
+docker exec -it carto_istex_nominatim /bin/bash
+Une fois dans le docker executer le script d'initialisation de votre choix  (voir ci dessous)
+```
+
+Script d'initialisation disponible:
+
+	- install_small.sh (Script initialisant la base nominatim avec les données de Monaco, dedié au tests).
+	- install_planet.sh (Script initialisant la base nominatim avec les données de la planete entière, dedié a la production,ATTENTION: le delais d'indexation peut prendre plusieurs jour, selon votre machine).
+	- install_custom.sh (Script initialisant la base nominatim qui prends une URL d'un fichier de données osm.pbf en paramètre)
+
+Un volume sera créé pour la persistance de la base de données de nominatim: /carto_istex_postgresql_nominatim/_data.
+
+Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
+[http://127.0.0.1:8080](http://127.0.0.1:8080)
+
+NB:
+Lors d'un changement de type de base , pensez à supprimer les données créé dans cartoistex_postgresql_nominatim/_data
+
+Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
+
+Récupérez  le dépôt et construisez l'image docker qui sera nomée carto_istex :
+```
+git clone https://github.com/arnouldpy/carto_istex/
+cd carto_istex/Docker/
+docker build -t carto_istex_img .
+```
+Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
+```
+docker run -it --name memcached memcached_img
+docker run -it --name carto_istex --link memcached -p 127.0.0.1:8080:80 carto_istex_img
+```
+ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
+
+Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
+
+
 
 
 
@@ -379,86 +460,5 @@ Diagramme de séquences du Frontend:
 
 
 
-
-
-# Déployer carto_istex avec Docker 
-
-Pré-requis : avoir Docker et docker-compose d'installé et de paramétré sur sa machine, veuillez pour cela vous référer à la [documentation officielle](https://docs.docker.com/engine/installation/linux/ubuntu/#os-requirements)
-	
-	
-
-
-Récupérez ensuite le dépôt :
-
-```
-git clone https://github.com/arnouldpy/carto_istex/
-cd carto_istex/
-```
-
-
-La version de nominatim dans ce docker est la V3.0.0.Si vous souhaiter utiliser une version plus recente, suivez la procédure de mise a niveau décrite dans le README du dossier NOMINATIM_DOCKER
-
-Par défaut, l'application carto-istex est mappé sur le port 8080 , si vous souhaitez modifié ce port, vous devez editer le fichier docker-compose.yml
-
-Pensez aussi à choisir un mot de passe pour la base postgres et a configurer la valeur shared buffers en fonction de votre hardware:
-Positionner une variable d'environnnement 
-
-	export POSTGRESQL_PASSWORD=PASSWORD
-
-	export SHARED_BUFFERS=2GB
-	
-La valeur de shared buffers doit etre de 2GB pour un import de petite base de test et de 45GB pour la production, pour plus d'information vous pouvez vous rendre sur le wiki de nominatim ou de postgresql.
-
-
-
-Vous pouvez installer tout le projet:
-
-		- Docker de memcached
-		- Docker de Carto_istex
-		- Docker de Nominatim 3.0.0
-	
-en effectuant la commande 
-```
-docker-compose up
-```
-qui va se charger de construire les différentes images et les liers entre elles.
-
-Une fois la generation effectué, il ne vous reste plus qu'a executer le script d'initialisation de votre choix de la base dans le container carto_istex_nominatim_img.
-Pour cela executer la commande:
-```
-docker exec -it carto_istex_nominatim /bin/bash
-Une fois dans le docker executer le script d'initialisation de votre choix  (voir ci dessous)
-```
-
-Script d'initialisation disponible:
-
-	- install_small.sh (Script initialisant la base nominatim avec les données de Monaco, dedié au tests).
-	- install_planet.sh (Script initialisant la base nominatim avec les données de la planete entière, dedié a la production,ATTENTION: le delais d'indexation peut prendre plusieurs jour, selon votre machine).
-	- install_custom.sh (Script initialisant la base nominatim qui prends une URL d'un fichier de données osm.pbf en paramètre)
-
-Un volume sera créé pour la persistance de la base de données de nominatim: /carto_istex_postgresql_nominatim/_data.
-
-Vous pouvez à partir de cet instant ouvrir votre navigateur Web et accéder à l'application sur l'URL suivante :
-[http://127.0.0.1:8080](http://127.0.0.1:8080)
-
-NB:
-Lors d'un changement de type de base , pensez à supprimer les données créé dans cartoistex_postgresql_nominatim/_data
-
-Toutefois si vous souhaitez lancer carto_istex sans le docker nominatim suivez cette procédure:
-
-Récupérez  le dépôt et construisez l'image docker qui sera nomée carto_istex :
-```
-git clone https://github.com/arnouldpy/carto_istex/
-cd carto_istex/Docker/
-docker build -t carto_istex_img .
-```
-Vous pouvez ensuite exécuter l'image en créant un conteneur à partir de cette dernière :
-```
-docker run -it --name memcached memcached_img
-docker run -it --name carto_istex --link memcached -p 127.0.0.1:8080:80 carto_istex_img
-```
-ATTENTION: Pensez à configurer vos settings de Nominatim dans Backend_Istex_usage/src/istex/backend/controller/build/settings/settings.php . 
-
-Pour stopper votre conteneur, il suffit ensuite de taper CTRL+C et si vous êtes en mode détaché de taper ``docker stop carto_istex`` et pour le supprimer ``docker rm carto_istex``
 
 
